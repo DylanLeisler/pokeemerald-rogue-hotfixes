@@ -4073,8 +4073,6 @@ u8 GetNatureFromPersonality(u32 personality)
     return personality % NUM_NATURES;
 }
 
-volatile u8 has_gender_been_swapped = 0;
-
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, struct Pokemon *tradePartner)
 {
     int i, j;
@@ -4271,7 +4269,6 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
                 }
                 break;
             case EVO_GENDER_SWAP:
-                has_gender_been_swapped = gender_swapped;
                 if (gender_swapped == 1)
                 {
                     targetSpecies = evo.targetSpecies;

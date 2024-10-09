@@ -558,7 +558,6 @@ static void Query_ApplyEvolutions(u16 species, u8 level, bool8 items, bool8 remo
             break;
                 
 #ifdef ROGUE_EXPANSION
-            case EVO_MOVE_TYPE: // assume we have a move of this type by this level
             case EVO_LEVEL_30_NATURE:
             if (30 >= level)
                 continue;
