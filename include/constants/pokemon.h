@@ -315,7 +315,7 @@
 
 // rogue note hookup
 #define EVO_LEVEL_ITEM                    50     // Pokémon levels up whilst holding item
-#define EVO_MOVE_TYPE                     51     // Pokémon levels up, knows move with specified type
+#define EVO_GENDER_SWAP                     51     // Pokémon has had their gender swapped with tea
 
 // Evolution 'modes,' for GetEvolutionTargetSpecies
 #define EVO_MODE_NORMAL            0

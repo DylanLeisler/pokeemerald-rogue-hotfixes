@@ -1660,6 +1660,8 @@ void Rogue_SwapMonGender()
             Rogue_PushPopup_MonGenderChange(0, gender);
         }
     }
+    u32 genderSwapped = 1;
+    SetMonData(&gPlayerParty[0], MON_DATA_GENDER_SWAP, &genderSwapped);
 }
 
 void Rogue_CanPlantBerries()

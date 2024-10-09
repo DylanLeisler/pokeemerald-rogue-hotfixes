@@ -2556,6 +2556,8 @@ static void DisplayPartyPokemonNickname(struct Pokemon *mon, struct PartyMenuBox
     }
 }
 
+
+//volatile u16 target_species_returned __attribute__((section(".bss")));
 static void DisplayPartyPokemonLevelCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c)
 {
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
@@ -2573,6 +2575,7 @@ static void DisplayPartyPokemonLevelCheck(struct Pokemon *mon, struct PartyMenuB
                 else
                 {
                     u16 evoTargetSpecies = GetEvolutionTargetSpecies(mon, EVO_MODE_NORMAL, ITEM_NONE, NULL);
+                    //target_species_returned = evoTargetSpecies;
 
                     DisplayPartyPokemonLevel(GetMonData(mon, MON_DATA_LEVEL), (evoTargetSpecies != SPECIES_NONE), menuBox);
                 }

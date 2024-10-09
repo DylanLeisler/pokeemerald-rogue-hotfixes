@@ -84,7 +84,7 @@ enum {
     MON_DATA_VICTORY_RIBBON,
     MON_DATA_ARTIST_RIBBON,
     MON_DATA_EFFORT_RIBBON,
-    MON_DATA_MARINE_RIBBON,
+    MON_DATA_GENDER_SWAP,
     MON_DATA_LAND_RIBBON,
     MON_DATA_SKY_RIBBON,
     MON_DATA_COUNTRY_RIBBON,
@@ -170,7 +170,7 @@ struct PokemonSubstruct3
  /* 0x0A */ u32 victoryRibbon:1;            // Given at the Battle Tower's Level 100 challenge by winning a set of seven battles that extends the current streak to 56 or more.
  /* 0x0A */ u32 artistRibbon:1;             // Given at the Contest Hall by winning a Master Rank contest with at least 800 points, and agreeing to have the Pokémon's portrait placed in the museum after being offered.
  /* 0x0A */ u32 effortRibbon:1;             // Given at Slateport's market to Pokémon with maximum EVs.
- /* 0x0A */ u32 marineRibbon:1;             // Never distributed.
+ /* 0x0A */ u32 genderSwapFlag:1;             // Never distributed.
  /* 0x0A */ u32 landRibbon:1;               // Never distributed.
  /* 0x0A */ u32 skyRibbon:1;                // Never distributed.
  /* 0x0A */ u32 countryRibbon:1;            // Distributed during Pokémon Festa '04 and '05 to tournament winners.

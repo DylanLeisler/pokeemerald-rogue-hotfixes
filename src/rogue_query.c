@@ -564,6 +564,10 @@ static void Query_ApplyEvolutions(u16 species, u8 level, bool8 items, bool8 remo
                 continue;
             break;
 
+            case EVO_GENDER_SWAP:
+                //continue;
+            break;
+
             case EVOLUTIONS_END:
             case EVO_NONE:
                 // Ignore these

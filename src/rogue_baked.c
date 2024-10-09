@@ -572,7 +572,7 @@ void Rogue_ModifyEvolution(u16 species, u8 evoIdx, struct Evolution* outEvo)
                 break;
 
             case(EVO_FRIENDSHIP_MOVE_TYPE):
-                outEvo->method = EVO_MOVE_TYPE;
+                outEvo->method = EVO_GENDER_SWAP;
                 break;
 
             case(EVO_SPECIFIC_MAP):
@@ -2006,18 +2006,19 @@ bool8 Rogue_DoesEvolveInto(u16 fromSpecies, u16 toSpecies)
     u8 i;
     struct Evolution currentEvo;
     u8 evoCount = Rogue_GetMaxEvolutionCount(fromSpecies);
-
     for (i = 0; i < evoCount; i++)
     {
         Rogue_ModifyEvolution(fromSpecies, i, &currentEvo);
 
         if(currentEvo.method != 0)
         {
-            if(currentEvo.targetSpecies == toSpecies)
+            if (currentEvo.targetSpecies == toSpecies)
+            {
                 return TRUE;
+            }
             else if(currentEvo.targetSpecies != SPECIES_NONE)
             {
-                if(Rogue_DoesEvolveInto(currentEvo.targetSpecies, toSpecies))
+                if (Rogue_DoesEvolveInto(currentEvo.targetSpecies, toSpecies))
                     return TRUE;
             }
         }

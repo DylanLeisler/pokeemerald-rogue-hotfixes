@@ -765,6 +765,7 @@ void ZeroMonData(struct Pokemon *mon)
     SetMonData(mon, MON_DATA_SPEED, &arg);
     SetMonData(mon, MON_DATA_SPATK, &arg);
     SetMonData(mon, MON_DATA_SPDEF, &arg);
+    SetMonData(mon, MON_DATA_GENDER_SWAP, &arg);
     arg = MAIL_NONE;
     SetMonData(mon, MON_DATA_MAIL, &arg);
 
@@ -2373,8 +2374,8 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         case MON_DATA_EFFORT_RIBBON:
             retVal = substruct3->effortRibbon;
             break;
-        case MON_DATA_MARINE_RIBBON:
-            retVal = substruct3->marineRibbon;
+        case MON_DATA_GENDER_SWAP:
+            retVal = substruct3->genderSwapFlag;
             break;
         case MON_DATA_LAND_RIBBON:
             retVal = substruct3->landRibbon;
@@ -2445,7 +2446,7 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
                 retVal += substruct3->victoryRibbon;
                 retVal += substruct3->artistRibbon;
                 retVal += substruct3->effortRibbon;
-                retVal += substruct3->marineRibbon;
+                //retVal += substruct3->marineRibbon;
                 retVal += substruct3->landRibbon;
                 retVal += substruct3->skyRibbon;
                 retVal += substruct3->countryRibbon;
@@ -2468,7 +2469,7 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
                     | (substruct3->victoryRibbon << 17)
                     | (substruct3->artistRibbon << 18)
                     | (substruct3->effortRibbon << 19)
-                    | (substruct3->marineRibbon << 20)
+                   // | (substruct3->marineRibbon << 20)
                     | (substruct3->landRibbon << 21)
                     | (substruct3->skyRibbon << 22)
                     | (substruct3->countryRibbon << 23)
@@ -2834,8 +2835,8 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         case MON_DATA_EFFORT_RIBBON:
             SET8(substruct3->effortRibbon);
             break;
-        case MON_DATA_MARINE_RIBBON:
-            SET8(substruct3->marineRibbon);
+        case MON_DATA_GENDER_SWAP:
+            SET8(substruct3->genderSwapFlag);
             break;
         case MON_DATA_LAND_RIBBON:
             SET8(substruct3->landRibbon);
@@ -4072,6 +4073,8 @@ u8 GetNatureFromPersonality(u32 personality)
     return personality % NUM_NATURES;
 }
 
+volatile u8 has_gender_been_swapped = 0;
+
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, struct Pokemon *tradePartner)
 {
     int i, j;
@@ -4082,6 +4085,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
     u8 level;
     u16 friendship;
     u8 beauty = GetMonData(mon, MON_DATA_BEAUTY, 0);
+    u8 gender_swapped;
     u16 upperPersonality = personality >> 16;
     u32 holdEffect, currentMap, partnerSpecies, partnerHeldItem, partnerHoldEffect;
     struct Evolution evo;
@@ -4126,6 +4130,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
     case EVO_MODE_NORMAL:
         level = GetMonData(mon, MON_DATA_LEVEL, 0);
         friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, 0);
+        gender_swapped = GetMonData(mon, MON_DATA_GENDER_SWAP, 0);
 
         for (i = 0; i < evoCount; i++)
         {
@@ -4263,6 +4268,14 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
                             break;
                         }
                     }
+                }
+                break;
+            case EVO_GENDER_SWAP:
+                has_gender_been_swapped = gender_swapped;
+                if (gender_swapped == 1)
+                {
+                    targetSpecies = evo.targetSpecies;
+                    break;
                 }
                 break;
             case EVO_SPECIFIC_MON_IN_PARTY:

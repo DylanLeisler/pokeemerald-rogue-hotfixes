@@ -47,3 +47,9 @@ tools/poryscript/*
 tools/ups/*
 !tools/Pokabbie/Build
 pokeemerald-*.png
+/PokeEmerald Rogue Hotfixes.sln
+/PokeEmerald Rogue Hotfixes.vcxproj
+/PokeEmerald Rogue Hotfixes.vcxproj.filters
+/PokeEmerald Rogue Hotfixes.vcxproj.user
+/.vs
+/PokeEmer.6A1CBA9C/x64/Debug
