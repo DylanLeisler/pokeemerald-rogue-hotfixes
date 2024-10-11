@@ -47,3 +47,8 @@ tools/poryscript/*
 tools/ups/*
 !tools/Pokabbie/Build
 pokeemerald-*.png
+.vs/
+PokeEmer.*
+*.sln
+*.vcxproj
+
