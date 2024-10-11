@@ -12,5 +12,6 @@ u16 Rogue_GetMonEvoCount(void);
 void Rogue_GetMonEvoParams(void);
 
 void RogueDebug_FillGenPC(void);
+void Rogue_SwapMonGenderItem(u8 party_index);
 
 #endif

@@ -1637,6 +1637,33 @@ static bool8 TryChangeMonGenderBySpecies()
     return FALSE;
 }
 
+void Rogue_SwapMonGenderItem(u8 party_index)
+{
+    if (TryChangeMonGenderBySpecies())
+    {
+        Rogue_PushPopup_MonGenderChange(0, GetMonGender(&gPlayerParty[party_index]));
+    }
+    else
+    {
+        u8 gender;
+        u8 startGender = GetMonGender(&gPlayerParty[party_index]);
+        u32 genderFlag = GetMonData(&gPlayerParty[party_index], MON_DATA_GENDER_FLAG);
+
+        genderFlag = !genderFlag;
+
+        SetMonData(&gPlayerParty[party_index], MON_DATA_GENDER_FLAG, &genderFlag);
+
+        gender = GetMonGender(&gPlayerParty[party_index]);
+
+        if (startGender != gender)
+        {
+            Rogue_PushPopup_MonGenderChange(party_index, gender);
+            u32 genderSwapped = 1;
+            SetMonData(&gPlayerParty[party_index], MON_DATA_GENDER_SWAP, &genderSwapped);
+        }
+    }
+}
+
 void Rogue_SwapMonGender()
 {
     if(TryChangeMonGenderBySpecies())

@@ -3,6 +3,11 @@ text gItemDesc_EvolutionItem
     format("Makes certain species of Pokémon evolve.")
 }
 
+text gItemDesc_GenderTrouble
+{
+    format("Book that can change a {PKMN}'s gender.")
+}
+
 text gItemDesc_QuestLog
 {
     format("A diary log for tracking Quests and Challenges.")

@@ -169,7 +169,7 @@ script Rogue_Hub_ProfLab_ProfCycleEvos
                 msgbox(format("{STR_VAR_2}. raise by a lvl whilst knowing {STR_VAR_3}."))
     
             case EVO_GENDER_SWAP:
-                msgbox(format("{STR_VAR_2}. use tea to swap gender.")) // Hard coded, as this is only instance
+                msgbox(format("{STR_VAR_2}. use tea or Gender Trouble to swap gender.")) // Hard coded, as this is only instance
 
             case EVO_MAPSEC:
             case EVO_SPECIFIC_MAP:
