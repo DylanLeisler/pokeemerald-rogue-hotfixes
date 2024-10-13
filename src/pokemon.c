@@ -765,6 +765,7 @@ void ZeroMonData(struct Pokemon *mon)
     SetMonData(mon, MON_DATA_SPEED, &arg);
     SetMonData(mon, MON_DATA_SPATK, &arg);
     SetMonData(mon, MON_DATA_SPDEF, &arg);
+    SetMonData(mon, MON_DATA_GENDER_SWAP, &arg);
     arg = MAIL_NONE;
     SetMonData(mon, MON_DATA_MAIL, &arg);
 
@@ -2352,8 +2353,8 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         case MON_DATA_GENDER_FLAG:
             retVal = substruct3->genderFlag;
             break;
-        case MON_DATA_SMART_RIBBON:
-            retVal = substruct3->smartRibbon;
+        case MON_DATA_GENDER_SWAP:                                  // case MON_DATA_SMART_RIBBON
+            retVal = substruct3->genderSwapFlag;                    //     retVal = substruct3->smartRibbon;
             break;
         case MON_DATA_TOUGH_RIBBON:
             retVal = substruct3->toughRibbon;
@@ -2437,8 +2438,8 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
             {
                 //retVal += substruct3->coolRibbon;
                 //retVal += substruct3->beautyRibbon;
-                retVal += substruct3->cuteRibbon;
-                retVal += substruct3->smartRibbon;
+                //retVal += substruct3->cuteRibbon;
+                //retVal += substruct3->smartRibbon;
                 retVal += substruct3->toughRibbon;
                 retVal += substruct3->championRibbon;
                 retVal += substruct3->winningRibbon;
@@ -2461,8 +2462,8 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
                 retVal = substruct3->championRibbon
                     //| (substruct3->coolRibbon << 1)
                     //| (substruct3->beautyRibbon << 4)
-                    | (substruct3->cuteRibbon << 7)
-                    | (substruct3->smartRibbon << 10)
+                    //| (substruct3->cuteRibbon << 7)
+                    //| (substruct3->smartRibbon << 10)
                     | (substruct3->toughRibbon << 13)
                     | (substruct3->winningRibbon << 16)
                     | (substruct3->victoryRibbon << 17)
@@ -2810,9 +2811,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     case MON_DATA_GENDER_FLAG:
             SET8(substruct3->genderFlag);
             break;
-        case MON_DATA_CUTE_RIBBON:
-            SET8(substruct3->cuteRibbon);
-            break;
+    case MON_DATA_GENDER_SWAP:
+        SET8(substruct3->genderSwapFlag);
+        break;
         case MON_DATA_SMART_RIBBON:
             SET8(substruct3->smartRibbon);
             break;
@@ -4082,6 +4083,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
     u8 level;
     u16 friendship;
     u8 beauty = GetMonData(mon, MON_DATA_BEAUTY, 0);
+    u8 gender_swapped;
     u16 upperPersonality = personality >> 16;
     u32 holdEffect, currentMap, partnerSpecies, partnerHeldItem, partnerHoldEffect;
     struct Evolution evo;
@@ -4126,7 +4128,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
     case EVO_MODE_NORMAL:
         level = GetMonData(mon, MON_DATA_LEVEL, 0);
         friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, 0);
-
+        gender_swapped = GetMonData(mon, MON_DATA_GENDER_SWAP, 0);
         for (i = 0; i < evoCount; i++)
         {
             Rogue_ModifyEvolution(species, i, &evo);
@@ -4263,6 +4265,13 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
                             break;
                         }
                     }
+                }
+                break;
+            case EVO_GENDER_SWAP:
+                if (gender_swapped == 1)
+                {
+                    targetSpecies = evo.targetSpecies;
+                    break;
                 }
                 break;
             case EVO_SPECIFIC_MON_IN_PARTY:

@@ -1,6 +1,7 @@
 #include "graphics.h"
 
 extern const u8 gItemDesc_EvolutionItem[];
+extern const u8 gItemDesc_GenderTrouble[];
 extern const u8 gItemDesc_QuestLog[];
 extern const u8 gItemDesc_HealingFlask[];
 extern const u8 gItemDesc_RidingWhistle[];
@@ -255,6 +256,18 @@ const struct RogueItem gRogueItems[ITEM_ROGUE_ITEM_COUNT] =
         .pocket = POCKET_ITEMS,
         .iconImage = gItemIcon_HisuiStone,
         .iconPalette = gItemIconPalette_HisuiStone,
+    },
+    [ITEM_GENDER_TROUBLE - ITEM_ROGUE_ITEM_FIRST] =
+    {
+        .name = _("Gender Trouble"),
+        .itemId = ITEM_GENDER_TROUBLE,
+        .price = 2100,
+        .description = gItemDesc_GenderTrouble,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_GenderTrouble,
+        .iconImage = gItemIcon_Tea,
+        .iconPalette = gItemIconPalette_Tea,
     },
 #endif
     [ITEM_SMALL_COIN_CASE - ITEM_ROGUE_ITEM_FIRST] =

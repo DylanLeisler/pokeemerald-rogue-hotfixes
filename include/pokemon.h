@@ -64,7 +64,7 @@ enum {
     MON_DATA_OT_GENDER,
     MON_DATA_IS_SHINY, // Originally MON_DATA_COOL_RIBBON
     MON_DATA_GENDER_FLAG, // MON_DATA_BEAUTY_RIBBON
-    MON_DATA_CUTE_RIBBON,
+    MON_DATA_GENDER_SWAP, // MON_DATA_CUTE_RIBBON
     MON_DATA_SMART_RIBBON,
     MON_DATA_TOUGH_RIBBON,
     MON_DATA_STATUS,
@@ -162,7 +162,7 @@ struct PokemonSubstruct3
 
  /* 0x08 */ u32 isShiny:3;
  /* 0x08 */ u32 genderFlag:3;
- /* 0x08 */ u32 cuteRibbon:3;               // Stores the highest contest rank achieved in the Cute category.
+ /* 0x08 */ u32 genderSwapFlag:3;           // Size can be reduce to 1 if needed // cuteRibbon:3;
  /* 0x09 */ u32 smartRibbon:3;              // Stores the highest contest rank achieved in the Smart category.
  /* 0x09 */ u32 toughRibbon:3;              // Stores the highest contest rank achieved in the Tough category.
  /* 0x09 */ u32 championRibbon:1;           // Given when defeating the Champion. Because both RSE and FRLG use it, later generations don't specify from which region it comes from.

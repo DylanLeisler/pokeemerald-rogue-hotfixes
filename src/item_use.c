@@ -1011,6 +1011,12 @@ void ItemUseOutOfBattle_NatureMint(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_GenderTrouble(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_GenderTrouble;
+    SetUpItemUseCallback(taskId);
+}
+
 void ItemUseOutOfBattle_TeraShard(u8 taskId)
 {
     gItemUseCB = ItemUseCB_TeraShard;
