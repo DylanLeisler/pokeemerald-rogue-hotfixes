@@ -2964,18 +2964,18 @@ u8 GetContestEntryEligibility(struct Pokemon *pkmn)
         return CANT_ENTER_CONTEST_FAINTED;
     switch (gSpecialVar_ContestCategory)
     {
-    case CONTEST_CATEGORY_COOL:
-        ribbon = GetMonData(pkmn, MON_DATA_CUTE_RIBBON);
-        break;
-    case CONTEST_CATEGORY_BEAUTY:
-        ribbon = GetMonData(pkmn, MON_DATA_CUTE_RIBBON);
-        break;
-    case CONTEST_CATEGORY_CUTE:
-        ribbon = GetMonData(pkmn, MON_DATA_CUTE_RIBBON);
-        break;
-    case CONTEST_CATEGORY_SMART:
-        ribbon = GetMonData(pkmn, MON_DATA_SMART_RIBBON);
-        break;
+    //case CONTEST_CATEGORY_COOL:
+    //    ribbon = GetMonData(pkmn, MON_DATA_CUTE_RIBBON);
+    //    break;
+    //case CONTEST_CATEGORY_BEAUTY:
+    //    ribbon = GetMonData(pkmn, MON_DATA_CUTE_RIBBON);
+    //    break;
+    //case CONTEST_CATEGORY_CUTE:
+    //    ribbon = GetMonData(pkmn, MON_DATA_CUTE_RIBBON);
+    //    break;
+    //case CONTEST_CATEGORY_SMART:
+    //    ribbon = GetMonData(pkmn, MON_DATA_SMART_RIBBON);
+    //    break;
     case CONTEST_CATEGORY_TOUGH:
         ribbon = GetMonData(pkmn, MON_DATA_TOUGH_RIBBON);
         break;

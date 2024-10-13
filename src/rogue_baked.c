@@ -572,7 +572,7 @@ void Rogue_ModifyEvolution(u16 species, u8 evoIdx, struct Evolution* outEvo)
                 break;
 
             case(EVO_FRIENDSHIP_MOVE_TYPE):
-                outEvo->method = EVO_MOVE_TYPE;
+                outEvo->method = EVO_GENDER_SWAP;
                 break;
 
             case(EVO_SPECIFIC_MAP):

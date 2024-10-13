@@ -81,6 +81,7 @@
 #include "rogue_charms.h"
 #include "rogue_pokedex.h"
 #include "rogue_quest.h"
+#include "rogue_script.h"
 
 enum {
     MENU_SUMMARY,
@@ -5486,6 +5487,91 @@ void ItemUseCB_NatureMint(u8 taskId, TaskFunc task)
     gTasks[taskId].func = Task_NatureMint;
 }
 
+void Task_GenderTrouble(u8 taskId)
+{
+    static const u8 askText[] = _("Would you like to change {STR_VAR_1}'s\ngender?");
+    static const u8 doneText[] = _("{STR_VAR_1}'s gender changed!{PAUSE_UNTIL_PRESS}");
+
+    s16* data = gTasks[taskId].data;
+    struct Pokemon* mon = &gPlayerParty[tMonId];
+    u16 item = gSpecialVar_ItemId;
+
+    switch (tState)
+    {
+    case 0:
+        if (gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES)].genderRatio == MON_GENDERLESS)
+        {
+            gPartyMenuUseExitCallback = FALSE;
+            PlaySE(SE_DING_DONG);
+            DisplayPartyMenuMessage(gText_WontHaveEffect, 1);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+            return;
+        }
+        gPartyMenuUseExitCallback = TRUE;
+        GetMonNickname(mon, gStringVar1);
+        StringExpandPlaceholders(gStringVar4, askText);
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gStringVar4, 1);
+        ScheduleBgCopyTilemapToVram(2);
+        tState++;
+        break;
+    case 1:
+        if (!IsPartyMenuTextPrinterActive())
+        {
+            PartyMenuDisplayYesNoMenu();
+            tState++;
+        }
+        break;
+    case 2:
+        switch (Menu_ProcessInputNoWrapClearOnChoose())
+        {
+        case 0:
+            tState++;
+            break;
+        case 1:
+        case MENU_B_PRESSED:
+            gPartyMenuUseExitCallback = FALSE;
+            PlaySE(SE_SELECT);
+            ScheduleBgCopyTilemapToVram(2);
+            // Don't exit party selections screen, return to choosing a mon.
+            ClearStdWindowAndFrameToTransparent(6, 0);
+            ClearWindowTilemap(6);
+            DisplayPartyMenuStdMessage(5);
+            gTasks[taskId].func = (void*)GetWordTaskArg(taskId, tOldFunc);
+            return;
+        }
+        break;
+    case 3:
+        PlaySE(SE_USE_ITEM);
+        Rogue_SwapMonGenderItem(gPartyMenu.slotId);
+        RemoveBagItem(gSpecialVar_ItemId, 1);
+        tState++;
+        break;
+    case 4:
+        StringExpandPlaceholders(gStringVar4, doneText);
+        DisplayPartyMenuMessage(gStringVar4, 1);
+        ScheduleBgCopyTilemapToVram(2);
+        tState++;
+        break;
+    case 5:
+        if (!IsPartyMenuTextPrinterActive())
+            tState++;
+        break;
+    case 6:
+        gTasks[taskId].func = Task_ClosePartyMenu;
+        break;
+    }
+}
+void ItemUseCB_GenderTrouble(u8 taskId, TaskFunc task)
+{
+    s16* data = gTasks[taskId].data;
+
+    tState = 0;
+    tMonId = gPartyMenu.slotId;
+    SetWordTaskArg(taskId, tOldFunc, (uintptr_t)(gTasks[taskId].func));
+    gTasks[taskId].func = Task_GenderTrouble;
+}
 
 
 

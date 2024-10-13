@@ -1230,6 +1230,7 @@ extern const u8 gText_PokedexEvoLevelItemDay[];
 extern const u8 gText_PokedexEvoLevelItemNight[];
 extern const u8 gText_PokedexEvoMove[];
 extern const u8 gText_PokedexEvoMoveType[];
+extern const u8 gText_PokedexEvoGenderSwap[];
 extern const u8 gText_PokedexEvoItemMale[];
 extern const u8 gText_PokedexEvoItemFemale[];
 extern const u8 gText_PokedexEvoLevelRain[];

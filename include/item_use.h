@@ -21,6 +21,7 @@ void ItemUseOutOfBattle_Medicine(u8);
 void ItemUseOutOfBattle_AbilityCapsule(u8);
 void ItemUseOutOfBattle_AbilityPatch(u8);
 void ItemUseOutOfBattle_NatureMint(u8);
+void ItemUseOutOfBattle_GenderTrouble(u8 taskId);
 void ItemUseOutOfBattle_TeraShard(u8);
 void ItemUseOutOfBattle_MaxMushroom(u8);
 void ItemUseOutOfBattle_ResetEVs(u8);
