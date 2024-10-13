@@ -116,7 +116,7 @@ script Rogue_QuickSaveVersionWarning
     setvar(VAR_RESULT, YES)
     while(var(VAR_RESULT) == YES)
     {
-        msgbox(format("Invalid Save Location Detected!\pWhen upgrading to a new patch, make sure to save in the HUB outdoor area.\pPlease revert to the older patch and re-save in a valid location."))
+        msgbox(format("{COLOR RED}WARNING!\n{COLOR DARK_GRAY}Invalid Save Location Detected!\pWhen upgrading to a new patch, make sure to save in {POKEMON_HUB}, outside of an Adventure.\pPlease revert to the older patch and re-save in a valid location."))
     }
 
     releaseall
@@ -199,22 +199,22 @@ script Rogue_Debug_RandomTradeTeam
 }
 
 
-//script Rogue_NewGameVersionUpdate
-//{
-//    lockall
-//
-//    call(Rogue_QuickSaveVersionUpdateMessage)
-//
-//    releaseall
-//}
+script Rogue_NewGameVersionUpdate
+{
+    lockall
+
+    call(Rogue_QuickSaveVersionUpdateMessage)
+
+    releaseall
+}
 
 script Rogue_QuickSaveVersionUpdate
 {
     lock
 
-    //call(Rogue_QuickSaveVersionUpdateMessage) - Reload and then show message after back in hub
-    setflag(FLAG_ROGUE_PENDING_PATCH_MSG)
-    warp(MAP_ROGUE_HUB, 8)
+    fadescreen(FADE_TO_BLACK)
+    call(Rogue_QuickSaveVersionUpdateMessage)
+    warp(MAP_ROGUE_AREA_TOWN_SQUARE, 10)
 
     release
 }
@@ -1080,9 +1080,9 @@ script Rogue_SpeakDaycareLady_TrySwapMon
     if(var(VAR_RESULT) == YES)
     {
         setvar(VAR_RESULT, NO)
-        specialvar(VAR_TEMP_0, CalculatePlayerPartyCount)
+        specialvar(VAR_0x8008, CalculatePlayerPartyCount)
 
-        if(var(VAR_TEMP_0) == 1)
+        if(var(VAR_0x8008) == 1)
         {
             msgbox(format("I'm afraid you can't leave any more Pokémon with me at the moment.\pIf you did, you'd be left with no Pokémon in your party!"), MSGBOX_DEFAULT)
         }
@@ -1115,10 +1115,10 @@ script Rogue_SpeakDaycareLady_TrySwapMon
     {
         setvar(VAR_RESULT, NO)
 
-        specialvar(VAR_TEMP_0, CalculatePlayerPartyCount)
-        specialvar(VAR_TEMP_1, Rogue_CalcMaxPartySize)
+        specialvar(VAR_0x8008, CalculatePlayerPartyCount)
+        specialvar(VAR_0x8009, Rogue_CalcMaxPartySize)
         
-        if(var(VAR_TEMP_0) >= VAR_TEMP_1)
+        if(var(VAR_0x8008) >= VAR_0x8009)
         {
             msgbox(format("So you would like to withdraw your Pokémon?\pIt looks like your party is full!\pYou'll need to leave a member of your party with me, in order to withdraw any Pokémon."))
             fadescreen(FADE_TO_BLACK)

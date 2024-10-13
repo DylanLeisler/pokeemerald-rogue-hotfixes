@@ -48,12 +48,14 @@ void RogueMonQuery_EvosContainType(u8 func, u32 typeFlags);
 void RogueMonQuery_ContainsPresetFlags(u8 func, u32 flags);
 void RogueMonQuery_IsLegendary(u8 func);
 void RogueMonQuery_IsLegendaryWithPresetFlags(u8 func, u32 flags);
+void RogueMonQuery_IsParadox(u8 func);
 void RogueMonQuery_IsBoxLegendary(u8 func);
 void RogueMonQuery_IsRoamerLegendary(u8 func);
 void RogueMonQuery_AnyActiveEvos(u8 func);
 void RogueMonQuery_CustomFilter(QueryFilterCallback filterFunc, void* usrData);
 
 bool8 Query_IsSpeciesEnabled(u16 species);
+bool8 Query_IsSpeciesEnabledForceDexChecking(u16 species);
 
 // Item Query
 void RogueItemQuery_Begin();

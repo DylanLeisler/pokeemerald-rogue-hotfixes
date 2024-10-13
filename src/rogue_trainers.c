@@ -26,6 +26,8 @@
 
 #define TRAINER_SHINY_PERC 25
 
+#define RIVAL_BASE_TEAM_DIFFICULTY      ROGUE_ELITE_START_DIFFICULTY - 2
+
 struct TrainerHeldItemScratch
 {
     bool8 hasLeftovers : 1;
@@ -807,6 +809,34 @@ s32 Rogue_GetSwitchAISpeedDivisor(u16 trainerNum, u8 slot)
     return 1;
 }
 
+static bool8 ShouldAllowParadoxMons(struct TrainerPartyScratch* scratch)
+{
+#ifdef ROGUE_EXPANSION
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    {
+    case DIFFICULTY_LEVEL_EASY:
+        if(Rogue_GetCurrentDifficulty() >= ROGUE_ELITE_START_DIFFICULTY - 1)
+            return TRUE;
+        break;
+
+    case DIFFICULTY_LEVEL_AVERAGE:
+        if(Rogue_GetCurrentDifficulty() >= ROGUE_GYM_MID_DIFFICULTY)
+            return TRUE;
+        break;
+
+    case DIFFICULTY_LEVEL_HARD:
+        if(Rogue_GetCurrentDifficulty() >= ROGUE_GYM_START_DIFFICULTY + 2)
+            return TRUE;
+        break;
+
+    case DIFFICULTY_LEVEL_BRUTAL:
+        return TRUE;
+    }
+#endif
+
+    return FALSE;
+}
+
 bool8 Rogue_UseCustomPartyGenerator(u16 trainerNum)
 {
     return TRUE;
@@ -1290,7 +1320,7 @@ void Rogue_GenerateRivalBaseTeamIfNeeded()
 
         // Fake the difficulty for the generator
         u16 tempDifficulty = Rogue_GetCurrentDifficulty();
-        Rogue_SetCurrentDifficulty(ROGUE_ELITE_START_DIFFICULTY - 2); // Generate base party as if we're about midway through
+        Rogue_SetCurrentDifficulty(RIVAL_BASE_TEAM_DIFFICULTY); // Generate base party as if we're about midway through
 
         // Apply some base seed for anything which needs to be randomly setup
         SeedRogueRng(gRogueRun.baseSeed * 8071 + 6632);
@@ -1596,6 +1626,16 @@ static void ConfigurePartyScratchSettings(u16 trainerNum, struct TrainerPartyScr
             scratch->allowItemEvos = TRUE;
         }
         break;
+    }
+
+    if(FlagGet(FLAG_ROGUE_TRAINERS_STRONG_LEGENDARIES))
+    {
+        scratch->allowStrongLegends = TRUE;
+        scratch->allowWeakLegends = TRUE;
+    }
+    else if(FlagGet(FLAG_ROGUE_TRAINERS_WEAK_LEGENDARIES))
+    {
+        scratch->allowWeakLegends = TRUE;
     }
 }
 
@@ -2047,10 +2087,47 @@ static u8 CreateTrainerPartyInternal(u16 trainerNum, struct Pokemon* party, u8 m
         struct RoguePokemonCompetitiveSet preset;
         struct RoguePokemonCompetitiveSetRules presetRules;
 
+        u8 indexToRestoreSettings = 0;
+        bool32 prevForceLegends = scratch.forceLegends;
+        bool32 prevAllowStrongLegends = scratch.allowStrongLegends;
+        bool32 prevAllowWeakLegends = scratch.allowWeakLegends;
+
+        if(Rogue_IsRivalTrainer(trainerNum) && Rogue_GetCurrentDifficulty() == RIVAL_BASE_TEAM_DIFFICULTY)
+        {
+            // Make sure first few mons aren't legendaries
+            scratch.forceLegends = FALSE;
+            scratch.allowStrongLegends = FALSE;
+            scratch.allowWeakLegends = FALSE;
+
+            // Reapply legend clause
+            if(FlagGet(FLAG_ROGUE_TRAINERS_STRONG_LEGENDARIES))
+            {
+                scratch.allowStrongLegends = TRUE;
+                scratch.allowWeakLegends = TRUE;
+            }
+            else if(FlagGet(FLAG_ROGUE_TRAINERS_WEAK_LEGENDARIES))
+            {
+                scratch.allowWeakLegends = TRUE;
+            }
+
+            if(Rogue_GetConfigRange(CONFIG_RANGE_TRAINER) == DIFFICULTY_LEVEL_BRUTAL)
+                indexToRestoreSettings = monCount - 2;
+            else
+                indexToRestoreSettings = PARTY_SIZE - 1; // only final slot
+        }
+
         RogueMonQuery_Begin();
 
         for(i = startIndex; i < monCount; ++i)
         {
+            if(indexToRestoreSettings != 0 && i == indexToRestoreSettings)
+            {
+                scratch.forceLegends = prevForceLegends;
+                scratch.allowStrongLegends = prevAllowStrongLegends;
+                scratch.allowWeakLegends = prevAllowWeakLegends;
+                scratch.shouldRegenerateQuery = TRUE;
+            }
+
             species = SampleNextSpecies(&scratch);
 
             if(Rogue_IsBattleSimTrainer(trainerNum))
@@ -2100,11 +2177,11 @@ static u8 CreateRivalPartyInternal(u16 trainerNum, struct Pokemon* party, u8 mon
 {
     u8 level;
     u8 monCount;
-    u8 fixedIV;
+    u8 fixedIV, teamFixedIV;
     struct TrainerPartyScratch scratch;
 
     level = GetTrainerLevel(trainerNum);
-    fixedIV = CalculateMonFixedIV(trainerNum);
+    teamFixedIV = CalculateMonFixedIV(trainerNum);
     monCount = CalculatePartyMonCount(trainerNum, monCapacity, level);
 
     Rogue_GenerateRivalBaseTeamIfNeeded();
@@ -2217,6 +2294,15 @@ static u8 CreateRivalPartyInternal(u16 trainerNum, struct Pokemon* party, u8 mon
                 }
             }
             RogueMonQuery_End();
+
+            fixedIV = teamFixedIV;
+
+            if(Rogue_GetCurrentDifficulty() <= ROGUE_GYM_START_DIFFICULTY + 2)
+            {
+                // Reduce legends effectiveness on rival first fight
+                if(RoguePokedex_IsSpeciesLegendary(species))
+                    fixedIV = 0;
+            }
 
             CreateMon(&party[i], species, level, fixedIV, FALSE, 0, OT_ID_RANDOM_NO_SHINY, 0);
 
@@ -2721,6 +2807,11 @@ static u16 SampleNextSpeciesInternal(struct TrainerPartyScratch* scratch)
             RogueMonQuery_TransformIntoEvos(scratch->evoLevel, scratch->allowItemEvos, FALSE);
         }
 
+        if(!ShouldAllowParadoxMons(scratch))
+        {
+            RogueMonQuery_IsParadox(QUERY_FUNC_EXCLUDE);
+        }
+
         if(scratch->preferStrongSpecies && CanEntirelyAvoidWeakSpecies())
         {
             RogueMonQuery_ContainsPresetFlags(QUERY_FUNC_INCLUDE, MON_FLAG_SINGLES_STRONG);
@@ -3100,6 +3191,16 @@ static bool8 HasDamagingMove(struct RoguePokemonCompetitiveSet const* preset)
     return FALSE;
 }
 
+static bool8 ShouldBoostBattleGimickItems(struct TrainerPartyScratch* scratch)
+{
+    if(Rogue_GetConfigRange(CONFIG_RANGE_TRAINER) == DIFFICULTY_LEVEL_BRUTAL)
+        return TRUE;
+    else if(Rogue_IsKeyTrainer(scratch->trainerNum))
+        return TRUE;
+    else
+        return FALSE;
+}
+
 static bool8 SelectNextPreset(struct TrainerPartyScratch* scratch, u16 species, u8 monIdx, struct RoguePokemonCompetitiveSet* outPreset)
 {
     u8 i;
@@ -3196,7 +3297,7 @@ static bool8 SelectNextPreset(struct TrainerPartyScratch* scratch, u16 species, 
                     if(IsMegaEvolutionEnabled())
                     {
                         if(!scratch->heldItems.hasMegaStone)
-                            currentScore *= 8;
+                            currentScore *= ShouldBoostBattleGimickItems(scratch) ? 32 : 4;
                         else
                             currentScore /= 4;
                     }
@@ -3211,7 +3312,7 @@ static bool8 SelectNextPreset(struct TrainerPartyScratch* scratch, u16 species, 
                     if(IsZMovesEnabled())
                     {
                         if(!scratch->heldItems.hasZCrystal)
-                            currentScore *= 4;
+                            currentScore *= ShouldBoostBattleGimickItems(scratch) ? 16 : 4;
                         else
                             currentScore /= 4;
                     }
