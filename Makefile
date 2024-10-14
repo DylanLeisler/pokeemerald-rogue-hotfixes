@@ -1,6 +1,6 @@
 TOOLCHAIN := $(DEVKITARM)
-COMPARE ?= 0
-RELEASE ?= 1
+COMPARE ?= 1
+RELEASE ?= 0
 EXPANSION := 1
 
 ifeq (compare,$(MAKECMDGOALS))
@@ -45,7 +45,7 @@ PORYSCRIPT := tools/poryscript/poryscript-linux/poryscript$(EXE)
 endif
 
 ROGUEPORYSCRIPTSDIR := data/scripts/Rogue
-PORYSCRIPTARGS := -fc $(ROGUEPORYSCRIPTSDIR)/Strings/poryscript_font_config.json -cc tools/poryscript/poryscript-linux/command_config.json
+PORYSCRIPTARGS := -fc $(ROGUEPORYSCRIPTSDIR)/Strings/poryscript_font_config.json # use for local builds -> # -cc tools/poryscript/poryscript-linux/command_config.json
 
 ifeq ($(EXPANSION), 1)
 PORYSCRIPTARGS += -s ROGUE_VERSION=ROGUE_VERSION_EXPANSION

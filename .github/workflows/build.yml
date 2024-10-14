@@ -14,6 +14,9 @@ jobs:
       MODERN: 0
       COMPARE: 0
       UNUSED_ERROR: 0
+      DEBUG: 1
+      RELEASE: 0
+      ENV: Debug
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,6 +37,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          chmod +x ./init_deps.sh
           ./init_deps.sh
 
 
@@ -57,12 +61,24 @@ jobs:
       #   run: make -j${nproc} -O -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-function all
       #   # -Wno-unused-but-set-variable is to silence the warnings of the unused variables, useful when trying to compile with my mods
         
-      - name: Build Release
+      - name: Set Environment Variables for Specific Branches
+        if: github.ref == 'refs/heads/test' || github.ref == 'refs/heads/prod'
+        run: |
+          echo "DEBUG=0" >> $GITHUB_ENV
+          echo "RELEASE=1" >> $GITHUB_ENV
+          echo "ENV=Release" >> $GITHUB_ENV
+
+      - name: Display Environment Variables
+        run: |
+          echo "DEBUG=$DEBUG"
+          echo "RELEASE=$RELEASE"
+          echo "ENV=$ENV"
+
+      - name: Build-${{ env.ENV }}
         env:
           MODERN: 1
           COMPARE: 0
-          RELEASE: 1
-        run: make -j${nproc} -O -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-functione all
+        run: make -j${nproc} -O -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-function all
         # -Wno-unused-but-set-variable is to silence the warnings of the unused variables, useful when trying to compile with my mods
 
       - uses: actions/upload-artifact@v4
