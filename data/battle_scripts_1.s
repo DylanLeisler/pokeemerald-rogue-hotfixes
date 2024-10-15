@@ -88,7 +88,6 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectEvasionDown2            @ EFFECT_EVASION_DOWN_2
 	.4byte BattleScript_EffectReflect                 @ EFFECT_REFLECT
 	.4byte BattleScript_EffectPoison                  @ EFFECT_POISON
-	.4byte BattleScript_EffectConfusePoisonPuppeteer  @ EFFECT_CONFUSE
 	.4byte BattleScript_EffectParalyze                @ EFFECT_PARALYZE
 	.4byte BattleScript_EffectAttackDownHit           @ EFFECT_ATTACK_DOWN_HIT
 	.4byte BattleScript_EffectDefenseDownHit          @ EFFECT_DEFENSE_DOWN_HIT
