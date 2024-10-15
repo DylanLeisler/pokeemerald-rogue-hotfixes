@@ -4532,6 +4532,7 @@ BattleScript_EffectPoison::
 	setmoveeffect MOVE_EFFECT_POISON
 	seteffectprimary
 	resultmessage
+	jumpifability BS_ATTACKER, ABILITY_POISON_PUPPETEER, BattleScript_EffectConfuse
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
