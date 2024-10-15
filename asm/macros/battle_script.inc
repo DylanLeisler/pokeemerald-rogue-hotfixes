@@ -1757,7 +1757,7 @@
 	.endm
 
 	.macro setluckychant battler:req, failInstr:req
-	various \battler VARIOUS_SET_LUCKY_CHANT
+	various \battler, VARIOUS_SET_LUCKY_CHANT
 	.4byte \failInstr
 	.endm
 
@@ -1767,7 +1767,7 @@
 	.endm
 
 	.macro setabilitysimple battler:req, failInstr:req
-	various \battler VARIOUS_SET_SIMPLE_BEAM
+	various \battler, VARIOUS_SET_SIMPLE_BEAM
 	.4byte \failInstr
 	.endm
 
