@@ -4178,6 +4178,7 @@ BattleScript_EffectToxic::
 	setmoveeffect MOVE_EFFECT_TOXIC
 	seteffectprimary
 	resultmessage
+	jumpifability BS_ATTACKER, ABILITY_POISON_PUPPETEER, BattleScript_EffectConfusePoisonPuppeteer
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
