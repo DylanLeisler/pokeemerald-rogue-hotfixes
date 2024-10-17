@@ -11,7 +11,7 @@ jobs:
       GAME_VERSION: EMERALD
       GAME_REVISION: 0
       GAME_LANGUAGE: ENGLISH
-      MODERN: 0
+      MODERN: 1
       COMPARE: 0
       UNUSED_ERROR: 0
       DEBUG: 1
@@ -21,11 +21,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Checkout agbcc
-        uses: actions/checkout@v4
-        with:
-          path: agbcc
-          repository: pret/agbcc
+      # - name: Checkout agbcc
+      #   uses: actions/checkout@v4
+      #   with:
+      #     path: agbcc
+      #     repository: pret/agbcc
 
       - name: Install binutils
         run: |
