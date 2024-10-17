@@ -822,7 +822,7 @@ BattleScript_EffectMortalSpin:
 	call BattleScript_EffectHit_Ret
 	rapidspinfree
 	setmoveeffect MOVE_EFFECT_POISON
-	seteffectwithchance
+	seteffectprimary
 	tryfaintmon BS_TARGET
 	moveendall
 	end
