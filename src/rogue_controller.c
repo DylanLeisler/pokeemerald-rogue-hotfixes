@@ -3831,23 +3831,35 @@ u16 Rogue_PostRunRewardMoney()
 
     if(gRogueRun.enteredRoomCounter > 1)
     {
-        switch (Rogue_GetDifficultyRewardLevel())
+        u16 i = gRogueRun.victoryLapTotalWins + gRogueRun.enteredRoomCounter - 1;
+
+        if(gSaveBlock2Ptr->optionsDifficultyRewardMode == OPTIONS_DIFFICULTY_REWARD_MODE_MULTIPLIER)
+        {  
+            u8 multiplier = Rogue_CalculateRewardMultiplier();
+            u8 multiplierReward = (200 * multiplier) / 2;
+            amount = i * multiplierReward;
+        }
+
+        else
         {
-        case DIFFICULTY_LEVEL_EASY:
-            amount = 200;
-            break;
+            switch (Rogue_GetDifficultyRewardLevel())
+            {
+            case DIFFICULTY_LEVEL_EASY:
+                amount = i * 200;
+                break;
 
-        case DIFFICULTY_LEVEL_AVERAGE:
-            amount = 250;
-            break;
+            case DIFFICULTY_LEVEL_AVERAGE:
+                amount = i * 250;
+                break;
 
-        case DIFFICULTY_LEVEL_HARD:
-            amount = 300;
-            break;
-        
-        case DIFFICULTY_LEVEL_BRUTAL:
-            amount = 350;
-            break;
+            case DIFFICULTY_LEVEL_HARD:
+                amount = i * 300;
+                break;
+            
+            case DIFFICULTY_LEVEL_BRUTAL:
+                amount = i * 350;
+                break;
+            }
         }
 
         total = (7 * gRogueRun.victoryLapTotalWins * amount) / 6 + amount * (gRogueRun.enteredRoomCounter - 1);

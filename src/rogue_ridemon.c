@@ -339,24 +339,46 @@ bool8 Rogue_HandleRideMonInput()
         // Cycle through mons, when pressing L or R
         if(sRideMonData.rideObjects[RIDE_OBJECT_PLAYER].state.whistleType == RIDE_WHISTLE_BASIC || (FlagGet(FLAG_SYS_RIDING_ACCESS_DAYCARE) && sRideMonData.rideObjects[RIDE_OBJECT_PLAYER].state.whistleType == RIDE_WHISTLE_GOLD))
         {
-            if(JOY_NEW(L_BUTTON))
+            if(gSaveBlock2Ptr->optionsRidemonControlMode == OPTIONS_RIDEMON_CONTROL_VANILLA)
             {
-                if(CanCycleRideMons())
+                if(JOY_NEW(L_BUTTON))
                 {
-                    CalculateRideSpecies(-1);
-                    PlayRideMonCry();
+                    if(CanCycleRideMons())
+                    {
+                        CalculateRideSpecies(-1);
+                        PlayRideMonCry();
+                    }
+                    else
+                    {
+                        PlaySE(SE_FAILURE);
+                    }
                 }
-                else
+                else if(JOY_NEW(R_BUTTON))
                 {
-                    PlaySE(SE_FAILURE);
+                    if(CanCycleRideMons())
+                    {
+                        CalculateRideSpecies(1);
+                        PlayRideMonCry();
+                    }
+                    else
+                    {
+                        PlaySE(SE_FAILURE);
+                    }
                 }
             }
             else if(JOY_NEW(R_BUTTON))
             {
-                if(CanCycleRideMons())
+                if(JOY_NEW(L_BUTTON))
                 {
-                    CalculateRideSpecies(1);
-                    PlayRideMonCry();
+                    if(CanCycleRideMons())
+                    {
+                        CalculateRideSpecies(-1);
+                        PlayRideMonCry();
+                    }
+                    else
+                    {
+                        PlaySE(SE_FAILURE);
+                    }
                 }
                 else
                 {
@@ -1291,7 +1313,7 @@ void ForceRunRidemonTrappedCheck();
 
 static void PlayerOnRideMonNotMoving(u8 direction, u16 newKeys, u16 heldKeys)
 {
-    if(newKeys & B_BUTTON && (Rogue_IsRideMonFlying() || Rogue_CanRideMonFly()))
+    if(((newKeys & B_BUTTON && gSaveBlock2Ptr->optionsRidemonControlMode == OPTIONS_RIDEMON_CONTROL_VANILLA)||( newKeys & R_BUTTON && gSaveBlock2Ptr->optionsRidemonControlMode == OPTIONS_RIDEMON_CONTROL_MOCHA)) && (Rogue_IsRideMonFlying() || Rogue_CanRideMonFly()))
     {
         // Toggle between flying modes
         bool8 desiredFlyState = !sRideMonData.rideObjects[RIDE_OBJECT_PLAYER].state.flyingState;
@@ -1327,6 +1349,10 @@ static void PlayerOnRideMonNotMoving(u8 direction, u16 newKeys, u16 heldKeys)
 
         sRideMonData.rideObjects[RIDE_OBJECT_PLAYER].state.flyingState = desiredFlyState;
         PlaySE(sRideMonData.rideObjects[RIDE_OBJECT_PLAYER].state.flyingState ? SE_M_FLY : SE_M_WING_ATTACK);
+    }
+    else if(newKeys & B_BUTTON && gSaveBlock2Ptr->optionsRidemonControlMode == OPTIONS_RIDEMON_CONTROL_MOCHA)
+    {
+        Rogue_GetOnOffRideMon(RIDE_WHISTLE_BASIC, FALSE);
     }
     else
     {

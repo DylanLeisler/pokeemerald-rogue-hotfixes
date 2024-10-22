@@ -1061,4 +1061,5 @@ struct MapPosition
     s8 elevation;
 };
 
-#endif // GUARD_GLOBAL_H
+#endif 
+// GUARD_GLOBAL_H

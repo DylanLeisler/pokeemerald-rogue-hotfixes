@@ -36,6 +36,7 @@ enum
     MENUITEM_MENU_GRAPHICS,
     MENUITEM_MENU_UI,
     MENUITEM_MENU_AUDIO,
+    MENUITEM_MENU_MOCHA_QOL,
     MENUITEM_TEXTSPEED,
     MENUITEM_BATTLESCENE_WILD_BATTLES,
     MENUITEM_BATTLESCENE_TRAINER_BATTLES,
@@ -66,6 +67,7 @@ enum
     SUBMENUITEM_GRAPHICS,
     SUBMENUITEM_UI,
     SUBMENUITEM_AUDIO,
+    SUBMENUITEM_MOCHA_QOL,
     SUBMENUITEM_COUNT,
 };
 
@@ -332,6 +334,7 @@ static const struct MenuEntries sOptionMenuEntries[SUBMENUITEM_COUNT] =
             MENUITEM_MENU_GRAPHICS,
             MENUITEM_MENU_UI,
             MENUITEM_MENU_AUDIO,
+            MENUITEM_MENU_MOCHA_QOL,
             MENUITEM_CANCEL
         }
     },
@@ -602,6 +605,10 @@ static void Task_OptionMenuProcessInput(u8 taskId)
 
         case MENUITEM_MENU_AUDIO:
             submenuSelection = SUBMENUITEM_AUDIO;
+            submenuChanged = TRUE;
+            break;
+        case MENUITEM_MENU_MOCHA_QOL:
+            submenuSelection = SUBMENUITEM_MOCHA_QOL;
             submenuChanged = TRUE;
             break;
         }
