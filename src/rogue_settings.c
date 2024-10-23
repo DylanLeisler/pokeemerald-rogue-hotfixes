@@ -476,6 +476,35 @@ static void Rogue_SetDifficultyPresetInternal(u8 preset)
     gRogueDifficultyLocal.areLevelsValid = TRUE;
 }
 
+static const u16 sStaticCurseEffects[] = {
+    EFFECT_SNAG_TRAINER_MON,
+    EFFECT_SNOWBALL_CURSES,
+    EFFECT_RANDOMAN_ALWAYS_SPAWN,
+    EFFECT_RANDOMAN_ROUTE_SPAWN,
+    EFFECT_ONE_HIT,
+    EFFECT_EVERSTONE_EVOS,
+    EFFECT_TORMENT_STATUS,
+    EFFECT_ITEM_SHUFFLE,
+    EFFECT_BATTLE_ITEM_BAN,
+    EFFECT_SPECIES_CLAUSE,
+    EFFECT_UNAWARE_STATUS,
+    EFFECT_ENDURE_CHANCE,
+    EFFECT_PRESSURE_STATUS,
+    EFFECT_WILD_EGG_SPECIES,
+};
+
+static const u16 sStackableCurseEffects[] = {
+    EFFECT_PARTY_SIZE,
+    EFFECT_WILD_ENCOUNTER_COUNT,
+    EFFECT_WILD_IV_RATE,
+    EFFECT_ADAPTABILITY_RATE,
+    EFFECT_CATCH_RATE,
+    EFFECT_CRIT_CHANCE,
+    EFFECT_SHOP_PRICE,
+    EFFECT_SERENE_GRACE_CHANCE,
+    EFFECT_ADAPTABILITY_RATE,
+    EFFECT_MOVE_PRIORITY_CHANCE
+};
 
 float Rogue_CalculateRewardMultiplier()
 {
@@ -537,7 +566,39 @@ float Rogue_CalculateRewardMultiplier()
     }
 
     // Curses
+    
+    //Unstackable curses
+    
+    u8 i;
+    for(i = 0; i < ARRAY_COUNT(sStaticCurseEffects); i++)
+    {
+        if(IsCurseActive(sStaticCurseEffects[i]))
+        {
+            multiplier += 0.2;
+        }
+    }
 
+    //Stackable curses
+    for(i = 0; i < ARRAY_COUNT(sStackableCurseEffects); i++)
+    {
+        if(IsCurseActive(sStackableCurseEffects[i]))
+        {
+            u8 curseAmount = GetCurseValue(sStackableCurseEffects[i]);
+            if(curseAmount == 1)
+            {
+                multiplier += 0.1;
+            }
+            else if(curseAmount == 2)
+            {
+                multiplier += 0.2;
+            }
+            else if(curseAmount >= 3)
+            {
+                multiplier += 0.3;
+            }
+        }
+    }
+    
     return multiplier;
 }
 
