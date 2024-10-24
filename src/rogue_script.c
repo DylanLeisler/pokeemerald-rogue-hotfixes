@@ -1641,9 +1641,11 @@ static bool8 TryChangeMonGenderBySpecies()
 
 void Rogue_SwapMonGenderItem(u8 party_index)
 {
-    Rogue_PushPopup_UniquePokemonDetected(SelectLegendarySpecies(ADVPATH_LEGEND_ROAMER));
-    Rogue_PushPopup_UniquePokemonDetected(SelectLegendarySpecies(ADVPATH_LEGEND_ROAMER));
-    Rogue_PushPopup_UniquePokemonDetected(SelectLegendarySpecies(ADVPATH_LEGEND_ROAMER));
+    //These were used for testing the galar birds. Not needed for the application, just debugging.
+    //Rogue_PushPopup_UniquePokemonDetected(SelectLegendarySpecies(ADVPATH_LEGEND_ROAMER));
+    //Rogue_PushPopup_UniquePokemonDetected(SelectLegendarySpecies(ADVPATH_LEGEND_ROAMER));
+    //Rogue_PushPopup_UniquePokemonDetected(SelectLegendarySpecies(ADVPATH_LEGEND_ROAMER));
+
     if (TryChangeMonGenderBySpecies())
     {
         Rogue_PushPopup_MonGenderChange(0, GetMonGender(&gPlayerParty[party_index]));
