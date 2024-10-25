@@ -5,6 +5,7 @@ on:
 
 jobs:
   build:
+    if: "!contains(github.event.head_commit.message, '[NO_BUILD]') && !contains(github.event.pull_request.title, '[NO_BUILD]')"  
     runs-on: ubuntu-latest
     container: devkitpro/devkitarm
     env:
@@ -100,7 +101,7 @@ jobs:
             retention-days: 1
 
             ## what's below can be removed if ever build from github again
-            ## some tests fail anyway, can't be bother to fix these so fuck off
+            ## some tests fail anyway, can't be bother to fix these
       # - name: Update Memory Stats
       #   uses: actions/upload-artifact@v3
       #   with:
