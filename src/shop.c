@@ -178,6 +178,7 @@ static void Task_ReturnToItemListAfterItemPurchase(u8 taskId);
 static void Task_ReturnToItemListAfterDecorationPurchase(u8 taskId);
 static void Task_HandleShopMenuBuy(u8 taskId);
 static void Task_HandleShopMenuSell(u8 taskId);
+static void Task_HandleShopMenuAutoSell(u8 taskId);
 static void Task_HandleShopMenuUpgrades(u8 taskId);
 static void Task_HandleShopMenuAreas(u8 taskId);
 static void BuyMenuPrintItemDescriptionAndShowItemIcon(s32 item, bool8 onInit, struct ListMenu *list);
@@ -202,6 +203,7 @@ static const struct MenuAction sShopMenuActions_BuySellQuit[] =
 {
     { gText_ShopBuy, {.void_u8=Task_HandleShopMenuBuy} },
     { gText_ShopSell, {.void_u8=Task_HandleShopMenuSell} },
+    { gText_ShopAutoSell, {.void_u8=Task_HandleShopMenuAutoSell} },
     { gText_ShopQuit, {.void_u8=Task_HandleShopMenuQuit} }
 };
 
@@ -226,7 +228,7 @@ static const struct WindowTemplate sShopMenuWindowTemplates[] =
         .tilemapLeft = 2,
         .tilemapTop = 1,
         .width = 9,
-        .height = 6,
+        .height = 8,
         .paletteNum = 15,
         .baseBlock = 0x0008,
     },
@@ -508,6 +510,16 @@ static void Task_HandleShopMenuSell(u8 taskId)
     FadeScreen(FADE_TO_BLACK, 0);
 }
 
+static void Task_HandleShopMenuAutoSell(u8 taskId)
+{
+    s16* data = gTasks[taskId].data;
+    tCallbackHi = (u32)CB2_GoToAutoSellMenu >> 16;
+    tCallbackLo = (u32)CB2_GoToAutoSellMenu;
+    gTasks[taskId].func = Task_GoToBuyOrSellMenu;
+    FadeScreen(FADE_TO_BLACK, 0);
+}
+
+
 static void Task_HandleShopMenuUpgrades(u8 taskId)
 {
     sMartInfo.martType = MART_TYPE_HUB_UPGRADES;
@@ -521,6 +533,12 @@ static void Task_HandleShopMenuAreas(u8 taskId)
 }
 
 void CB2_ExitSellMenu(void)
+{
+    gFieldCallback = MapPostLoadHook_ReturnToShopMenu;
+    SetMainCallback2(CB2_ReturnToField);
+}
+
+void CB2_ExitAutoSellMenu(void)
 {
     gFieldCallback = MapPostLoadHook_ReturnToShopMenu;
     SetMainCallback2(CB2_ReturnToField);

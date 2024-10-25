@@ -390,6 +390,7 @@ const u8 gText_Var1HappilyAteVar2[] = _("{STR_VAR_1} happily ate the\n{STR_VAR_2
 const u8 gText_Var1DisdainfullyAteVar2[] = _("{STR_VAR_1} disdainfully ate the\n{STR_VAR_2}.{PAUSE_UNTIL_PRESS}");
 const u8 gText_ShopBuy[] = _("Buy");
 const u8 gText_ShopSell[] = _("Sell");
+const u8 gText_ShopAutoSell[] = _("{COLOR BLUE}{SHADOW LIGHT_BLUE}Auto Sell");
 const u8 gText_ShopQuit[] = _("Quit");
 const u8 gText_ThatItemIsSoldOut[] = _("I'm sorry, but that item is sold out.{PAUSE_UNTIL_PRESS}");
 const u8 gText_SoldOut[] = _("Sold Out");

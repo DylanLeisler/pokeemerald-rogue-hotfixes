@@ -870,6 +870,11 @@ void CB2_GoToSellMenu(void)
     GoToBagMenu(ITEMMENULOCATION_SHOP, POCKETS_COUNT, CB2_ExitSellMenu);
 }
 
+void CB2_GoToAutoSellMenu(void)
+{
+    GoToBagMenu(ITEMMENULOCATION_SHOP, POCKETS_COUNT, CB2_ExitAutoSellMenu);
+}
+
 void CB2_GoToItemDepositMenu(void)
 {
     GoToBagMenu(ITEMMENULOCATION_ITEMPC, POCKETS_COUNT, CB2_PlayerPCExitBagMenu);
