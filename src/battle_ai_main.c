@@ -878,6 +878,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                     RETURN_SCORE_MINUS(20);
                 break;
             case ABILITY_FLASH_FIRE:
+            case ABILITY_THERMAL_EXCHANGE:
                 if (moveType == TYPE_FIRE)
                     RETURN_SCORE_MINUS(20);
                 break;
