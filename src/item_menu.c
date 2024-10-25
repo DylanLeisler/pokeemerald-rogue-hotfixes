@@ -3050,7 +3050,7 @@ static void _AutoSellItems(u16 itemId, u16 quantity)
 
 
     u16 price = ItemId_GetPrice(itemId);
-    u32 profit = (price / ITEM_SELL_FACTOR) * quantity);
+    u32 profit = (price / ITEM_SELL_FACTOR) * quantity;
     
     ConvertIntToDecimalStringN(gStringVar1, profit, STR_CONV_MODE_LEFT_ALIGN, 6);
 
