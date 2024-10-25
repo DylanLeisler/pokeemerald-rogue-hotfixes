@@ -225,7 +225,6 @@ static void ConfirmSell(u8);
 static void CancelSell(u8);
 static void Task_HandleAutoSellInput(u8 taskId);
 static void Task_EndAutoSell(u8 taskId);
-static void Task_ItemContext_AutoSell(u8 taskId);
 static void _AutoSellItems(u16, u16);
 static void AutoSellItems();
 
