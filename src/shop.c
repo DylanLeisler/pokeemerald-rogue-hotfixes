@@ -515,8 +515,8 @@ static void Task_HandleShopMenuSell(u8 taskId)
 static void Task_HandleShopMenuAutoSell(u8 taskId)
 {
     s16* data = gTasks[taskId].data;
-    tCallbackHi = (u32)CB2_ExitAutoSellMenu >> 16;
-    tCallbackLo = (u32)CB2_ExitAutoSellMenu;
+    tCallbackHi = (u32)Task_ReturnToShopMenu >> 16;
+    tCallbackLo = (u32)Task_ReturnToShopMenu;
     gTasks[taskId].func = Task_ItemContext_AutoSell;
 }
 
