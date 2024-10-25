@@ -388,8 +388,6 @@ static const struct YesNoFuncTable sYesNoTossFunctions = {ConfirmToss, CancelTos
 
 static const struct YesNoFuncTable sYesNoSellItemFunctions = {ConfirmSell, CancelSell};
 
-static const struct YesNoFuncTable sYesNoSellItemFunctions = {ConfirmAutoSell, CancelAutoSell};
-
 static const struct ScrollArrowsTemplate sBagScrollArrowsTemplate = {
     .firstArrowType = SCROLL_ARROW_LEFT,
     .firstX = 28,
@@ -3012,11 +3010,11 @@ static void AutoSellItems() {
         u16 count = CountTotalItemQuantityInBag(itemId);
         if (itemId >= EV_BERRIES_START && itemId <= EV_BERRIES_START + NUM_OF_EV_BERRIES)
         {
-            if (count > 40) _AutoSellItems(itemId, count - 40)
+            if (count > 40) _AutoSellItems(itemId, count - 40);
         }
         else
         {
-            if (count > 15) _AutoSellItems(itemId, count - 15)
+            if (count > 15) _AutoSellItems(itemId, count - 15);
         }
     }
     //shiny to spec def
@@ -3026,11 +3024,11 @@ static void AutoSellItems() {
         u16 count = CountTotalItemQuantityInBag(itemId);
         if (itemId >= ITEM_POKEBLOCK_SHINY && itemId <= ITEM_POKEBLOCK_SPDEF)
         {
-            if (count > 0) _AutoSellItems(itemId, count)
+            if (count > 0) _AutoSellItems(itemId, count);
         }
         else
         {
-            if (count > 10) _AutoSellItems(itemId, count - 10)
+            if (count > 10) _AutoSellItems(itemId, count - 10);
         }
     }
 
@@ -3048,7 +3046,7 @@ static void AutoSellItems() {
 static void _AutoSellItems(u16 itemId, u16 quantity)
 {
 
-    s16* data = gTasks[taskId].data;
+    //s16* data = gTasks[taskId].data;
 
 
     u16 price = ItemId_GetPrice(itemId);

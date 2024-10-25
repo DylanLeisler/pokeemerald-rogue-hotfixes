@@ -503,6 +503,7 @@ extern const u8 gText_Var1CantBeHeld[];
 extern const u8 gText_Var1CantBeHeldHere[];
 extern const u8 gText_CantBuyKeyItem[];
 extern const u8 gText_HowManyToSell[];
+extern const u8 gText_AutoSellProfit[];
 extern const u8 gText_ICanPayVar1[];
 extern const u8 gText_TurnedOverVar1ForVar2[];
 extern const u8 gText_DepositHowManyVar1[];
