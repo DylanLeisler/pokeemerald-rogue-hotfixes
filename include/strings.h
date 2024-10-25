@@ -1121,6 +1121,7 @@ extern const u8 gText_ThrowInPremierBall[];
 extern const u8 gText_ThrowInPremierBalls[];
 extern const u8 gText_ShopBuy[];
 extern const u8 gText_ShopSell[];
+extern const u8 gText_ShopAutoSell[];
 extern const u8 gText_ShopQuit[];
 extern const u8 gText_ThatItemIsSoldOut[];
 extern const u8 gText_SoldOut[];
