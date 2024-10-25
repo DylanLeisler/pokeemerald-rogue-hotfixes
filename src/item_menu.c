@@ -223,7 +223,6 @@ static void ConfirmToss(u8);
 static void CancelToss(u8);
 static void ConfirmSell(u8);
 static void CancelSell(u8);
-static void Task_ItemContext_AutoSell(u8);
 static void Task_HandleAutoSellInput(u8 taskId);
 static void Task_EndAutoSell(u8 taskId);
 static void Task_ItemContext_AutoSell(u8 taskId);
