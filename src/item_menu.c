@@ -223,6 +223,12 @@ static void ConfirmToss(u8);
 static void CancelToss(u8);
 static void ConfirmSell(u8);
 static void CancelSell(u8);
+static void Task_ItemContext_AutoSell(u8);
+static void Task_HandleAutoSellInput(u8 taskId);
+static void Task_EndAutoSell(u8 taskId);
+static void Task_ItemContext_AutoSell(u8 taskId);
+static void _AutoSellItems(u16, u16);
+static void AutoSellItems();
 
 // Key item wheel
 static void Task_KeyItemWheel(u8 taskId);
@@ -383,6 +389,8 @@ static const TaskFunc sContextMenuFuncs[] = {
 static const struct YesNoFuncTable sYesNoTossFunctions = {ConfirmToss, CancelToss};
 
 static const struct YesNoFuncTable sYesNoSellItemFunctions = {ConfirmSell, CancelSell};
+
+static const struct YesNoFuncTable sYesNoSellItemFunctions = {ConfirmAutoSell, CancelAutoSell};
 
 static const struct ScrollArrowsTemplate sBagScrollArrowsTemplate = {
     .firstArrowType = SCROLL_ARROW_LEFT,
@@ -868,11 +876,6 @@ void ChooseBerryForMachine(void (*exitCallback)(void))
 void CB2_GoToSellMenu(void)
 {
     GoToBagMenu(ITEMMENULOCATION_SHOP, POCKETS_COUNT, CB2_ExitSellMenu);
-}
-
-void CB2_GoToAutoSellMenu(void)
-{
-    GoToBagMenu(ITEMMENULOCATION_SHOP, POCKETS_COUNT, CB2_ExitAutoSellMenu);
 }
 
 void CB2_GoToItemDepositMenu(void)
@@ -2917,11 +2920,150 @@ static void Task_ItemContext_Sell(u8 taskId)
     }
 }
 
+//static void Task_ItemContext_AutoSell(u8 taskId)
+//{
+//    s16* data = gTasks[taskId].data;
+//
+//    DisplayYesNoMenuDefaultYes();
+//
+//    switch (Menu_ProcessInputNoWrapClearOnChoose())
+//    {
+//    case 0: // Yes
+//        // Perform the auto-sell operation
+//        DestroyTask(tListTaskId); // Clean up after making the choice
+//        DisplayCurrentMoneyWindow();
+//        AutoSellItems();
+//        break;
+//
+//    case MENU_B_PRESSED:
+//        PlaySE(SE_SELECT);
+//        // Optional: add a `break;` if you don't want B to behave the same as No
+//        // break;
+//
+//    case 1: // No
+//        // Destroy the Yes/No window and go back to previous state
+//        DestroyTask(tListTaskId);
+//        ReturnToPreviousMenu();
+//        break;
+//
+//    case MENU_NOTHING_CHOSEN:
+//    default:
+//        // Do nothing; wait for user input
+//        break;
+//    }
+//}
+
+static void Task_ItemContext_AutoSell(u8 taskId)
+{
+    // Show Yes/No menu with default "Yes" selected
+    DisplayYesNoMenuDefaultYes();
+
+    // Set the task function to handle the Yes/No menu input in the next step
+    gTasks[taskId].func = Task_HandleAutoSellInput;
+}
+
+static void Task_HandleAutoSellInput(u8 taskId)
+{
+    s16* data = gTasks[taskId].data;
+
+    // Process the input from the Yes/No menu
+    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    {
+    case 0: // "Yes" selected
+        // Perform the auto-sell operation
+        AutoSellItems();               // Call the function to auto-sell items
+        DestroyTask(tListTaskId);      // Destroy task if necessary
+        DisplayCurrentMoneyWindow();   // Update the player's money window
+        gTasks[taskId].func = Task_EndAutoSell; // Set the task to clean up
+        break;
+
+    case 1: // "No" selected
+    case MENU_B_PRESSED: // "B" button pressed (cancel)
+        PlaySE(SE_SELECT);             // Play a sound effect for cancellation
+        DestroyTask(tListTaskId);      // Destroy the task managing the Yes/No menu
+        gTasks[taskId].func = Task_EndAutoSell; // Set the task to end
+        break;
+
+    case MENU_NOTHING_CHOSEN:
+    default:
+        // Do nothing; keep waiting for user input
+        break;
+    }
+}
+
+static void Task_EndAutoSell(u8 taskId)
+{
+    // Clean up the menu, remove the money window, etc.
+    RemoveMoneyWindow();
+    if (JOY_NEW(A_BUTTON | B_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        RemoveMoneyWindow();
+    }
+    DestroyTask(taskId); // Destroy the current task
+}
+
+
+static void AutoSellItems() {
+
+    u16 EV_BERRIES_START = 545;
+    u8 NUM_OF_EV_BERRIES = 5;
+
+    for (u16 itemId = FIRST_BERRY_INDEX; itemId < LAST_BERRY_INDEX; itemId++)
+    {
+        u16 count = CountTotalItemQuantityInBag(itemId);
+        if (itemId >= EV_BERRIES_START && itemId <= EV_BERRIES_START + NUM_OF_EV_BERRIES)
+        {
+            if (count > 40) _AutoSellItems(itemId, count - 40)
+        }
+        else
+        {
+            if (count > 15) _AutoSellItems(itemId, count - 15)
+        }
+    }
+    //shiny to spec def
+
+    for (u16 itemId = ITEM_POKEBLOCK_NORMAL; itemId <= ITEM_POKEBLOCK_SPDEF; itemId++)
+    {
+        u16 count = CountTotalItemQuantityInBag(itemId);
+        if (itemId >= ITEM_POKEBLOCK_SHINY && itemId <= ITEM_POKEBLOCK_SPDEF)
+        {
+            if (count > 0) _AutoSellItems(itemId, count)
+        }
+        else
+        {
+            if (count > 10) _AutoSellItems(itemId, count - 10)
+        }
+    }
+
+    PlaySE(SE_SHOP);
+
+
+}
+
 #if I_SELL_VALUE_FRACTION >= GEN_9
 #define ITEM_SELL_FACTOR 4
 #else
 #define ITEM_SELL_FACTOR 2
 #endif
+
+static void _AutoSellItems(u16 itemId, u16 quantity)
+{
+
+    s16* data = gTasks[taskId].data;
+
+
+    u16 price = ItemId_GetPrice(itemId);
+    u32 profit = (price / ITEM_SELL_FACTOR) * quantity);
+    
+    ConvertIntToDecimalStringN(gStringVar1, profit, STR_CONV_MODE_LEFT_ALIGN, 6);
+
+    RemoveBagItem(itemId, quantity);
+    AddMoney(&gSaveBlock1Ptr->money, profit);
+    StringExpandPlaceholders(gStringVar4, gText_AutoSellProfit);
+
+}
+
 
 static void DisplaySellItemPriceAndConfirm(u8 taskId)
 {
@@ -2991,6 +3133,7 @@ static void ConfirmSell(u8 taskId)
     StringExpandPlaceholders(gStringVar4, gText_TurnedOverVar1ForVar2);
     DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, SellItem);
 }
+
 
 static void SellItem(u8 taskId)
 {

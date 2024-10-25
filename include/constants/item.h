@@ -44,7 +44,7 @@
 #define POCKET_POKEBLOCK   7
 #define POCKET_KEY_ITEMS   8
 
-// These pockets aren't actually in used, but need to be defined, to avoid compilation error
+// These pockets aren't actually in use, but need to be defined to avoid compilation error
 #define POCKET_STONES      24
 
 #define ITEMS_POCKET       0
@@ -57,7 +57,7 @@
 #define KEYITEMS_POCKET    7
 #define POCKETS_COUNT      8
 
-// These pockets aren't actually in used, but need to be defined, to avoid compilation error
+// These pockets aren't actually in use, but need to be defined to avoid compilation error
 #define STONES_POCKET     23
 
 #endif
