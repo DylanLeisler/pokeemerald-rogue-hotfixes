@@ -1010,7 +1010,7 @@ void RogueGift_EnsureDynamicCustomMonsAreValid()
 
                 if (rarity == UNIQUE_RARITY_EXOTIC)
                 {
-                    if (Random() % 1 == 1) //(Random() % 2 == 0) // Half the time an exotic is supposed to appear, an epic will appear instead
+                    if (Random() % 4 == 0) // 75% the time an exotic is supposed to appear, an epic will appear instead
                     {
                         u32 customMonId = SelectUnusedUnlockedExoticMon();
 
