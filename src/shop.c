@@ -141,6 +141,7 @@ static void Task_HandleShopMenuQuit(u8 taskId);
 static void CB2_InitBuyMenu(void);
 static void Task_GoToBuyOrSellMenu(u8 taskId);
 static void MapPostLoadHook_ReturnToShopMenu(void);
+static void MapPostLoadHook_ReturnToShopMenuNoFade(void);
 static void Task_ReturnToShopMenu(u8 taskId);
 static void ShowShopMenuAfterExitingBuyOrSellMenu(u8 taskId);
 static void BuyMenuDrawGraphics(void);
@@ -515,8 +516,8 @@ static void Task_HandleShopMenuSell(u8 taskId)
 static void Task_HandleShopMenuAutoSell(u8 taskId)
 {
     s16* data = gTasks[taskId].data;
-    tCallbackHi = (u32)Task_ReturnToShopMenu >> 16;
-    tCallbackLo = (u32)Task_ReturnToShopMenu;
+    tCallbackHi = (u32)CB2_ExitAutoSellMenu >> 16;
+    tCallbackLo = (u32)CB2_ExitAutoSellMenu;
     gTasks[taskId].func = Task_ItemContext_AutoSell;
 }
 
@@ -541,7 +542,7 @@ void CB2_ExitSellMenu(void)
 
 void CB2_ExitAutoSellMenu(void)
 {
-    gFieldCallback = MapPostLoadHook_ReturnToShopMenu;
+    gFieldCallback = MapPostLoadHook_ReturnToShopMenuNoFade;
     SetMainCallback2(CB2_ReturnToField);
 }
 
@@ -584,6 +585,11 @@ static void Task_GoToBuyOrSellMenu(u8 taskId)
 static void MapPostLoadHook_ReturnToShopMenu(void)
 {
     FadeInFromBlack();
+    CreateTask(Task_ReturnToShopMenu, 8);
+}
+
+static void MapPostLoadHook_ReturnToShopMenuNoFade(void)
+{
     CreateTask(Task_ReturnToShopMenu, 8);
 }
 
