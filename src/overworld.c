@@ -1749,6 +1749,7 @@ void CB2_ReturnToField(void)
     else
     {
         FieldClearVBlankHBlankCallbacks();
+        SetFieldVBlankCallback();
         SetMainCallback2(CB2_ReturnToFieldLocal);
     }
 }
