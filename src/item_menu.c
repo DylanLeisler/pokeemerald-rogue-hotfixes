@@ -2974,7 +2974,7 @@ static void Task_HandleAutoSellInput(u8 taskId)
         // Perform the auto-sell operation
         AutoSellItems();               // Call the function to auto-sell items
         //DestroyTask(tListTaskId);      // Destroy task if necessary
-        gTasks[taskId].func = WaitAfterItemSell;
+        //gTasks[taskId].func = WaitAfterItemSell;
         //gTasks[taskId].func = Task_EndAutoSell; // Set the task to clean up
         break;
 
@@ -2982,7 +2982,7 @@ static void Task_HandleAutoSellInput(u8 taskId)
     case MENU_B_PRESSED: // "B" button pressed (cancel)
         PlaySE(SE_SELECT);             // Play a sound effect for cancellation
         //DestroyTask(tListTaskId);      // Destroy the task managing the Yes/No menu
-        gTasks[taskId].func = WaitAfterItemSell;
+        //gTasks[taskId].func = WaitAfterItemSell;
         //gTasks[taskId].func = Task_EndAutoSell; // Set the task to end
         break;
 
@@ -3006,7 +3006,8 @@ static void Task_EndAutoSell(u8 taskId)
     if (JOY_NEW(A_BUTTON | B_BUTTON))
     {
         PlaySE(SE_SELECT);
-    DestroyTask(taskId); // Destroy the current task
+        DestroyTask(taskId); // Destroy the current task
+    }
 }
 
 
