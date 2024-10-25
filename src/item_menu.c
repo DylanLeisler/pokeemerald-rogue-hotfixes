@@ -2968,7 +2968,7 @@ static void Task_HandleAutoSellInput(u8 taskId)
     case 0: // "Yes" selected
         // Perform the auto-sell operation
         AutoSellItems();               // Call the function to auto-sell items
-        DestroyTask(tListTaskId);      // Destroy task if necessary
+        //DestroyTask(tListTaskId);      // Destroy task if necessary
         DisplayCurrentMoneyWindow();   // Update the player's money window
         gTasks[taskId].func = Task_EndAutoSell; // Set the task to clean up
         break;
@@ -2976,7 +2976,7 @@ static void Task_HandleAutoSellInput(u8 taskId)
     case 1: // "No" selected
     case MENU_B_PRESSED: // "B" button pressed (cancel)
         PlaySE(SE_SELECT);             // Play a sound effect for cancellation
-        DestroyTask(tListTaskId);      // Destroy the task managing the Yes/No menu
+        //DestroyTask(tListTaskId);      // Destroy the task managing the Yes/No menu
         gTasks[taskId].func = Task_EndAutoSell; // Set the task to end
         break;
 
