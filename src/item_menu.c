@@ -2980,7 +2980,7 @@ static void Task_HandleAutoSellInput(u8 taskId)
         {
             callbackFunc();  // Invoke the callback to proceed
         }
-        DestroyTask(taskId);
+        //DestroyTask(taskId);
         break;
 
     case 1: // "No" selected
@@ -2993,7 +2993,7 @@ static void Task_HandleAutoSellInput(u8 taskId)
         {
             callbackFunc();  // Invoke the callback to proceed
         }
-        DestroyTask(taskId);
+        //DestroyTask(taskId);
         break;
 
     case MENU_NOTHING_CHOSEN:
