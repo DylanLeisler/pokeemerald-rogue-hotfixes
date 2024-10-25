@@ -2962,6 +2962,11 @@ static void Task_HandleAutoSellInput(u8 taskId)
 {
     s16* data = gTasks[taskId].data;
 
+    // Reconstruct the 32-bit address from the two 16-bit parts
+    u32 callbackAddress = ((u32)gTasks[taskId].data[8] << 16) | (u32)gTasks[taskId].data[9];
+    void (*callbackFunc)(void) = (void (*)(void))callbackAddress;
+
+
     // Process the input from the Yes/No menu
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
@@ -2969,7 +2974,6 @@ static void Task_HandleAutoSellInput(u8 taskId)
         // Perform the auto-sell operation
         AutoSellItems();               // Call the function to auto-sell items
         //DestroyTask(tListTaskId);      // Destroy task if necessary
-        DisplayCurrentMoneyWindow();   // Update the player's money window
         gTasks[taskId].func = WaitAfterItemSell;
         //gTasks[taskId].func = Task_EndAutoSell; // Set the task to clean up
         break;
@@ -2987,6 +2991,12 @@ static void Task_HandleAutoSellInput(u8 taskId)
         // Do nothing; keep waiting for user input
         break;
     }
+    // Call the callback function if it's valid
+    if (callbackFunc != NULL)
+    {
+        callbackFunc();  // Invoke the callback to proceed
+    }
+    DestroyTask(taskId);
 }
 
 static void Task_EndAutoSell(u8 taskId)
@@ -2996,8 +3006,6 @@ static void Task_EndAutoSell(u8 taskId)
     if (JOY_NEW(A_BUTTON | B_BUTTON))
     {
         PlaySE(SE_SELECT);
-        RemoveMoneyWindow();
-    }
     DestroyTask(taskId); // Destroy the current task
 }
 
