@@ -2976,6 +2976,11 @@ static void Task_HandleAutoSellInput(u8 taskId)
         //DestroyTask(tListTaskId);      // Destroy task if necessary
         //gTasks[taskId].func = WaitAfterItemSell;
         //gTasks[taskId].func = Task_EndAutoSell; // Set the task to clean up
+        if (callbackFunc != NULL)
+        {
+            callbackFunc();  // Invoke the callback to proceed
+        }
+        DestroyTask(taskId);
         break;
 
     case 1: // "No" selected
@@ -2984,6 +2989,11 @@ static void Task_HandleAutoSellInput(u8 taskId)
         //DestroyTask(tListTaskId);      // Destroy the task managing the Yes/No menu
         //gTasks[taskId].func = WaitAfterItemSell;
         //gTasks[taskId].func = Task_EndAutoSell; // Set the task to end
+        if (callbackFunc != NULL)
+        {
+            callbackFunc();  // Invoke the callback to proceed
+        }
+        DestroyTask(taskId);
         break;
 
     case MENU_NOTHING_CHOSEN:
@@ -2992,11 +3002,6 @@ static void Task_HandleAutoSellInput(u8 taskId)
         break;
     }
     // Call the callback function if it's valid
-    if (callbackFunc != NULL)
-    {
-        callbackFunc();  // Invoke the callback to proceed
-    }
-    DestroyTask(taskId);
 }
 
 static void Task_EndAutoSell(u8 taskId)
