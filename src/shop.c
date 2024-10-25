@@ -515,7 +515,6 @@ static void Task_HandleShopMenuAutoSell(u8 taskId)
 {
     s16* data = gTasks[taskId].data;
     gTasks[taskId].func = Task_ItemContext_AutoSell;
-    FadeScreen(FADE_TO_BLACK, 0);
 }
 
 
