@@ -1008,7 +1008,7 @@ void RogueGift_EnsureDynamicCustomMonsAreValid()
 
             gRogueSaveBlock->dynamicUniquePokemon[i].countDown = 60 + 30 * i; // Time remaining is based on the slot
 
-            if (Random() % 2 == 0) // Half the time an exotic is supposed to appear, an epic will appear instead
+            if (Random() % 1 == 1) //(Random() % 2 == 0) // Half the time an exotic is supposed to appear, an epic will appear instead
             {
                 if (rarity == UNIQUE_RARITY_EXOTIC)
                 {
