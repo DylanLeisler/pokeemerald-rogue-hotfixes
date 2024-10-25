@@ -219,6 +219,7 @@ static void Task_ItemContext_Sell(u8);
 static void Task_ItemContext_Deposit(u8);
 static void Task_ItemContext_GiveToPC(u8);
 static void Task_ItemContext_Sort(u8);
+void Task_ItemContext_AutoSell(u8 taskId);
 static void ConfirmToss(u8);
 static void CancelToss(u8);
 static void ConfirmSell(u8);
@@ -2951,7 +2952,7 @@ static void Task_ItemContext_Sell(u8 taskId)
 //    }
 //}
 
-static void Task_ItemContext_AutoSell(u8 taskId)
+void Task_ItemContext_AutoSell(u8 taskId)
 {
     // Show Yes/No menu with default "Yes" selected
     DisplayYesNoMenuDefaultYes();
