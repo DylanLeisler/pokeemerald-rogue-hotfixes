@@ -503,7 +503,8 @@ static const u16 sStackableCurseEffects[] = {
     EFFECT_SHOP_PRICE,
     EFFECT_SERENE_GRACE_CHANCE,
     EFFECT_ADAPTABILITY_RATE,
-    EFFECT_MOVE_PRIORITY_CHANCE
+    EFFECT_MOVE_PRIORITY_CHANCE,
+    EFFECT_SHED_SKIN_CHANCE,
 };
 
 float Rogue_CalculateRewardMultiplier()
