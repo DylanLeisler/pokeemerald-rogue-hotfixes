@@ -543,7 +543,7 @@ void CB2_ExitSellMenu(void)
 void CB2_ExitAutoSellMenu(void)
 {
     gFieldCallback = MapPostLoadHook_ReturnToShopMenuNoFade;
-    SetMainCallback2(CB2_ReturnToField);
+    SetMainCallback2(CB2_OverworldBasic);
 }
 
 static void Task_HandleShopMenuQuit(u8 taskId)

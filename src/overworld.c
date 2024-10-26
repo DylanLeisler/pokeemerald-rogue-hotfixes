@@ -1748,7 +1748,7 @@ void CB2_ReturnToField(void)
     }
     else
     {
-        //FieldClearVBlankHBlankCallbacks();
+        FieldClearVBlankHBlankCallbacks();
         SetMainCallback2(CB2_ReturnToFieldLocal);
     }
 }
@@ -1758,7 +1758,7 @@ static void CB2_ReturnToFieldLocal(void)
     if (ReturnToFieldLocal(&gMain.state))
     {
         Rogue_OnReturnToField();
-        //SetFieldVBlankCallback();
+        SetFieldVBlankCallback();
         SetMainCallback2(CB2_Overworld);
     }
 }
