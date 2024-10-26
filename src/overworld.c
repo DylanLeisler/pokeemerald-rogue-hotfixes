@@ -114,6 +114,8 @@ extern const struct MapHeader *const *const gMapGroups[];
 static void Overworld_ResetStateAfterWhiteOut(void);
 static void CB2_ReturnToFieldLocal(void);
 static void CB2_ReturnToFieldLink(void);
+static void CB2_ReturnToFieldLocalNoFade(void);
+static void CB2_ReturnToFieldLinkNoFade(void);
 static void CB2_LoadMapOnReturnToFieldCableClub(void);
 static void CB2_LoadMap2(void);
 static void VBlankCB_Field(void);
