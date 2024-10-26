@@ -1753,6 +1753,19 @@ void CB2_ReturnToField(void)
     }
 }
 
+void CB2_ReturnToFieldNoFade(void)
+{
+    if (IsOverworldLinkActive() == TRUE)
+    {
+        SetMainCallback2(CB2_ReturnToFieldLinkNoFade);
+    }
+    else
+    {
+        FieldClearVBlankHBlankCallbacks();
+        SetMainCallback2(CB2_ReturnToFieldLocalNoFade);
+    }
+}
+
 static void CB2_ReturnToFieldLocal(void)
 {
     if (ReturnToFieldLocal(&gMain.state))
@@ -1763,10 +1776,26 @@ static void CB2_ReturnToFieldLocal(void)
     }
 }
 
+static void CB2_ReturnToFieldLocalNoFade(void)
+{
+    if (ReturnToFieldLocal(&gMain.state))
+    {
+        Rogue_OnReturnToField();
+        SetFieldVBlankCallback();
+        SetMainCallback2(CB2_OverworldBasic);
+    }
+}
+
 static void CB2_ReturnToFieldLink(void)
 {
     if (!Overworld_IsRecvQueueAtMax() && ReturnToFieldLink(&gMain.state))
         SetMainCallback2(CB2_Overworld);
+}
+
+static void CB2_ReturnToFieldLinkNoFade(void)
+{
+    if (!Overworld_IsRecvQueueAtMax() && ReturnToFieldLink(&gMain.state))
+        SetMainCallback2(CB2_OverworldBasic);
 }
 
 void CB2_ReturnToFieldFromMultiplayer(void)
