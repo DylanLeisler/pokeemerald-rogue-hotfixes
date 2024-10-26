@@ -23,23 +23,14 @@ script Rogue_Encounter_HoneyTree_ScatterPokeblock
         msgbox(format("Select the {POKEBLOCK}."), MSGBOX_DEFAULT)
         fadescreen(FADE_TO_BLACK)
         special(Bag_ChoosePokeblock)
+        waitstate
 
-        if(var(VAR_ITEM_ID) == 0)
+        if(var(VAR_ITEM_ID) !=  ITEM_NONE)
         {
-            setvar(VAR_RESULT, NO)
-        }
-
-        else
-        {
-            removeitem(VAR_ITEM_ID, 1)
             call(Rogue_EventScript_UsePokeblockItem)
         }
     }
-    else
-    {
-        release
-        end
-    }
+    release
 }
 
 script Rogue_Encounter_HoneyTree_TrainerTips
