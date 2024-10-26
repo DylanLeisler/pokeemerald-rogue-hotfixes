@@ -114,8 +114,6 @@ extern const struct MapHeader *const *const gMapGroups[];
 static void Overworld_ResetStateAfterWhiteOut(void);
 static void CB2_ReturnToFieldLocal(void);
 static void CB2_ReturnToFieldLink(void);
-static void CB2_ReturnToFieldLocalNoFade(void);
-static void CB2_ReturnToFieldLinkNoFade(void);
 static void CB2_LoadMapOnReturnToFieldCableClub(void);
 static void CB2_LoadMap2(void);
 static void VBlankCB_Field(void);
@@ -1763,7 +1761,7 @@ void CB2_ReturnToFieldNoFade(void)
     }
     else
     {
-        FieldClearVBlankHBlankCallbacks();
+        //FieldClearVBlankHBlankCallbacks();
         SetMainCallback2(CB2_ReturnToFieldLocalNoFade);
     }
 }
@@ -1783,7 +1781,7 @@ static void CB2_ReturnToFieldLocalNoFade(void)
     if (ReturnToFieldLocal(&gMain.state))
     {
         Rogue_OnReturnToField();
-        SetFieldVBlankCallback();
+        //SetFieldVBlankCallback();
         SetMainCallback2(CB2_OverworldBasic);
     }
 }
