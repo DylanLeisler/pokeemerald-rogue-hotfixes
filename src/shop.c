@@ -518,6 +518,7 @@ static void Task_HandleShopMenuAutoSell(u8 taskId)
     tCallbackHi = (u32)CB2_ExitAutoSellMenu >> 16;
     tCallbackLo = (u32)CB2_ExitAutoSellMenu;
     gTasks[taskId].func = Task_ItemContext_AutoSell;
+    FadeScreen(FADE_TO_BLACK, 0);
 }
 
 
@@ -541,7 +542,7 @@ void CB2_ExitSellMenu(void)
 
 void CB2_ExitAutoSellMenu(void)
 {
-    gFieldCallback = MapPostLoadHook_ReturnToShopMenuNoFade;
+    gFieldCallback = MapPostLoadHook_ReturnToShopMenu;
     SetMainCallback2(CB2_ReturnToField);
 }
 
