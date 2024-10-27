@@ -575,11 +575,21 @@ const struct YesNoFuncTable sAutoSellYesNoFuncs = {
     .noFunc = Task_HandleAutoSellNo
 };
 
+static const struct WindowTemplate sYesNo_Generic =
+{
+    .bg = 0,
+    .tilemapLeft = 21,
+    .tilemapTop = 9,
+    .width = 5,
+    .height = 4,
+    .paletteNum = 15,
+    .baseBlock = 0x125
+};
 // Now, modify Task_HandleShopMenuAutoSell to create the Yes/No menu and setup callbacks.
 static void Task_HandleShopMenuAutoSell(u8 taskId)
 {
     // Create a Yes/No menu to ask the player if they want to AutoSell.
-    CreateYesNoMenuWithCallbacks(taskId, &sYesNo_WindowTemplates, 0, 0, 0, WINDOW_BASE_BLOCK, WINDOW_PALETTE_NUM, &sAutoSellYesNoFuncs);
+    CreateYesNoMenuWithCallbacks(taskId, &sYesNo_Generic, 0, 0, 0, WINDOW_BASE_BLOCK, WINDOW_PALETTE_NUM, &sAutoSellYesNoFuncs);
 }
 
 // New function that handles returning to the shop menu after AutoSell.
