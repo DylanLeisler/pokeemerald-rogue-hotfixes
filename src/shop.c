@@ -60,6 +60,7 @@ typedef void (*ShopCallback)();
 
 enum {
     WIN_BUY_SELL_QUIT,
+    WIN_BUY_SELL_AUTO_QUIT,
     WIN_BUY_QUIT,
 };
 
@@ -80,6 +81,7 @@ enum {
 
 enum {
     MART_TYPE_NORMAL, // normal mart
+    MART_TYPE_ADVENTURE, //normal mart, but with AutoSell
     MART_TYPE_PURCHASE_ONLY, // normal mart, but can only buy
     MART_TYPE_DECOR,
     MART_TYPE_DECOR2,
@@ -211,8 +213,15 @@ static const struct MenuAction sShopMenuActions_BuySellQuit[] =
 {
     { gText_ShopBuy, {.void_u8=Task_HandleShopMenuBuy} },
     { gText_ShopSell, {.void_u8=Task_HandleShopMenuSell} },
-    { gText_ShopAutoSell, {.void_u8=Task_HandleShopMenuAutoSell} },
     { gText_ShopQuit, {.void_u8=Task_HandleShopMenuQuit} }
+};
+
+static const struct MenuAction sShopMenuActions_BuySellAutoQuit[] =
+{
+    { gText_ShopBuy, {.void_u8 = Task_HandleShopMenuBuy} },
+    { gText_ShopSell, {.void_u8 = Task_HandleShopMenuSell} },
+    { gText_ShopAutoSell, {.void_u8 = Task_HandleShopMenuAutoSell} },
+    { gText_ShopQuit, {.void_u8 = Task_HandleShopMenuQuit} }
 };
 
 static const struct MenuAction sShopMenuActions_BuyQuit[] =
@@ -232,6 +241,15 @@ static const struct MenuAction sShopMenuActions_BuildQuit[] =
 static const struct WindowTemplate sShopMenuWindowTemplates[] =
 {
     [WIN_BUY_SELL_QUIT] = {
+        .bg = 0,
+        .tilemapLeft = 2,
+        .tilemapTop = 1,
+        .width = 9,
+        .height = 6,
+        .paletteNum = 15,
+        .baseBlock = 0x0008,
+    },
+    [WIN_BUY_SELL_AUTO_QUIT] = {
         .bg = 0,
         .tilemapLeft = 2,
         .tilemapTop = 1,
@@ -406,6 +424,14 @@ static u8 CreateShopMenu(u8 martType)
         sMartInfo.menuActions = sShopMenuActions_BuySellQuit;
         numMenuItems = ARRAY_COUNT(sShopMenuActions_BuySellQuit);
     }
+    else if (martType == MART_TYPE_ADVENTURE)
+    {
+        struct WindowTemplate winTemplate = sShopMenuWindowTemplates[WIN_BUY_SELL_AUTO_QUIT];
+        winTemplate.width = GetMaxWidthInMenuTable(sShopMenuActions_BuySellAutoQuit, ARRAY_COUNT(sShopMenuActions_BuySellAutoQuit));
+        sMartInfo.windowId = AddWindow(&winTemplate);
+        sMartInfo.menuActions = sShopMenuActions_BuySellAutoQuit;
+        numMenuItems = ARRAY_COUNT(sShopMenuActions_BuySellAutoQuit);
+    }
     else if (martType == MART_TYPE_HUB_AREAS || martType == MART_TYPE_HUB_UPGRADES)
     {
         struct WindowTemplate winTemplate;
@@ -553,7 +579,7 @@ const struct YesNoFuncTable sAutoSellYesNoFuncs = {
 static void Task_HandleShopMenuAutoSell(u8 taskId)
 {
     // Create a Yes/No menu to ask the player if they want to AutoSell.
-    CreateYesNoMenuWithCallbacks(taskId, &sShopBuyMenuYesNoWindowTemplates, 0, 0, 0, WINDOW_BASE_BLOCK, WINDOW_PALETTE_NUM, &sAutoSellYesNoFuncs);
+    CreateYesNoMenuWithCallbacks(taskId, &sYesNo_WindowTemplates, 0, 0, 0, WINDOW_BASE_BLOCK, WINDOW_PALETTE_NUM, &sAutoSellYesNoFuncs);
 }
 
 // New function that handles returning to the shop menu after AutoSell.
