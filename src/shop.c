@@ -554,7 +554,7 @@ const struct YesNoFuncTable sAutoSellYesNoFuncs = {
 static void Task_HandleShopMenuAutoSell(u8 taskId)
 {
     // Create a Yes/No menu to ask the player if they want to AutoSell.
-    CreateYesNoMenuWithCallbacks(taskId, &sShopBuyMenuYesNoWindowTemplates, 0, 0, 0, STD_WINDOW_BASE_TILE_NUM, STD_WINDOW_PALETTE_NUM, &sAutoSellYesNoFuncs);
+    CreateYesNoMenuWithCallbacks(taskId, &sShopBuyMenuYesNoWindowTemplates, 0, 0, 0, WINDOW_BASE_BLOCK, WINDOW_PALETTE_NUM, &sAutoSellYesNoFuncs);
 }
 
 // Function that creates the Yes/No menu with callbacks.
@@ -591,12 +591,6 @@ static void Task_CallYesOrNoCallback(u8 taskId)
         break;
     }
 }
-
-// The YesNoFuncTable structure definition, which contains pointers to the "Yes" and "No" functions.
-struct YesNoFuncTable {
-    void (*yesFunc)(u8 taskId);
-    void (*noFunc)(u8 taskId);
-};
 
 // New function that handles returning to the shop menu after AutoSell.
 void ReturnToShopMenu(void)
