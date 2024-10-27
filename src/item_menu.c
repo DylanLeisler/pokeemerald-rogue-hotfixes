@@ -223,7 +223,7 @@ static void ConfirmToss(u8);
 static void CancelToss(u8);
 static void ConfirmSell(u8);
 static void CancelSell(u8);
-void _AutoSellItems(u16, u16);
+
 
 // Key item wheel
 static void Task_KeyItemWheel(u8 taskId);
