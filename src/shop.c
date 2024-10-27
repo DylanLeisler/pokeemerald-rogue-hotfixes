@@ -197,7 +197,6 @@ static void RemoveShopCurrencyAmount(u32 amount);
 
 static void Task_HandleAutoSellInput(u8 taskId);
 static void Task_EndAutoSell(u8 taskId);
-static void _AutoSellItems(u16, u16);
 static void AutoSellItems();
 
 static const struct YesNoFuncTable sShopPurchaseYesNoFuncs =
@@ -616,30 +615,6 @@ static void AutoSellItems() {
 
 
 }
-
-#if I_SELL_VALUE_FRACTION >= GEN_9
-#define ITEM_SELL_FACTOR 4
-#else
-#define ITEM_SELL_FACTOR 2
-#endif
-
-static void _AutoSellItems(u16 itemId, u16 quantity)
-{
-
-    //s16* data = gTasks[taskId].data;
-
-
-    u16 price = ItemId_GetPrice(itemId);
-    u32 profit = (price / ITEM_SELL_FACTOR) * quantity;
-
-    ConvertIntToDecimalStringN(gStringVar1, profit, STR_CONV_MODE_LEFT_ALIGN, 6);
-
-    RemoveBagItem(itemId, quantity);
-    AddMoney(&gSaveBlock1Ptr->money, profit);
-    StringExpandPlaceholders(gStringVar4, gText_AutoSellProfit);
-
-}
-
 
 static void Task_HandleShopMenuUpgrades(u8 taskId)
 {

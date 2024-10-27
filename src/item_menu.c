@@ -223,6 +223,7 @@ static void ConfirmToss(u8);
 static void CancelToss(u8);
 static void ConfirmSell(u8);
 static void CancelSell(u8);
+void _AutoSellItems(u16, u16);
 
 // Key item wheel
 static void Task_KeyItemWheel(u8 taskId);
@@ -2945,6 +2946,28 @@ static void Task_ItemContext_Sell(u8 taskId)
 //    }
 //}
 
+#if I_SELL_VALUE_FRACTION >= GEN_9
+#define ITEM_SELL_FACTOR 4
+#else
+#define ITEM_SELL_FACTOR 2
+#endif
+
+void _AutoSellItems(u16 itemId, u16 quantity)
+{
+
+    //s16* data = gTasks[taskId].data;
+
+
+    u16 price = ItemId_GetPrice(itemId);
+    u32 profit = (price / ITEM_SELL_FACTOR) * quantity;
+
+    ConvertIntToDecimalStringN(gStringVar1, profit, STR_CONV_MODE_LEFT_ALIGN, 6);
+
+    RemoveBagItem(itemId, quantity);
+    AddMoney(&gSaveBlock1Ptr->money, profit);
+    StringExpandPlaceholders(gStringVar4, gText_AutoSellProfit);
+
+}
 
 static void DisplaySellItemPriceAndConfirm(u8 taskId)
 {
