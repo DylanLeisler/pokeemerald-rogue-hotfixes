@@ -112,4 +112,5 @@ void DisplayItemMessageOnField(u8 taskId, const u8 *src, TaskFunc callback);
 void CloseItemMessage(u8 taskId);
 void ItemMenu_RotomCatalog(u8 taskId);
 s32 RegisteredItemIndex(u16 item);
+void _AutoSellItems(u16 itemId, u16 quantity);
 #endif //GUARD_ITEM_MENU_H
