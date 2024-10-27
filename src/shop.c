@@ -134,7 +134,7 @@ static EWRAM_DATA u8 sPurchaseHistoryId = 0;
 EWRAM_DATA struct ItemSlot gMartPurchaseHistory[SMARTSHOPPER_NUM_ITEMS] = {0};
 static EWRAM_DATA ShopCallback sFreeCallback = NULL;
 
-static void Task_ItemContext_AutoSell(u8 taskId);
+//static void Task_ItemContext_AutoSell(u8 taskId);
 static void Task_ShopMenu(u8 taskId);
 static void Task_HandleShopMenuQuit(u8 taskId);
 static void CB2_InitBuyMenu(void);
@@ -195,8 +195,11 @@ static bool8 IsZeroPriceMarkedAsFree();
 static u32 GetShopCurrencyAmount();
 static void RemoveShopCurrencyAmount(u32 amount);
 
+// AutoSell Function declarations
+
+static void Task_HandleShopMenuAutoSell(u8 taskId);
+static void Task_CallYesOrNoCallback(u8 taskId);
 static void Task_HandleAutoSellInput(u8 taskId);
-static void Task_EndAutoSell(u8 taskId);
 static void AutoSellItems();
 
 static const struct YesNoFuncTable sShopPurchaseYesNoFuncs =
@@ -516,68 +519,146 @@ static void Task_HandleShopMenuSell(u8 taskId)
     FadeScreen(FADE_TO_BLACK, 0);
 }
 
+//static void Task_HandleShopMenuAutoSell(u8 taskId)
+//{
+//    s16* data = gTasks[taskId].data;
+//    tCallbackHi = (u32)ReturnToShopMenu >> 16;
+//    tCallbackLo = (u32)ReturnToShopMenu;
+//    gTasks[taskId].func = Task_HandleShopMenuAutoSell;
+//}
+
+// First, we define the functions needed for handling the yes/no callbacks after the menu is shown.
+// The callback functions will handle the "Yes" and "No" responses respectively.
+
+void Task_HandleAutoSellYes(u8 taskId)
+{
+    AutoSellItems();             // Execute the AutoSell function (which handles selling the items).
+    DestroyTask(taskId);         // Clean up the task after the operation is complete.
+    // You can also call any additional function here to update the UI, for example:
+    ReturnToShopMenu();          // Return to the shop menu.
+}
+
+void Task_HandleAutoSellNo(u8 taskId)
+{
+    DestroyTask(taskId);         // Clean up the task after selecting "No".
+    ReturnToShopMenu();          // Return to the shop menu.
+}
+
+// Next, we create a YesNoFuncTable struct to hold our Yes and No function pointers.
+const struct YesNoFuncTable sAutoSellYesNoFuncs = {
+    .yesFunc = Task_HandleAutoSellYes,
+    .noFunc = Task_HandleAutoSellNo
+};
+
+// Now, modify Task_HandleShopMenuAutoSell to create the Yes/No menu and setup callbacks.
 static void Task_HandleShopMenuAutoSell(u8 taskId)
 {
-    s16* data = gTasks[taskId].data;
-    tCallbackHi = (u32)CB2_ExitAutoSellMenu >> 16;
-    tCallbackLo = (u32)CB2_ExitAutoSellMenu;
-    gTasks[taskId].func = Task_ItemContext_AutoSell;
+    // Create a Yes/No menu to ask the player if they want to AutoSell.
+    CreateYesNoMenuWithCallbacks(taskId, &sShopBuyMenuYesNoWindowTemplates, 0, 0, 0, STD_WINDOW_BASE_TILE_NUM, STD_WINDOW_PALETTE_NUM, &sAutoSellYesNoFuncs);
 }
 
-void Task_ItemContext_AutoSell(u8 taskId)
+// Function that creates the Yes/No menu with callbacks.
+void CreateYesNoMenuWithCallbacks(u8 taskId, const struct WindowTemplate* template, u8 unused1, u8 unused2, u8 unused3, u16 tileStart, u8 palette, const struct YesNoFuncTable* yesNo)
 {
-    // Show Yes/No menu with default "Yes" selected
-    DisplayYesNoMenuDefaultYes();
+    // Create the Yes/No menu.
+    CreateYesNoMenu(template, tileStart, palette, 0);
 
-    // Set the task function to handle the Yes/No menu input in the next step
-    gTasks[taskId].func = Task_HandleAutoSellInput;
+    // Store the Yes/No function callbacks.
+    sYesNo = *yesNo;
+
+    // Set the task function to handle user input for the Yes/No menu.
+    gTasks[taskId].func = Task_CallYesOrNoCallback;
 }
 
-static void Task_HandleAutoSellInput(u8 taskId)
+// This function handles user input and calls the correct Yes/No callback.
+static void Task_CallYesOrNoCallback(u8 taskId)
 {
-    s16* data = gTasks[taskId].data;
-
-    // Reconstruct the 32-bit address from the two 16-bit parts
-    u32 callbackAddress = ((u32)gTasks[taskId].data[8] << 16) | (u32)gTasks[taskId].data[9];
-    void (*callbackFunc)(void) = (void (*)(void))callbackAddress;
-
-
-    // Process the input from the Yes/No menu
+    // Process the player's input.
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
-    case 0: // "Yes" selected
-        // Perform the auto-sell operation
-        AutoSellItems();               // Call the function to auto-sell items
-        //DestroyTask(tListTaskId);      // Destroy task if necessary
-        //gTasks[taskId].func = WaitAfterItemSell;
-        //gTasks[taskId].func = Task_EndAutoSell; // Set the task to clean up
-        if (callbackFunc != NULL)
-        {
-            callbackFunc();  // Invoke the callback to proceed
-        }
-        //DestroyTask(taskId);
+    case 0: // Player chose "Yes".
+        PlaySE(SE_SELECT);             // Play selection sound effect.
+        sYesNo.yesFunc(taskId);         // Call the "Yes" function.
         break;
-
-    case 1: // "No" selected
-    case MENU_B_PRESSED: // "B" button pressed (cancel)
-        PlaySE(SE_SELECT);             // Play a sound effect for cancellation
-        //DestroyTask(tListTaskId);      // Destroy the task managing the Yes/No menu
-        //gTasks[taskId].func = WaitAfterItemSell;
-        //gTasks[taskId].func = Task_EndAutoSell; // Set the task to end
-        if (callbackFunc != NULL)
-        {
-            callbackFunc();  // Invoke the callback to proceed
-        }
-        //DestroyTask(taskId);
+    case 1: // Player chose "No".
+    case MENU_B_PRESSED: // Player pressed the B button.
+        PlaySE(SE_SELECT);             // Play selection sound effect.
+        sYesNo.noFunc(taskId);          // Call the "No" function.
         break;
-
     case MENU_NOTHING_CHOSEN:
     default:
-        // Do nothing; keep waiting for user input
+        // Do nothing, keep waiting for user input.
         break;
     }
-    // Call the callback function if it's valid
 }
+
+// The YesNoFuncTable structure definition, which contains pointers to the "Yes" and "No" functions.
+struct YesNoFuncTable {
+    void (*yesFunc)(u8 taskId);
+    void (*noFunc)(u8 taskId);
+};
+
+// New function that handles returning to the shop menu after AutoSell.
+void ReturnToShopMenu(void)
+{
+    // Add logic to return to the shop menu here.
+    // This could involve reloading the shop interface or resetting the player state to be in the shop.
+    SetMainCallback2(CB2_ReturnToField);  // Example of setting the main callback to return to the overworld.
+}
+
+//void Task_ItemContext_AutoSell(u8 taskId)
+//{
+//    DoYesNoFuncWithChoice(Task_HandleAutoSellInput, )
+//
+//    // Set the task function to handle the Yes/No menu input in the next step
+//    gTasks[taskId].func = Task_HandleAutoSellInput;
+//}
+
+//static void Task_HandleAutoSellInput(u8 taskId)
+//{
+//    s16* data = gTasks[taskId].data;
+//
+//    // Reconstruct the 32-bit address from the two 16-bit parts
+//    u32 callbackAddress = ((u32)gTasks[taskId].data[8] << 16) | (u32)gTasks[taskId].data[9];
+//    void (*callbackFunc)(void) = (void (*)(void))callbackAddress;
+//
+//
+//    // Process the input from the Yes/No menu
+//    switch (Menu_ProcessInputNoWrapClearOnChoose())
+//    {
+//    case 0: // "Yes" selected
+//        // Perform the auto-sell operation
+//        AutoSellItems();               // Call the function to auto-sell items
+//        //DestroyTask(tListTaskId);      // Destroy task if necessary
+//        //gTasks[taskId].func = WaitAfterItemSell;
+//        //gTasks[taskId].func = Task_EndAutoSell; // Set the task to clean up
+//        if (callbackFunc != NULL)
+//        {
+//            callbackFunc();  // Invoke the callback to proceed
+//        }
+//        //DestroyTask(taskId);
+//        break;
+//
+//    case 1: // "No" selected
+//    case MENU_B_PRESSED: // "B" button pressed (cancel)
+//        PlaySE(SE_SELECT);             // Play a sound effect for cancellation
+//        //DestroyTask(tListTaskId);      // Destroy the task managing the Yes/No menu
+//        //gTasks[taskId].func = WaitAfterItemSell;
+//        //gTasks[taskId].func = Task_EndAutoSell; // Set the task to end
+//        if (callbackFunc != NULL)
+//        {
+//            callbackFunc();  // Invoke the callback to proceed
+//        }
+//        //DestroyTask(taskId);
+//        break;
+//
+//    case MENU_NOTHING_CHOSEN:
+//    default:
+//        // Do nothing; keep waiting for user input
+//        break;
+//    }
+//    // Call the callback function if it's valid
+//}
 
 static void AutoSellItems() {
 
