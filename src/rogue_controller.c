@@ -2716,6 +2716,10 @@ u16 Rogue_MiniMenuHeight(void)
     if(RogueDebug_GetConfigToggle(DEBUG_TOGGLE_INFO_PANEL))
         return Debug_MiniMenuHeight();
 #endif
+    if(Rogue_IsCatchingContestActive())
+    {
+        height = Rogue_IsRunActive() ? 4 : 1;
+    }
 
     if(GetSafariZoneFlag())
     {
@@ -2737,6 +2741,7 @@ extern const u8 gText_StatusBadges[];
 extern const u8 gText_StatusScore[];
 extern const u8 gText_StatusTimer[];
 extern const u8 gText_StatusClock[];
+extern const u8 gText_Status_SpawnsCountdown[];
 extern const u8 gText_StatusSeasonSpring[];
 extern const u8 gText_StatusSeasonSummer[];
 extern const u8 gText_StatusSeasonAutumn[];
@@ -2789,6 +2794,15 @@ u8* Rogue_GetMiniMenuContent(void)
         ConvertIntToDecimalStringN(gStringVar1, Rogue_GetCurrentDifficulty(), STR_CONV_MODE_RIGHT_ALIGN, 4);
         StringExpandPlaceholders(gStringVar3, gText_StatusBadges);
         strPointer = StringAppend(strPointer, gStringVar3);
+
+        // Catching Contest "Timer"
+        if(Rogue_IsCatchingContestActive())
+        {
+            ConvertIntToDecimalStringN(gStringVar1, gRogueLocal.catchingContest.spawnsRemaining, STR_CONV_MODE_LEFT_ALIGN, 4);
+            StringExpandPlaceholders(gStringVar3, gText_Status_SpawnsCountdown);
+            strPointer = StringAppend(strPointer, gStringVar3);
+        }
+
     }
 
     // Score

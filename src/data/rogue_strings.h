@@ -29,6 +29,7 @@ const u8 gText_StatusBadges[] = _("Badges: {STR_VAR_1}\n");
 const u8 gText_StatusScore[] = _("Score: {STR_VAR_1}\n");
 const u8 gText_StatusTimer[] = _("Timer: {STR_VAR_1}:{STR_VAR_2}\n");
 const u8 gText_StatusClock[] = _("{STR_VAR_1}:{STR_VAR_2}\n");
+const u8 gText_Status_SpawnsCountdown[] = _("{PKMN}s left: {STR_VAR_1}\n");
 const u8 gText_StatusSeasonSpring[] = _("·Spring·");
 const u8 gText_StatusSeasonSummer[] = _("·Summer·");
 const u8 gText_StatusSeasonAutumn[] = _("·Autumn·");
