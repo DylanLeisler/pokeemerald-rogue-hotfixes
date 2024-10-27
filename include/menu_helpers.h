@@ -15,6 +15,8 @@ struct YesNoFuncTable
     TaskFunc noFunc;
 };
 
+extern struct YesNoFuncTable sYesNo; // Declare sYesNo to make it visible across files
+
 void ResetVramOamAndBgCntRegs(void);
 void ResetAllBgsCoordinates(void);
 void SetVBlankHBlankCallbacksToNull(void);
