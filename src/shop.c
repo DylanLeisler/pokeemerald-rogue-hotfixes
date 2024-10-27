@@ -2,6 +2,7 @@
 #include "bg.h"
 #include "data.h"
 #include "decompress.h"
+#include "menu_helpers.h"
 #include "decoration.h"
 #include "decoration_inventory.h"
 #include "event_data.h"
@@ -20,7 +21,7 @@
 #include "main.h"
 #include "malloc.h"
 #include "menu.h"
-#include "menu_helpers.h"
+
 #include "money.h"
 #include "overworld.h"
 #include "palette.h"
