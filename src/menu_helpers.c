@@ -22,7 +22,7 @@
 static void Task_ContinueTaskAfterMessagePrints(u8 taskId);
 static void Task_CallYesOrNoCallback(u8 taskId);
 
-EWRAM_DATA static struct YesNoFuncTable sYesNo = {0};
+EWRAM_DATA struct YesNoFuncTable sYesNo = {0};
 EWRAM_DATA static u8 sMessageWindowId = 0;
 
 static TaskFunc sMessageNextTask;
