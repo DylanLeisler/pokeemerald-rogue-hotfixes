@@ -198,7 +198,6 @@ static void RemoveShopCurrencyAmount(u32 amount);
 // AutoSell Function declarations
 
 static void Task_HandleShopMenuAutoSell(u8 taskId);
-static void Task_CallYesOrNoCallback(u8 taskId);
 static void Task_HandleAutoSellInput(u8 taskId);
 static void AutoSellItems();
 
@@ -555,41 +554,6 @@ static void Task_HandleShopMenuAutoSell(u8 taskId)
 {
     // Create a Yes/No menu to ask the player if they want to AutoSell.
     CreateYesNoMenuWithCallbacks(taskId, &sShopBuyMenuYesNoWindowTemplates, 0, 0, 0, WINDOW_BASE_BLOCK, WINDOW_PALETTE_NUM, &sAutoSellYesNoFuncs);
-}
-
-// Function that creates the Yes/No menu with callbacks.
-void CreateYesNoMenuWithCallbacks(u8 taskId, const struct WindowTemplate* template, u8 unused1, u8 unused2, u8 unused3, u16 tileStart, u8 palette, const struct YesNoFuncTable* yesNo)
-{
-    // Create the Yes/No menu.
-    CreateYesNoMenu(template, tileStart, palette, 0);
-
-    // Store the Yes/No function callbacks.
-    sYesNo = *yesNo;
-
-    // Set the task function to handle user input for the Yes/No menu.
-    gTasks[taskId].func = Task_CallYesOrNoCallback;
-}
-
-// This function handles user input and calls the correct Yes/No callback.
-static void Task_CallYesOrNoCallback(u8 taskId)
-{
-    // Process the player's input.
-    switch (Menu_ProcessInputNoWrapClearOnChoose())
-    {
-    case 0: // Player chose "Yes".
-        PlaySE(SE_SELECT);             // Play selection sound effect.
-        sYesNo.yesFunc(taskId);         // Call the "Yes" function.
-        break;
-    case 1: // Player chose "No".
-    case MENU_B_PRESSED: // Player pressed the B button.
-        PlaySE(SE_SELECT);             // Play selection sound effect.
-        sYesNo.noFunc(taskId);          // Call the "No" function.
-        break;
-    case MENU_NOTHING_CHOSEN:
-    default:
-        // Do nothing, keep waiting for user input.
-        break;
-    }
 }
 
 // New function that handles returning to the shop menu after AutoSell.
