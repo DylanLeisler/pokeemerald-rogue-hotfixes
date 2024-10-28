@@ -563,7 +563,11 @@ struct SaveBlock2
              u32 seasonVisuals:1;
              u32 weatherVisuals:1;
              u32 regionMapZoom:1; // whether the map is zoomed in
-             u32 settingsReserved:25; // unused/reserved bits
+             u32 settingsReserved:22; // unused/reserved bits
+             u32 optionsDifficultyRewardMode:1; // OPTIONS_DIFFICULTY_REWARD_MODE_[VANILLA/MULTIPLIER]
+             u32 optionsRidemonControlMode:1; // OPTIONS_RIDEMON_CONTROL[VANILLA/MOCHA]
+             u32 optionsShowMoney:1; //OPTIONS_SHOWMONEY[OFF/ON]
+             u32 unusedStuff:30;
     /*0x18*/ struct Pokedex pokedex;
              s8 playerStyles[8];
              u32 playerOutfitUnlockFlags;

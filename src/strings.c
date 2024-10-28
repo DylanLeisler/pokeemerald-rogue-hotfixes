@@ -1742,6 +1742,16 @@ const u8 gText_ButtonTypeNormal[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}Normal")
 const u8 gText_ButtonTypeLR[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}LR");
 const u8 gText_ButtonTypeLEqualsA[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}L=A");
 const u8 gText_NumPlayerLink[] = _("{STR_VAR_1}P LINK");
+const u8 gText_MochaQoL[] = _("Mocha QoL Additions");
+const u8 gText_DifficultyReward[] = _("Difficulty Reward");
+const u8 gText_DifficultyRewardVanilla[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}Vanilla");
+const u8 gText_DifficultyRewardMultiplier[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}Multiplier");
+const u8 gText_RidemonControl[] = _("Ridemon Control");
+const u8 gText_RidemonControlVanilla[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}Vanilla");
+const u8 gText_RidemonControlMocha[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}Mocha");
+const u8 gText_ShowMoney[] = _("Show Money");
+const u8 gText_ShowMoney_OFF[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}OFF");
+const u8 gText_ShowMoney_ON[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ON");
 const u8 gText_BronzeCard[] = _("Bronze");
 const u8 gText_CopperCard[] = _("Copper");
 const u8 gText_SilverCard[] = _("Silver");
