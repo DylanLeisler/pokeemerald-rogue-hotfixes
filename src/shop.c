@@ -416,7 +416,7 @@ static u8 CreateShopMenu(u8 martType)
     LockPlayerFieldControls();
     sMartInfo.martType = martType;
 
-    if (martType == MART_TYPE_NORMAL && Rogue_IsRunActive() == false)
+    if (martType == MART_TYPE_NORMAL && !Rogue_IsRunActive())
     {
         struct WindowTemplate winTemplate = sShopMenuWindowTemplates[WIN_BUY_SELL_QUIT];
         winTemplate.width = GetMaxWidthInMenuTable(sShopMenuActions_BuySellQuit, ARRAY_COUNT(sShopMenuActions_BuySellQuit));
@@ -424,7 +424,7 @@ static u8 CreateShopMenu(u8 martType)
         sMartInfo.menuActions = sShopMenuActions_BuySellQuit;
         numMenuItems = ARRAY_COUNT(sShopMenuActions_BuySellQuit);
     }
-    else if (martType == MART_TYPE_NORMAL && Rogue_IsRunActive() == true)
+    else if (martType == MART_TYPE_NORMAL && Rogue_IsRunActive())
     {
         struct WindowTemplate winTemplate = sShopMenuWindowTemplates[WIN_BUY_SELL_AUTO_QUIT];
         winTemplate.width = GetMaxWidthInMenuTable(sShopMenuActions_BuySellAutoQuit, ARRAY_COUNT(sShopMenuActions_BuySellAutoQuit));
