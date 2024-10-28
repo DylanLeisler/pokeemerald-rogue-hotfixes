@@ -416,7 +416,7 @@ static u8 CreateShopMenu(u8 martType)
     LockPlayerFieldControls();
     sMartInfo.martType = martType;
 
-    if (martType == MART_TYPE_NORMAL)
+    if (martType == MART_TYPE_NORMAL && Rogue_IsRunActive() == false)
     {
         struct WindowTemplate winTemplate = sShopMenuWindowTemplates[WIN_BUY_SELL_QUIT];
         winTemplate.width = GetMaxWidthInMenuTable(sShopMenuActions_BuySellQuit, ARRAY_COUNT(sShopMenuActions_BuySellQuit));
@@ -424,7 +424,7 @@ static u8 CreateShopMenu(u8 martType)
         sMartInfo.menuActions = sShopMenuActions_BuySellQuit;
         numMenuItems = ARRAY_COUNT(sShopMenuActions_BuySellQuit);
     }
-    else if (martType == MART_TYPE_ADVENTURE)
+    else if (martType == MART_TYPE_NORMAL && Rogue_IsRunActive() == true)
     {
         struct WindowTemplate winTemplate = sShopMenuWindowTemplates[WIN_BUY_SELL_AUTO_QUIT];
         winTemplate.width = GetMaxWidthInMenuTable(sShopMenuActions_BuySellAutoQuit, ARRAY_COUNT(sShopMenuActions_BuySellAutoQuit));
@@ -1967,7 +1967,7 @@ void CreatePokemartMenu(const u16 *itemsForSale)
 {
     CheckPokemartState();
     ResetMartInfo();
-    (Rogue_IsRunActive()) ? CreateShopMenu(MART_TYPE_ADVENTURE) : CreateShopMenu(MART_TYPE_ADVENTURE);//CreateShopMenu(MART_TYPE_NORMAL);
+    (Rogue_IsRunActive()) ? CreateShopMenu(MART_TYPE_ADVENTURE) : CreateShopMenu(MART_TYPE_NORMAL);
     SetShopItemsFromStaticList(itemsForSale, ITEM_NONE);
     ClearItemPurchases();
     SetShopMenuCallback(ScriptContext_Enable);
@@ -2124,7 +2124,7 @@ void CreateDynamicPokemartMenu(const u16 category)
     }
     else
     {
-        u16 martType = MART_TYPE_NORMAL;
+        u16 martType = MART_TYPE_NORMAL;//
 
         if(category == ROGUE_SHOP_CHARMS || category == ROGUE_SHOP_CURSES)
             martType = MART_TYPE_PURCHASE_ONLY;
