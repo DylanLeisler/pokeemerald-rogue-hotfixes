@@ -1967,7 +1967,7 @@ void CreatePokemartMenu(const u16 *itemsForSale)
 {
     CheckPokemartState();
     ResetMartInfo();
-    (Rogue_IsRunActive()) ? CreateShopMenu(MART_TYPE_ADVENTURE) : CreateShopMenu(MART_TYPE_ADVENTURE)//CreateShopMenu(MART_TYPE_NORMAL);
+    (Rogue_IsRunActive()) ? CreateShopMenu(MART_TYPE_ADVENTURE) : CreateShopMenu(MART_TYPE_ADVENTURE);//CreateShopMenu(MART_TYPE_NORMAL);
     SetShopItemsFromStaticList(itemsForSale, ITEM_NONE);
     ClearItemPurchases();
     SetShopMenuCallback(ScriptContext_Enable);
