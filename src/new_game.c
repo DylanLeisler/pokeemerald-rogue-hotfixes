@@ -33,10 +33,6 @@
 #include "frontier_util.h"
 #include "pokedex.h"
 #include "save.h"
-<<<<<<< HEAD
-=======
-//#include "string.h"
->>>>>>> d3c712be03de3dcfcd77e0dee35a73d0a663b844
 #include "strings.h"
 #include "string_util.h"
 #include "link_rfu.h"

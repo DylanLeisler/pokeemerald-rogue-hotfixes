@@ -4,10 +4,6 @@
 #include "main.h"
 #include "malloc.h"
 #include "sound.h"
-<<<<<<< HEAD
-=======
-//#include "string.h"
->>>>>>> d3c712be03de3dcfcd77e0dee35a73d0a663b844
 #include "string_util.h"
 
 #include "rogue_baked.h"
