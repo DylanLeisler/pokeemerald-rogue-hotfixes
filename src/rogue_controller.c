@@ -2717,6 +2717,16 @@ u16 Rogue_MiniMenuHeight(void)
         return Debug_MiniMenuHeight();
 #endif
 
+    if(Rogue_IsRunActive() && gSaveBlock2Ptr->optionsShowMoney == OPTIONS_SHOWMONEY_ON)
+    {
+        ++height;
+    }
+
+    if(Rogue_IsCatchingContestActive())
+    {
+        ++height;
+    }
+
     if(GetSafariZoneFlag())
     {
         height = 3;
@@ -2737,6 +2747,8 @@ extern const u8 gText_StatusBadges[];
 extern const u8 gText_StatusScore[];
 extern const u8 gText_StatusTimer[];
 extern const u8 gText_StatusClock[];
+extern const u8 gText_Status_SpawnsCountdown[];
+extern const u8 gText_Status_Money[];
 extern const u8 gText_StatusSeasonSpring[];
 extern const u8 gText_StatusSeasonSummer[];
 extern const u8 gText_StatusSeasonAutumn[];
@@ -2789,6 +2801,24 @@ u8* Rogue_GetMiniMenuContent(void)
         ConvertIntToDecimalStringN(gStringVar1, Rogue_GetCurrentDifficulty(), STR_CONV_MODE_RIGHT_ALIGN, 4);
         StringExpandPlaceholders(gStringVar3, gText_StatusBadges);
         strPointer = StringAppend(strPointer, gStringVar3);
+
+        // Catching Contest "Timer"
+        if(Rogue_IsCatchingContestActive())
+        {
+            ConvertIntToDecimalStringN(gStringVar1, gRogueLocal.catchingContest.spawnsRemaining, STR_CONV_MODE_LEFT_ALIGN, 4);
+            StringExpandPlaceholders(gStringVar3, gText_Status_SpawnsCountdown);
+            strPointer = StringAppend(strPointer, gStringVar3);
+        }
+
+        // Money
+        if(gSaveBlock2Ptr->optionsShowMoney == OPTIONS_SHOWMONEY_ON)
+        {
+            u32 playerMoney = GetMoney(&gSaveBlock1Ptr->money);
+            ConvertIntToDecimalStringN(gStringVar1, playerMoney, STR_CONV_MODE_LEFT_ALIGN, 6);
+            StringExpandPlaceholders(gStringVar2, gText_Status_Money);
+            strPointer = StringAppend(strPointer, gStringVar2);
+        }
+
     }
 
     // Score

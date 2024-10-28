@@ -1957,7 +1957,7 @@ static u8 const sText_IndicatorEasy[] = _("{COLOR LIGHT_BLUE}{SHADOW BLUE}");
 static u8 const sText_IndicatorAverage[] = _("{COLOR LIGHT_BLUE}{SHADOW LIGHT_GREEN}");
 static u8 const sText_IndicatorHard[] = _("{COLOR LIGHT_RED}{SHADOW LIGHT_GREEN}");
 static u8 const sText_IndicatorBrutal[] = _("{COLOR LIGHT_RED}{SHADOW RED}");
-static u8 const sText_Multiplier[] = _("{STR_VAR_1}x");
+static u8 const sText_Multiplier[] = _("{STR_VAR_1}{STR_VAR_2}x");
 
 static void DrawDescriptionOptionMenuText(u8 submenu, u8 selection)
 {
@@ -2001,34 +2001,31 @@ static void DrawDescriptionOptionMenuText(u8 submenu, u8 selection)
         {
             //Get multiplier
             float multiplier = Rogue_CalculateRewardMultiplier();
-            ConvertFloatToDecimalStringN(gStringVar1, multiplier, 1);
+            ConvertFloatToDecimalStringN(gStringVar2, multiplier, 1);
 
             //I could've just used the switch method, but for some reason it won't update correctly when I change the toggles
+            const u8* rewardIndicator = sText_IndicatorEasy;
             if(multiplier <= 1.5)
             {
-                str = StringAppend(str, sText_IndicatorEasy);
-                str = StringAppend(str, gStringVar1);
-                //No idea why it doesn't work on its own but fuck it
-                str = StringAppend(str, sText_Multiplier);
+                rewardIndicator = sText_IndicatorEasy;
             }
             else if(multiplier >= 1.5 && multiplier < 2.5)
             {
-                str = StringAppend(str, sText_IndicatorAverage);
-                str = StringAppend(str, gStringVar1);
-                str = StringAppend(str, sText_Multiplier);
+                rewardIndicator = sText_IndicatorAverage;
             }
             else if(multiplier >=  2.5 && multiplier < 3.5)
             {
-                str = StringAppend(str, sText_IndicatorHard);
-                str = StringAppend(str, gStringVar1);
-                str = StringAppend(str, sText_Multiplier);
+                rewardIndicator = sText_IndicatorHard;
             }
             else if(multiplier >=  3.5)
             {
-                str = StringAppend(str, sText_IndicatorBrutal);
-                str = StringAppend(str, gStringVar1);
-                str = StringAppend(str, sText_Multiplier);
+                rewardIndicator = sText_IndicatorBrutal;
             }
+
+            StringExpandPlaceholders(gStringVar1, rewardIndicator);
+            StringExpandPlaceholders(gStringVar3, sText_Multiplier);
+            str = StringAppend(str, gStringVar3);
+
         }
         else
         {

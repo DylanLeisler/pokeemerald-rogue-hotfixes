@@ -56,6 +56,7 @@ enum
     MENUITEM_FRAMETYPE,
     MENUITEM_DIFFICULTY_REWARD,
     MENUITEM_RIDEMON_CONTROL,
+    MENUITEM_SHOW_MONEY,
     MENUITEM_CANCEL,
 };
 
@@ -123,6 +124,8 @@ static u8 DifficultyReward_ProcessInput(u8 menuOffset, u8 selection);
 static void DifficultyReward_DrawChoices(u8 menuOffset, u8 selection);
 static u8 RidemonControl_ProcessInput(u8 menuOffset, u8 selection);
 static void RidemonControl_DrawChoices(u8 menuOffset, u8 selection);
+static u8 ShowMoney_ProcessInput(u8 menuOffset, u8 selection);
+static void ShowMoney_DrawChoices(u8 menuOffset, u8 selection);
 static u8 Empty_ProcessInput(u8 menuOffset, u8 selection);
 static void Empty_DrawChoices(u8 menuOffset, u8 selection);
 
@@ -305,6 +308,12 @@ static const struct MenuEntry sOptionMenuItems[] =
         .processInput = RidemonControl_ProcessInput,
         .drawChoices = RidemonControl_DrawChoices
     },
+    [MENUITEM_SHOW_MONEY] =
+    {
+        .itemName = gText_ShowMoney,
+        .processInput = ShowMoney_ProcessInput,
+        .drawChoices = ShowMoney_DrawChoices,
+    },
     [MENUITEM_CANCEL] = 
     {
         .itemName = gText_OptionMenuCancel,
@@ -384,6 +393,7 @@ static const struct MenuEntries sOptionMenuEntries[SUBMENUITEM_COUNT] =
         {
             MENUITEM_DIFFICULTY_REWARD,
             MENUITEM_RIDEMON_CONTROL,
+            MENUITEM_SHOW_MONEY,
             MENUITEM_CANCEL
         }
 
@@ -1148,6 +1158,27 @@ static void RidemonControl_DrawChoices(u8 menuOffset, u8 selection)
     DrawChoiceSelection(menuOffset, selection, options, ARRAY_COUNT(options));
 }
 
+static u8 ShowMoney_ProcessInput(u8 menuOffset, u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+
+    return selection;
+}
+
+static void ShowMoney_DrawChoices(u8 menuOffset, u8 selection)
+{
+    u8 const* options[] = 
+    {
+        [OPTIONS_SHOWMONEY_OFF] = gText_ShowMoney_OFF,
+        [OPTIONS_SHOWMONEY_ON] = gText_ShowMoney_ON,
+    };
+    DrawChoiceSelection(menuOffset, selection, options, ARRAY_COUNT(options));
+}
+
 static u8 ButtonMode_ProcessInput(u8 menuOffset, u8 selection)
 {
     if (JOY_NEW(DPAD_RIGHT))
@@ -1290,6 +1321,9 @@ static u8 GetMenuItemValue(u8 menuItem)
     
     case MENUITEM_RIDEMON_CONTROL:
         return gSaveBlock2Ptr->optionsRidemonControlMode;
+
+    case MENUITEM_SHOW_MONEY:
+        return gSaveBlock2Ptr->optionsShowMoney;
     }
 
     return 0;
@@ -1387,6 +1421,9 @@ static void SetMenuItemValue(u8 menuItem, u8 value)
 
     case MENUITEM_RIDEMON_CONTROL:
         gSaveBlock2Ptr->optionsRidemonControlMode = value;
+
+    case MENUITEM_SHOW_MONEY:
+        gSaveBlock2Ptr->optionsShowMoney = value;
     }
 }
 

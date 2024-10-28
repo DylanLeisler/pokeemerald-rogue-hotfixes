@@ -374,6 +374,9 @@ extern const u8 gText_DifficultyRewardMultiplier[];
 extern const u8 gText_RidemonControl[];
 extern const u8 gText_RidemonControlVanilla[];
 extern const u8 gText_RidemonControlMocha[];
+extern const u8 gText_ShowMoney[];
+extern const u8 gText_ShowMoney_OFF[];
+extern const u8 gText_ShowMoney_ON[];
 
 extern const u8 gText_MaleSymbol[];
 extern const u8 gText_FemaleSymbol[];

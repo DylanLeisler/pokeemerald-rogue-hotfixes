@@ -191,6 +191,9 @@
 #define OPTIONS_RIDEMON_CONTROL_VANILLA 0
 #define OPTIONS_RIDEMON_CONTROL_MOCHA 1
 
+#define OPTIONS_SHOWMONEY_OFF 0
+#define OPTIONS_SHOWMONEY_ON 1
+
 // Mocha additions end
 
 #define DIR_NONE        0
