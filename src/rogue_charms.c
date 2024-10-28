@@ -290,7 +290,7 @@ u16 GetCharmValue(u8 effectType)
 
 u16 GetCurseValue(u8 effectType)
 {
-    if(!Rogue_IsRunActive())
+    if(!Rogue_IsRunActive() && gSaveBlock2Ptr->optionsDifficultyRewardMode == OPTIONS_DIFFICULTY_REWARD_MODE_VANILLA)
         return 0;
 
     return CalcValueInternal(effectType, gCharmItemCounts[effectType].curseItems, TRUE);
