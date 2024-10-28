@@ -11,6 +11,19 @@ script Rogue_InteractWithPartnerFollowMon
     //special(BufferMonNickname)
     //msgbox(format("{STR_VAR_1} is TODO!"))
 
+    //Check if ride is possible
+    special(Mocha_FollowMonRideCheck)
+    if(var(VAR_RESULT) == TRUE)
+    {
+        setvar(VAR_0x8004, 0)
+        special(BufferMonNickname)
+        msgbox(format("Would you like to ride {STR_VAR_1}?"),MSGBOX_YESNO)
+        
+        if(var(VAR_RESULT) == YES)
+        {
+            special(Mocha_FollowMonRide)
+        }
+    }
     release
 }
 

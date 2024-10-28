@@ -33,6 +33,10 @@
 #include "frontier_util.h"
 #include "pokedex.h"
 #include "save.h"
+<<<<<<< HEAD
+=======
+//#include "string.h"
+>>>>>>> d3c712be03de3dcfcd77e0dee35a73d0a663b844
 #include "strings.h"
 #include "string_util.h"
 #include "link_rfu.h"
@@ -104,6 +108,8 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->optionsAutoRunToggle = FALSE;
     gSaveBlock2Ptr->optionsNicknameMode = OPTIONS_NICKNAME_MODE_ASK;
     gSaveBlock2Ptr->optionsLowHealthBeep = OPTIONS_HEALTH_BEEP_3_BEEPS;
+    gSaveBlock2Ptr->optionsDifficultyRewardMode = OPTIONS_DIFFICULTY_REWARD_MODE_VANILLA;
+    gSaveBlock2Ptr->optionsRidemonControlMode = OPTIONS_RIDEMON_CONTROL_VANILLA;
     gSaveBlock2Ptr->timeOfDayVisuals = TRUE;
     gSaveBlock2Ptr->seasonVisuals = TRUE;
     gSaveBlock2Ptr->weatherVisuals = TRUE;

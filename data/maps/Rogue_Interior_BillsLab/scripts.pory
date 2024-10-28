@@ -74,7 +74,7 @@ script Rogue_Interior_BillsLab_TalkPC
             special(Rogue_BufferDynamicUniqueMonCountDown)
             if(var(VAR_RESULT) == TRUE)
             {
-                messageinstant(format("Tracking data expires in {STR_VAR_3}…"))
+                messageinstant(format("Tracking data expires in\n{STR_VAR_3}…"))
             }
             else
             {

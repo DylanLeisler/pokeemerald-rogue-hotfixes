@@ -171,6 +171,7 @@ const struct RogueDifficultyPreset gRogueDifficultyPresets[DIFFICULTY_PRESET_COU
     }
 };
 
+
 static struct RogueDifficultyConfig* GetWritableDifficultyConfig()
 {
     return &gRogueSaveBlock->difficultyConfig;
@@ -475,6 +476,72 @@ static void Rogue_SetDifficultyPresetInternal(u8 preset)
     gRogueDifficultyLocal.areLevelsValid = TRUE;
 }
 
+
+float Rogue_CalculateRewardMultiplier()
+{
+    float multiplier = 1.0; // Base multiplier
+
+    // Trainer multiplier
+    u8 trainerDifficulty = Rogue_GetConfigRange(CONFIG_RANGE_TRAINER);
+
+    switch(trainerDifficulty)
+    {
+        case DIFFICULTY_LEVEL_EASY:
+            multiplier += 0.0;
+            break;
+        case DIFFICULTY_LEVEL_AVERAGE:
+            multiplier += 0.2;
+            break;
+        case DIFFICULTY_LEVEL_HARD:
+            multiplier += 0.4;
+            break;
+        case DIFFICULTY_LEVEL_BRUTAL:
+            multiplier += 0.8;
+            break;
+    }
+
+    // Toggles checker. It's messy rn but it works
+    if(Rogue_GetConfigToggle(CONFIG_TOGGLE_RELEASE_MONS) == TRUE)
+    {
+      multiplier += 0.3;   // Permadeath multiplier     
+    }
+
+    if(Rogue_GetConfigToggle(CONFIG_TOGGLE_AFFECTION) == FALSE)
+    {
+       multiplier += 0.1;   // No affection multiplier
+    }
+
+    if(Rogue_GetConfigToggle(CONFIG_TOGGLE_SWITCH_MODE) == FALSE)
+    {
+        multiplier += 0.2;   // Set mode multiplier
+    }
+
+    if(Rogue_GetConfigToggle(CONFIG_TOGGLE_OVER_LVL) == FALSE)
+    {
+        multiplier += 0.3;  // No overleveling multiplier
+    }
+
+    if(Rogue_GetConfigToggle(CONFIG_TOGGLE_EV_GAIN) == FALSE)
+    {
+        multiplier += 0.2;  // No EVs multiplier
+    }
+
+    if(Rogue_GetConfigToggle(CONFIG_TOGGLE_DIVERSE_TRAINERS) == TRUE)
+    {
+        multiplier += 0.4;   // Diverse mons multiplier
+    }
+
+    if(Rogue_GetConfigToggle(CONFIG_TOGGLE_BAG_WIPE) == TRUE)
+    {
+        multiplier += 0.5;   // Fresh start multiplier
+    }
+
+    // Curses
+
+    return multiplier;
+}
+
+
 static u8 Rogue_CalcRewardDifficultyPreset()
 {
     u8 i, j, isValid;
@@ -524,7 +591,32 @@ static u8 Rogue_CalcRewardDifficultyPreset()
         if(!isValid)
             break;
 
-        rewardLevel = i;
+        //if multiplier mode is on
+        if(gSaveBlock2Ptr->optionsDifficultyRewardMode == OPTIONS_DIFFICULTY_REWARD_MODE_MULTIPLIER)
+        {
+            u8 multiplier = Rogue_CalculateRewardMultiplier();
+
+            if(multiplier <= 1.5)
+            {
+                rewardLevel = DIFFICULTY_LEVEL_EASY;
+            }
+            else if(multiplier >= 1.5 && multiplier < 2.5)
+            {
+                rewardLevel = DIFFICULTY_LEVEL_AVERAGE;
+            }
+            else if(multiplier >= 2.5 && multiplier < 3.5)
+            {
+                rewardLevel = DIFFICULTY_LEVEL_HARD;
+            }
+            else if(multiplier >= 3.5)
+            {
+                rewardLevel = DIFFICULTY_LEVEL_BRUTAL;
+            }
+        }
+        else
+        {
+            rewardLevel = i;
+        }
     }
 
     return rewardLevel;

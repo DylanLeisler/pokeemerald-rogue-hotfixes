@@ -301,6 +301,26 @@ u8 *ConvertUIntToDecimalStringN(u8 *dest, u32 value, enum StringConvertMode mode
     return dest;
 }
 
+u8 *ConvertFloatToDecimalStringN(u8 *dest, float value, u8 decimalPlaces)
+{
+    s32 integerPart = (s32)value;   // Extract the integer part
+    float fractionalPart = value - (float)integerPart;  // Extract the fractional part
+    s32 multiplier = sPowersOfTen[decimalPlaces];  // Determine the power of 10 based on decimalPlaces
+    s32 decimalPart = (s32)(fractionalPart * multiplier);  // Scale fractional part to integer
+
+    // Convert integer part
+    dest = ConvertIntToDecimalStringN(dest, integerPart, STR_CONV_MODE_LEFT_ALIGN, 4);
+
+    // Add the decimal point
+    *dest++ = CHAR_PERIOD;
+
+    // Convert fractional part
+    dest = ConvertIntToDecimalStringN(dest, decimalPart, STR_CONV_MODE_LEADING_ZEROS, decimalPlaces);
+
+    *dest = EOS;  // End the string with null terminator
+    return dest;
+}
+
 u8 *ConvertIntToHexStringN(u8 *dest, s32 value, enum StringConvertMode mode, u8 n)
 {
     enum { WAITING_FOR_NONZERO_DIGIT, WRITING_DIGITS, WRITING_SPACES } state;

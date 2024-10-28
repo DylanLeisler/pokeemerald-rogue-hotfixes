@@ -184,6 +184,15 @@
 #define OPTIONS_NICKNAME_RANDOM             3
 #define OPTIONS_NICKNAME_COUNT              4
 
+// Mocha additions
+#define OPTIONS_DIFFICULTY_REWARD_MODE_VANILLA      0
+#define OPTIONS_DIFFICULTY_REWARD_MODE_MULTIPLIER   1
+
+#define OPTIONS_RIDEMON_CONTROL_VANILLA 0
+#define OPTIONS_RIDEMON_CONTROL_MOCHA 1
+
+// Mocha additions end
+
 #define DIR_NONE        0
 #define DIR_SOUTH       1
 #define DIR_NORTH       2

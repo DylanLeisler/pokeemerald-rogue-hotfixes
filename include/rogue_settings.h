@@ -43,6 +43,7 @@ void Rogue_ResetSettingsToDefaults();
 void Rogue_SetDifficultyPreset(u8 preset);
 u8 Rogue_GetDifficultyPreset();
 u8 Rogue_GetDifficultyRewardLevel();
+float Rogue_CalculateRewardMultiplier();
 
 u8 Rogue_GetStartingMonCapacity();
 

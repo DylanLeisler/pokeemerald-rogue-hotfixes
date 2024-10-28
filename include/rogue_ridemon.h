@@ -46,4 +46,6 @@ bool8 Rogue_RideMonIsCollisionExempt(struct ObjectEvent* obstacle, struct Object
 void MovePlayerOnRideMon(u8 direction, u16 newKeys, u16 heldKeys);
 s16 RideMonGetPlayerSpeed();
 
+void Mocha_SetInitialRideSpecies(s8 slotIdx);
+
 #endif

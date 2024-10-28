@@ -662,7 +662,7 @@ static void AutoSellItems() {
     for (u16 itemId = FIRST_BERRY_INDEX; itemId < LAST_BERRY_INDEX; itemId++)
     {
         u16 count = CountTotalItemQuantityInBag(itemId);
-        if (itemId >= EV_BERRIES_START && itemId <= EV_BERRIES_START + NUM_OF_EV_BERRIES)
+        if (itemId >= EV_BERRIES_START && itemId <= EV_BERRIES_START + NUM_OF_EV_BERRIES) //add check for lum and sitrus
         {
             if (count > 40) _AutoSellItems(itemId, count - 40);
         }

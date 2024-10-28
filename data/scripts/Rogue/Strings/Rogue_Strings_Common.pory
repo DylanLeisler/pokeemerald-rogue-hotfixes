@@ -47,7 +47,7 @@ text gText_PokeblockHasNoEffect
 
 text gText_PokeblockWouldHaveNoEffect
 {
-    format("{POKEBLOCK} would have no effect, if scatted here.{PAUSE_UNTIL_PRESS}")
+    format("{POKEBLOCK} would have no effect, if scattered here.{PAUSE_UNTIL_PRESS}")
 }
 
 text gText_PokeblockWouldHaveNoEffectHoneyTree

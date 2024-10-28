@@ -734,3 +734,6 @@ gSpecials::
 	def_special TrySkyBattle
 	def_special VsSeekerResetObjectMovementAfterChargeComplete
 	def_special VsSeekerFreezeObjectsAfterChargeComplete
+	def_special Mocha_FollowMonRideCheck
+	def_special Mocha_FollowMonRide
+

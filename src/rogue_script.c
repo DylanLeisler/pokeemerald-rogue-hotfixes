@@ -1170,6 +1170,26 @@ void Rogue_RegisterRideMon()
     VarSet(VAR_ROGUE_REGISTERED_RIDE_MON, gfxId);
 }
 
+void Mocha_FollowMonRideCheck()
+{
+    if(CheckBagHasItem(ITEM_BASIC_RIDING_WHISTLE, 1) == TRUE && Overworld_IsBikingAllowed() == TRUE)
+    {   
+        u16 species = GetMonData(&gPlayerParty[0], MON_DATA_SPECIES_OR_EGG);
+        gSpecialVar_Result = Rogue_IsValidRideSpecies(species);
+    }
+    else
+    {
+       gSpecialVar_Result = FALSE; 
+    }
+}
+
+void Mocha_FollowMonRide()
+{
+    u8 whistleType = RIDE_WHISTLE_BASIC;
+    Mocha_SetInitialRideSpecies(0);
+    Rogue_GetOnOffRideMon(whistleType, FALSE);
+}
+
 void Rogue_RunRewardLvls()
 {
     gSpecialVar_Result = Rogue_PostRunRewardLvls();

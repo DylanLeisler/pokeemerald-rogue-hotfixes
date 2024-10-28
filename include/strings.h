@@ -367,6 +367,13 @@ extern const u8 gText_SoundLowHealth[];
 extern const u8 gText_Frame[];
 extern const u8 gText_OptionMenuCancel[];
 extern const u8 gText_ButtonMode[];
+extern const u8 gText_MochaQoL[];
+extern const u8 gText_DifficultyReward[];
+extern const u8 gText_DifficultyRewardVanilla[];
+extern const u8 gText_DifficultyRewardMultiplier[];
+extern const u8 gText_RidemonControl[];
+extern const u8 gText_RidemonControlVanilla[];
+extern const u8 gText_RidemonControlMocha[];
 
 extern const u8 gText_MaleSymbol[];
 extern const u8 gText_FemaleSymbol[];

@@ -321,7 +321,8 @@ script Rogue_Area_RideTraining_GiveBasicWhistle
             playfanfare(MUS_EVOLVED)
             waitfanfare
 
-            msgbox(format("All you need to do is use that whistle, whilst you have a ridable Pokémon in your party.\pIf have multiple Pokémon you can ride, you can quickly cycle between them by using {L_BUTTON} and {R_BUTTON}."))
+            msgbox(format("All you need to do is use that whistle, whilst you have a ridable Pokémon in your party.\pIf have multiple Pokémon you can ride, you can quickly cycle between them by using {L_BUTTON}."))
+            msgbox(format("Alternatively, just interact with your Pokémon.\pAs long as the Pokémon's species is ridable, of course.\pYou can also press {B_BUTTON} to quickly dismount. Very convenient!"))
         }
         else
         {
@@ -445,7 +446,7 @@ script Rogue_Area_RideTraining_TeachFly
             playfanfare(MUS_EVOLVED)
             waitfanfare
 
-            msgbox(format("When riding your Pokémon, some of them will be able to now fly by pressing {B_BUTTON}.\pWhilst you are up in the air, you won't be able to interact with items and you won't be seen by trainers either.\pYou will have to be careful however, as your Pokémon will only have enough energy to fly once before exhausting itself.\pEvery time you heal at a Nurse, your Pokémon will be able to fly again.\pYou will be able to fly for an Unlimited number of times in {POKEMON_HUB}, thankfully.\pYou should also now be able to see which Pokémon are able to use this skill in your Pokédex."))
+            msgbox(format("When riding your Pokémon, some of them will be able to now fly by pressing {R_BUTTON}.\pWhilst you are up in the air, you won't be able to interact with items and you won't be seen by trainers either.\pYou will have to be careful however, as your Pokémon will only have enough energy to fly once before exhausting itself.\pEvery time you heal at a Nurse, your Pokémon will be able to fly again.\pYou will be able to fly for an Unlimited number of times in {POKEMON_HUB}, thankfully.\pYou should also now be able to see which Pokémon are able to use this skill in your Pokédex."))
 
             setflag(FLAG_SYS_RIDING_FLY)
         }

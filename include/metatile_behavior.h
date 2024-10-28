@@ -161,5 +161,8 @@ bool8 MetatileBehavior_IsSidewaysStairsLeftSideAny(u8 metatileBehavior);
 
 //ridemon
 bool8 MetatileBehavior_IsRidemonOnCliff(u8 metatileBehavior);
+<<<<<<< HEAD
 
+=======
+>>>>>>> d3c712be03de3dcfcd77e0dee35a73d0a663b844
 #endif // GUARD_METATILE_BEHAVIOR_H

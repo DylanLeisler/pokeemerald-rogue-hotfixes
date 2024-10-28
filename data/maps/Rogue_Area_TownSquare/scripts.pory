@@ -2,6 +2,7 @@ const FLAG_HIDE_LOCAL_WORKBENCH = FLAG_TEMP_1
 const FLAG_HIDE_MOVE_TUTORS = FLAG_TEMP_2
 const FLAG_HIDE_BACK_PACKER = FLAG_TEMP_3
 const FLAG_HIDE_BALL_GUY = FLAG_TEMP_4
+const FLAG_HIDE_BALL_CHANGER = FLAG_TEMP_5
 
 const OBJ_EVENT_BUILDER = 3
 
@@ -45,10 +46,12 @@ script Rogue_Area_TownSquare_OnMapLoad
 
         clearflag(FLAG_HIDE_BACK_PACKER)
         clearflag(FLAG_HIDE_BALL_GUY)
+        clearflag(FLAG_HIDE_BALL_CHANGER)
 
         if(var(VAR_ROGUE_INTRO_STATE) <= ROGUE_INTRO_STATE_LEARN_TO_BUILD)
         {
             setflag(FLAG_HIDE_BALL_GUY)
+            setflag(FLAG_HIDE_BALL_CHANGER)
 
             // blocking workbench
             setobjectxyperm(OBJ_EVENT_BUILDER, 24, 9)
@@ -277,6 +280,48 @@ script Rogue_Area_TownSquare_TalkBallGuy
         {
             msgbox(format("Oh, bud.\nYou've got no space in your Bag.\pFree up some space and then I'll be happy to give you a Poké Ball!"))
         }
+    }
+
+    release
+}
+
+script Rogue_Area_TownSquare_SwapMonBall
+{
+    lock
+    faceplayer
+
+    setvar(VAR_0x8004, 0)
+    special(BufferMonNickname)
+
+    msgbox(format("Well hey there!\pI can change the POKéBALL of {STR_VAR_1} if you'd like?"), MSGBOX_YESNO)
+
+    if(var(VAR_RESULT) == YES)
+    {
+        msgbox(format("Which type of BALL should I change it to?"))
+
+        fadescreen(FADE_TO_BLACK)
+        special(Bag_ChooseBall)
+        waitstate
+
+        
+        if(var(VAR_ITEM_ID) == 0)
+        {
+            setvar(VAR_RESULT, NO)
+        }
+        else
+        {
+            removeitem(VAR_ITEM_ID, 1)
+            special(Rogue_ChangeMonBall)
+
+            msgbox(format("And it's done!"), MSGBOX_DEFAULT)
+            setvar(VAR_RESULT, YES)
+        }
+
+    }
+
+    if(var(VAR_RESULT) == NO)
+    {
+        msgbox(format("Let me know if you change your mind!"), MSGBOX_DEFAULT)
     }
 
     release

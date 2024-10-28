@@ -36,6 +36,7 @@ enum
     MENUITEM_MENU_GRAPHICS,
     MENUITEM_MENU_UI,
     MENUITEM_MENU_AUDIO,
+    MENUITEM_MENU_MOCHA_QOL,
     MENUITEM_TEXTSPEED,
     MENUITEM_BATTLESCENE_WILD_BATTLES,
     MENUITEM_BATTLESCENE_TRAINER_BATTLES,
@@ -53,6 +54,8 @@ enum
     MENUITEM_SOUND_LOW_HEALTH,
     MENUITEM_BUTTONMODE,
     MENUITEM_FRAMETYPE,
+    MENUITEM_DIFFICULTY_REWARD,
+    MENUITEM_RIDEMON_CONTROL,
     MENUITEM_CANCEL,
 };
 
@@ -63,6 +66,7 @@ enum
     SUBMENUITEM_GRAPHICS,
     SUBMENUITEM_UI,
     SUBMENUITEM_AUDIO,
+    SUBMENUITEM_MOCHA_QOL,
     SUBMENUITEM_COUNT,
 };
 
@@ -115,6 +119,10 @@ static u8 ButtonMode_ProcessInput(u8 menuOffset, u8 selection);
 static void ButtonMode_DrawChoices(u8 menuOffset, u8 selection);
 static u8 FrameType_ProcessInput(u8 menuOffset, u8 selection);
 static void FrameType_DrawChoices(u8 menuOffset, u8 selection);
+static u8 DifficultyReward_ProcessInput(u8 menuOffset, u8 selection);
+static void DifficultyReward_DrawChoices(u8 menuOffset, u8 selection);
+static u8 RidemonControl_ProcessInput(u8 menuOffset, u8 selection);
+static void RidemonControl_DrawChoices(u8 menuOffset, u8 selection);
 static u8 Empty_ProcessInput(u8 menuOffset, u8 selection);
 static void Empty_DrawChoices(u8 menuOffset, u8 selection);
 
@@ -279,6 +287,24 @@ static const struct MenuEntry sOptionMenuItems[] =
         .processInput = FrameType_ProcessInput,
         .drawChoices = FrameType_DrawChoices
     },
+    [MENUITEM_MENU_MOCHA_QOL] =
+    {
+        .itemName = gText_MochaQoL,
+        .processInput = Empty_ProcessInput,
+        .drawChoices = Empty_DrawChoices
+    },
+    [MENUITEM_DIFFICULTY_REWARD] =
+    {
+        .itemName = gText_DifficultyReward,
+        .processInput = DifficultyReward_ProcessInput,
+        .drawChoices = DifficultyReward_DrawChoices
+    },
+    [MENUITEM_RIDEMON_CONTROL] =
+    {
+        .itemName = gText_RidemonControl,
+        .processInput = RidemonControl_ProcessInput,
+        .drawChoices = RidemonControl_DrawChoices
+    },
     [MENUITEM_CANCEL] = 
     {
         .itemName = gText_OptionMenuCancel,
@@ -298,6 +324,7 @@ static const struct MenuEntries sOptionMenuEntries[SUBMENUITEM_COUNT] =
             MENUITEM_MENU_GRAPHICS,
             MENUITEM_MENU_UI,
             MENUITEM_MENU_AUDIO,
+            MENUITEM_MENU_MOCHA_QOL,
             MENUITEM_CANCEL
         }
     },
@@ -349,7 +376,18 @@ static const struct MenuEntries sOptionMenuEntries[SUBMENUITEM_COUNT] =
             MENUITEM_SOUND_CHANNEL_BATTLE_SE,
             MENUITEM_CANCEL
         }
-    }
+    },
+    [SUBMENUITEM_MOCHA_QOL] =
+    {
+        .titleName = gText_MochaQoL,
+        .menuOptions =
+        {
+            MENUITEM_DIFFICULTY_REWARD,
+            MENUITEM_RIDEMON_CONTROL,
+            MENUITEM_CANCEL
+        }
+
+    },
 };
 
 static const struct WindowTemplate sOptionMenuWinTemplates[] =
@@ -556,6 +594,10 @@ static void Task_OptionMenuProcessInput(u8 taskId)
 
         case MENUITEM_MENU_AUDIO:
             submenuSelection = SUBMENUITEM_AUDIO;
+            submenuChanged = TRUE;
+            break;
+        case MENUITEM_MENU_MOCHA_QOL:
+            submenuSelection = SUBMENUITEM_MOCHA_QOL;
             submenuChanged = TRUE;
             break;
         }
@@ -1064,6 +1106,48 @@ static void FrameType_DrawChoices(u8 menuOffset, u8 selection)
     DrawOptionMenuChoice(text, VALUE_X_OFFSET + 24, menuOffset* YPOS_SPACING, 0);
 }
 
+static u8 DifficultyReward_ProcessInput(u8 menuOffset, u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+
+    return selection;
+}
+
+static void DifficultyReward_DrawChoices(u8 menuOffset, u8 selection)
+{
+    u8 const* options[] = 
+    {
+        [OPTIONS_DIFFICULTY_REWARD_MODE_VANILLA] = gText_DifficultyRewardVanilla,
+        [OPTIONS_DIFFICULTY_REWARD_MODE_MULTIPLIER] = gText_DifficultyRewardMultiplier,
+    };
+    DrawChoiceSelection(menuOffset, selection, options, ARRAY_COUNT(options));
+}
+
+static u8 RidemonControl_ProcessInput(u8 menuOffset, u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+
+    return selection;
+}
+
+static void RidemonControl_DrawChoices(u8 menuOffset, u8 selection)
+{
+    u8 const* options[] = 
+    {
+        [OPTIONS_RIDEMON_CONTROL_VANILLA] = gText_RidemonControlVanilla,
+        [OPTIONS_RIDEMON_CONTROL_MOCHA] = gText_RidemonControlMocha,
+    };
+    DrawChoiceSelection(menuOffset, selection, options, ARRAY_COUNT(options));
+}
+
 static u8 ButtonMode_ProcessInput(u8 menuOffset, u8 selection)
 {
     if (JOY_NEW(DPAD_RIGHT))
@@ -1200,6 +1284,12 @@ static u8 GetMenuItemValue(u8 menuItem)
         
     case MENUITEM_FRAMETYPE:
         return gSaveBlock2Ptr->optionsWindowFrameType;
+    
+    case MENUITEM_DIFFICULTY_REWARD:
+        return gSaveBlock2Ptr->optionsDifficultyRewardMode;
+    
+    case MENUITEM_RIDEMON_CONTROL:
+        return gSaveBlock2Ptr->optionsRidemonControlMode;
     }
 
     return 0;
@@ -1291,6 +1381,12 @@ static void SetMenuItemValue(u8 menuItem, u8 value)
     case MENUITEM_FRAMETYPE:
         gSaveBlock2Ptr->optionsWindowFrameType = value;
         break;
+    
+    case MENUITEM_DIFFICULTY_REWARD:
+        gSaveBlock2Ptr->optionsDifficultyRewardMode = value;
+
+    case MENUITEM_RIDEMON_CONTROL:
+        gSaveBlock2Ptr->optionsRidemonControlMode = value;
     }
 }
 

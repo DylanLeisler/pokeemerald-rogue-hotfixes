@@ -47,6 +47,11 @@ tools/poryscript/*
 tools/ups/*
 !tools/Pokabbie/Build
 pokeemerald-*.png
+<<<<<<< HEAD
 PokeEmerald\ Rogue\ Hotfixes*
 .vs/
 PokeEmer.*
+=======
+data/scripts/Rogue/Strings/command_config.json
+/scripts
+>>>>>>> d3c712be03de3dcfcd77e0dee35a73d0a663b844
