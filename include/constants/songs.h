@@ -704,7 +704,7 @@
 #define MUS_DEBUG_TEST                  (MUS_EXTRA_START + 2)
 #define SE_TEST_AUDIO                  (MUS_EXTRA_START + 3)
 
-#define END_MUS                     SE_TEST_AUDIO
+#define END_MUS                     SE_TEST_AUDIO + 1
 
 #define MUS_ROUTE118                0x7FFF  // Map is split into 2 music sections. controlled by GetCurrLocationDefaultMusic().
 
