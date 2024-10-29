@@ -7,4 +7,3 @@ voicegroup273:: @
 	voice_directsound 60, 0, DirectSoundWaveData_hg_pno4b4, 255, 248, 0, 208	@ 127/ 85/  1/116/ 64
 	voice_directsound 60, 0, DirectSoundWaveData_hg_pno4g5, 255, 248, 0, 208	@ 127/ 85/  1/116/ 64
 	voice_directsound 60, 0, DirectSoundWaveData_hg_pno4e6, 255, 248, 0, 208	@ 127/ 85/  1/116/ 64
-	voice_directsound 60, 0, test_audio, 255, 0, 255, 165
