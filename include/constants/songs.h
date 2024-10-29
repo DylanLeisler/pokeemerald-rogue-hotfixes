@@ -702,8 +702,9 @@
 
 #define MUS_MOVE_DELETED_SLOW           (MUS_EXTRA_START + 1)
 #define MUS_DEBUG_TEST                  (MUS_EXTRA_START + 2)
+#define SE_TEST_AUDIO                  (MUS_EXTRA_START + 3)
 
-#define END_MUS                     MUS_DEBUG_TEST
+#define END_MUS                     SE_TEST_AUDIO
 
 #define MUS_ROUTE118                0x7FFF  // Map is split into 2 music sections. controlled by GetCurrLocationDefaultMusic().
 

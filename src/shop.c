@@ -544,37 +544,26 @@ static void Task_HandleShopMenuSell(u8 taskId)
     FadeScreen(FADE_TO_BLACK, 0);
 }
 
-//static void Task_HandleShopMenuAutoSell(u8 taskId)
-//{
-//    s16* data = gTasks[taskId].data;
-//    tCallbackHi = (u32)ReturnToShopMenu >> 16;
-//    tCallbackLo = (u32)ReturnToShopMenu;
-//    gTasks[taskId].func = Task_HandleShopMenuAutoSell;
-//}
-
-// First, we define the functions needed for handling the yes/no callbacks after the menu is shown.
-// The callback functions will handle the "Yes" and "No" responses respectively.
-
 void Task_HandleAutoSellYes(u8 taskId)
 {
-    AutoSellItems();             // Execute the AutoSell function (which handles selling the items).
+    AutoSellItems();
     DestroyTask(taskId);         // Clean up the task after the operation is complete.
-    // You can also call any additional function here to update the UI, for example:
-    ReturnToShopMenu();          // Return to the shop menu.
+    ReturnToShopMenu();
 }
 
-void Task_HandleAutoSellNo(u8 taskId)
+void Task_HandleAutoSellNo(u8 taskId)         // Clean up the task after selecting "No".
 {
-    DestroyTask(taskId);         // Clean up the task after selecting "No".
-    ReturnToShopMenu();          // Return to the shop menu.
+    DestroyTask(taskId);
+    ReturnToShopMenu();
 }
 
-// Next, we create a YesNoFuncTable struct to hold our Yes and No function pointers.
+// YesNoFuncTable struct to hold Yes and No function pointers.
 const struct YesNoFuncTable sAutoSellYesNoFuncs = {
     .yesFunc = Task_HandleAutoSellYes,
     .noFunc = Task_HandleAutoSellNo
 };
 
+// Who knows what values are needed here tbh
 static const struct WindowTemplate sYesNo_Generic =
 {
     .bg = 0,
@@ -585,85 +574,29 @@ static const struct WindowTemplate sYesNo_Generic =
     .paletteNum = 15,
     .baseBlock = 0x125
 };
-// Now, modify Task_HandleShopMenuAutoSell to create the Yes/No menu and setup callbacks.
+// Create the Yes/No menu and setup callbacks.
 static void Task_HandleShopMenuAutoSell(u8 taskId)
 {
     // Create a Yes/No menu to ask the player if they want to AutoSell.
     CreateYesNoMenuWithCallbacks(taskId, &sYesNo_Generic, 0, 0, 0, WINDOW_BASE_BLOCK, WINDOW_PALETTE_NUM, &sAutoSellYesNoFuncs);
 }
 
-// New function that handles returning to the shop menu after AutoSell.
+// Handles returning to the shop menu after AutoSell.
 void ReturnToShopMenu(void)
 {
-    // Add logic to return to the shop menu here.
-    // This could involve reloading the shop interface or resetting the player state to be in the shop.
-    SetMainCallback2(CB2_ReturnToField);  // Example of setting the main callback to return to the overworld.
+    SetMainCallback2(CB2_ReturnToField);  // Sets the main callback to return to the overworld. The shop menu would be preferred but it is non-trivial for me at the moment.
 }
-
-//void Task_ItemContext_AutoSell(u8 taskId)
-//{
-//    DoYesNoFuncWithChoice(Task_HandleAutoSellInput, )
-//
-//    // Set the task function to handle the Yes/No menu input in the next step
-//    gTasks[taskId].func = Task_HandleAutoSellInput;
-//}
-
-//static void Task_HandleAutoSellInput(u8 taskId)
-//{
-//    s16* data = gTasks[taskId].data;
-//
-//    // Reconstruct the 32-bit address from the two 16-bit parts
-//    u32 callbackAddress = ((u32)gTasks[taskId].data[8] << 16) | (u32)gTasks[taskId].data[9];
-//    void (*callbackFunc)(void) = (void (*)(void))callbackAddress;
-//
-//
-//    // Process the input from the Yes/No menu
-//    switch (Menu_ProcessInputNoWrapClearOnChoose())
-//    {
-//    case 0: // "Yes" selected
-//        // Perform the auto-sell operation
-//        AutoSellItems();               // Call the function to auto-sell items
-//        //DestroyTask(tListTaskId);      // Destroy task if necessary
-//        //gTasks[taskId].func = WaitAfterItemSell;
-//        //gTasks[taskId].func = Task_EndAutoSell; // Set the task to clean up
-//        if (callbackFunc != NULL)
-//        {
-//            callbackFunc();  // Invoke the callback to proceed
-//        }
-//        //DestroyTask(taskId);
-//        break;
-//
-//    case 1: // "No" selected
-//    case MENU_B_PRESSED: // "B" button pressed (cancel)
-//        PlaySE(SE_SELECT);             // Play a sound effect for cancellation
-//        //DestroyTask(tListTaskId);      // Destroy the task managing the Yes/No menu
-//        //gTasks[taskId].func = WaitAfterItemSell;
-//        //gTasks[taskId].func = Task_EndAutoSell; // Set the task to end
-//        if (callbackFunc != NULL)
-//        {
-//            callbackFunc();  // Invoke the callback to proceed
-//        }
-//        //DestroyTask(taskId);
-//        break;
-//
-//    case MENU_NOTHING_CHOSEN:
-//    default:
-//        // Do nothing; keep waiting for user input
-//        break;
-//    }
-//    // Call the callback function if it's valid
-//}
 
 static void AutoSellItems() {
 
     u16 EV_BERRIES_START = 545;
     u8 NUM_OF_EV_BERRIES = 5;
 
-    for (u16 itemId = FIRST_BERRY_INDEX; itemId < LAST_BERRY_INDEX; itemId++)
+    for (u16 itemId = FIRST_BERRY_INDEX; itemId < LAST_BERRY_INDEX; itemId++) // Loop through berries
     {
         u16 count = CountTotalItemQuantityInBag(itemId);
         if ((itemId >= EV_BERRIES_START && itemId <= EV_BERRIES_START + NUM_OF_EV_BERRIES) || 
-            (itemId >= ITEM_LUM_BERRY && itemId <= ITEM_SITRUS_BERRY) )
+            (itemId >= ITEM_LUM_BERRY && itemId <= ITEM_SITRUS_BERRY) ) // EV_BERRIES, LUM, and SITRUS keep a different amount from the rest
         {
             if (count > 40) _AutoSellItems(itemId, count - 40);
         }
@@ -672,12 +605,11 @@ static void AutoSellItems() {
             if (count > 15) _AutoSellItems(itemId, count - 15);
         }
     }
-    //shiny to spec def
 
     for (u16 itemId = ITEM_POKEBLOCK_NORMAL; itemId <= ITEM_POKEBLOCK_SPDEF; itemId++)
     {
         u16 count = CountTotalItemQuantityInBag(itemId);
-        if (itemId >= ITEM_POKEBLOCK_SHINY && itemId <= ITEM_POKEBLOCK_SPDEF)
+        if (itemId > ITEM_POKEBLOCK_SHINY && itemId <= ITEM_POKEBLOCK_SPDEF) // All stat blocks get sold, since they're useless on adventures
         {
             if (count > 0) _AutoSellItems(itemId, count);
         }

@@ -386,6 +386,10 @@ DirectSoundWaveData_unknown_16::
 DirectSoundWaveData_unknown_17::
 	.incbin "sound/direct_sound_samples/unknown_17.bin"
 
+	.align 2
+test_audio::
+	.incbin "sound/direct_sound_samples/test_audio.bin"
+
 .if P_FAMILY_BULBASAUR == TRUE
 	.align 2
 Cry_Bulbasaur::
