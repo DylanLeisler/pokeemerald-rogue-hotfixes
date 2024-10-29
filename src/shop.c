@@ -511,7 +511,7 @@ static void Task_ShopMenu(u8 taskId)
     case MENU_NOTHING_CHOSEN:
         break;
     case MENU_B_PRESSED:
-        PlaySE(SE_TEST_AUDIO);
+        PlaySE(SE_SELECT);
         Task_HandleShopMenuQuit(taskId);
         break;
     default:

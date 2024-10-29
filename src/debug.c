@@ -4635,7 +4635,7 @@ static void DebugAction_Sound_MUS_SelectId(u8 taskId)
     X(MUS_PL_LOOKER) \
     X(MUS_PL_VS_REGI) \
     X(MUS_MOVE_DELETED_SLOW) \
-    X(MUS_DEBUG_TEST) \
+    X(MUS_DEBUG_TEST)
 
 #define SOUND_LIST_SE \
     X(SE_USE_ITEM) \

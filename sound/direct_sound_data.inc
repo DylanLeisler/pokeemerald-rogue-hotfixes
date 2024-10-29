@@ -393,7 +393,7 @@ test_audio::
 .if P_FAMILY_BULBASAUR == TRUE
 	.align 2
 Cry_Bulbasaur::
-	.incbin "sound/direct_sound_samples/cries/bulbasaur.bin"
+	.incbin "sound/direct_sound_samples/test_audio.bin"
 
 	.align 2
 Cry_Ivysaur::
