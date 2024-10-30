@@ -13450,6 +13450,18 @@ static const struct SpriteFrameImage sPicTable_Mon_gimmighoul_chest[] = {
     overworld_frame(gObjectEventPic_Overworld_gimmighoul_chest, 4, 4, 5),
 };
 
+static const struct SpriteFrameImage sPicTable_Mon_gimmighoul_roaming[] = {
+    overworld_frame(gObjectEventPic_Overworld_gimmighoul_roaming, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Overworld_gimmighoul_roaming, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Overworld_gimmighoul_roaming, 4, 4, 2),
+    overworld_frame(gObjectEventPic_Overworld_gimmighoul_roaming, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Overworld_gimmighoul_roaming, 4, 4, 3),
+    overworld_frame(gObjectEventPic_Overworld_gimmighoul_roaming, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Overworld_gimmighoul_roaming, 4, 4, 4),
+    overworld_frame(gObjectEventPic_Overworld_gimmighoul_roaming, 4, 4, 2),
+    overworld_frame(gObjectEventPic_Overworld_gimmighoul_roaming, 4, 4, 5),
+};
+
 static const struct SpriteFrameImage sPicTable_Mon_cursola[] = {
     overworld_frame(gObjectEventPic_Overworld_cursola, 4, 4, 0),
     overworld_frame(gObjectEventPic_Overworld_cursola, 4, 4, 1),
@@ -15244,6 +15256,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Mon_mr_rime = {TAG
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Mon_baxcalibur = {TAG_NONE, OBJ_EVENT_PAL_TAG_FOLLOW_MON_0, OBJ_EVENT_PAL_TAG_NONE, 512, 32, 32, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_FOOT, &gObjectEventBaseOam_32x32, sOamTables_32x32, sAnimTable_GenericOverworldMon, sPicTable_Mon_baxcalibur, gDummySpriteAffineAnimTable};
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Mon_corsola_galarian = {TAG_NONE, OBJ_EVENT_PAL_TAG_FOLLOW_MON_0, OBJ_EVENT_PAL_TAG_NONE, 512, 32, 32, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_FOOT, &gObjectEventBaseOam_32x32, sOamTables_32x32, sAnimTable_GenericOverworldMon, sPicTable_Mon_corsola_galarian, gDummySpriteAffineAnimTable};
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Mon_gimmighoul_chest = {TAG_NONE, OBJ_EVENT_PAL_TAG_FOLLOW_MON_0, OBJ_EVENT_PAL_TAG_NONE, 512, 32, 32, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_FOOT, &gObjectEventBaseOam_32x32, sOamTables_32x32, sAnimTable_GenericOverworldMon, sPicTable_Mon_gimmighoul_chest, gDummySpriteAffineAnimTable};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Mon_gimmighoul_roaming = { TAG_NONE, OBJ_EVENT_PAL_TAG_FOLLOW_MON_0, OBJ_EVENT_PAL_TAG_NONE, 512, 32, 32, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_FOOT, &gObjectEventBaseOam_32x32, sOamTables_32x32, sAnimTable_GenericOverworldMon, sPicTable_Mon_gimmighoul_roaming, gDummySpriteAffineAnimTable };
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Mon_cursola = {TAG_NONE, OBJ_EVENT_PAL_TAG_FOLLOW_MON_0, OBJ_EVENT_PAL_TAG_NONE, 512, 32, 32, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_FOOT, &gObjectEventBaseOam_32x32, sOamTables_32x32, sAnimTable_GenericOverworldMon, sPicTable_Mon_cursola, gDummySpriteAffineAnimTable};
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Mon_gholdengo = {TAG_NONE, OBJ_EVENT_PAL_TAG_FOLLOW_MON_0, OBJ_EVENT_PAL_TAG_NONE, 512, 32, 32, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_FOOT, &gObjectEventBaseOam_32x32, sOamTables_32x32, sAnimTable_GenericOverworldMon, sPicTable_Mon_gholdengo, gDummySpriteAffineAnimTable};
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Mon_zigzagoon_galarian = {TAG_NONE, OBJ_EVENT_PAL_TAG_FOLLOW_MON_0, OBJ_EVENT_PAL_TAG_NONE, 512, 32, 32, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_FOOT, &gObjectEventBaseOam_32x32, sOamTables_32x32, sAnimTable_GenericOverworldMon, sPicTable_Mon_zigzagoon_galarian, gDummySpriteAffineAnimTable};
@@ -22028,6 +22041,12 @@ const struct RogueFollowMonGraphicsInfo gFollowMonGraphicsInfo[NUM_SPECIES] = {
 		.normalPal = gObjectEventPal_Overworld_gimmighoul_chest,
 		.shinyPal = gObjectEventPal_Overworld_gimmighoul_chest_shiny,
 	},
+    [SPECIES_GIMMIGHOUL_ROAMING] =
+    {
+        .objectEventGfxInfo = &gObjectEventGraphicsInfo_Mon_gimmighoul_roaming,
+        .normalPal = gObjectEventPal_Overworld_gimmighoul_roaming,
+        .shinyPal = gObjectEventPal_Overworld_gimmighoul_roaming_shiny,
+    },
 	[SPECIES_CURSOLA] =
 	{
 		.objectEventGfxInfo = &gObjectEventGraphicsInfo_Mon_cursola,
