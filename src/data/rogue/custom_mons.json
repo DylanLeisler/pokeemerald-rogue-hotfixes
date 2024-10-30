@@ -715,10 +715,10 @@
             "moves": [
               "MOVE_OUTRAGE",
               "MOVE_DRAGON_DANCE",
-              "MOVE_BABY_DOLL_EYES",
+              "MOVE_DRAGON_ASCENT",
               "MOVE_PAY_DAY",
 
-              "MOVE_DRAGON_ASCENT"
+              "MOVE_BABY_DOLL_EYES"
             ],
             "abilities": [
               "ABILITY_OWN_TEMPO",

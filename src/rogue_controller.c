@@ -967,37 +967,38 @@ void Rogue_ModifyCatchRate(u16 species, u16* catchRate, u16* ballMultiplier)
 
         if(difficulty <= 1) // First 2 badges
         {
-            *ballMultiplier = *ballMultiplier * 8;
+            *ballMultiplier = *ballMultiplier * 16;
         }
         else if(difficulty <= 2)
         {
-            *ballMultiplier = *ballMultiplier * 4;
+            *ballMultiplier = *ballMultiplier * 8;
         }
         else if(difficulty <= ROGUE_GYM_MID_DIFFICULTY - 1)
         {
-            *ballMultiplier = *ballMultiplier * 3;
+            *ballMultiplier = *ballMultiplier * 6;
         }
         else if(difficulty <= ROGUE_ELITE_START_DIFFICULTY - 1)
         {
             // Minimum of 2x multiplier whilst doing gyms?
-            *ballMultiplier = *ballMultiplier * 2;
+            *ballMultiplier = *ballMultiplier * 4;
         }
         else
         {
             // Elite 4 back to normal catch rates
+            *ballMultiplier = *ballMultiplier * 4;
         }
 
         // Modify the catch rate based on how many times we've caught this mon
-        if(speciesCatchCount > 2)
-        {
-            // Already caught a few, so use the base multiplier
-            *ballMultiplier = startMultiplier;
-        }
-        else if(speciesCatchCount > 4)
-        {
-            // Now we want to discourage catching more mons
-            *ballMultiplier = max(1, startMultiplier / 2);
-        }
+        //if(speciesCatchCount > 2)
+        //{
+        //    // Already caught a few, so use the base multiplier
+        //    *ballMultiplier = startMultiplier;
+        //}
+        //else if(speciesCatchCount > 4)
+        //{
+        //    // Now we want to discourage catching more mons
+        //    *ballMultiplier = max(1, startMultiplier / 2);
+        //}
 
         // Apply charms
         {
