@@ -72,6 +72,7 @@
 // Up to 8 item slots can be visible at a time
 #define MAX_ITEMS_SHOWN 8
 
+
 enum {
     SWITCH_POCKET_NONE,
     SWITCH_POCKET_LEFT,
