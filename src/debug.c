@@ -492,7 +492,7 @@ static const u8 sDebugText_Cancel[] =           _("Cancel");
 static const u8 sDebugText_Util_Script_1[] =               _("Open C-Gear");
 static const u8 sDebugText_Util_Script_2[] =               _("Fill PC from Query");
 static const u8 sDebugText_Util_Script_3[] =               _("Fill Bag from Query");
-static const u8 sDebugText_Util_Script_4[] =               _("Script 4");
+static const u8 sDebugText_Util_Script_4[] =               _("Test Birch Curse");
 static const u8 sDebugText_Util_Script_5[] =               _("Script 5");
 static const u8 sDebugText_Util_Script_6[] =               _("Script 6");
 static const u8 sDebugText_Util_Script_7[] =               _("Script 7");
@@ -2375,6 +2375,7 @@ static void DebugAction_Util_Script_3(u8 taskId)
 
 static void DebugAction_Util_Script_4(u8 taskId)
 {
+    RogueDebugQuery_TestBirch();
     Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_Script_4);
 }
 

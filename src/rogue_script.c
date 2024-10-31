@@ -782,6 +782,12 @@ void Rogue_BufferLabMonName(void)
     Rogue_CopyLabEncounterMonNickname(index, gStringVar1);
 }
 
+void IsLegendarySpecies(void)
+{
+    u16 species = gSpecialVar_0x8001;
+    gSpecialVar_0x8003 = RoguePokedex_IsSpeciesLegendary(species);
+}
+
 void Rogue_GiveLabMon(void)
 {
     u16 index = gSpecialVar_0x8002;
