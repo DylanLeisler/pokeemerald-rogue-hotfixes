@@ -412,7 +412,7 @@ static u8 SelectRoomType_CalculateWeight(u16 weightIndex, u16 roomType, void* da
         count = CountRoomType(roomType);
         if(count != 0)
             return 0;
-        else if(((GetPathGenerationDifficulty() + 1) % 2) != 0) ### ###
+        else if(((GetPathGenerationDifficulty() + 1) % 2) != 0)
             return 20;
         else
             return 1;
