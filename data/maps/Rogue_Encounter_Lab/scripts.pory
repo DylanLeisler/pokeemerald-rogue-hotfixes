@@ -43,7 +43,7 @@ script Rogue_Encounter_Lab_PokeballCommon
 
             if(var(VAR_0x8003) == TRUE)
             {
-                msgbox(format("Are you sure?\nLegendary Pokémon sometimes return with curses."), MSGBOX_YESNO)
+                msgbox(format("Are you sure?\nLegendary Pokémon have been known to come back cursed."), MSGBOX_YESNO)
                 if(var(VAR_RESULT) == NO)
                 {
                     setvar(VAR_RESULT, NO)
@@ -105,34 +105,27 @@ script Rogue_Encounter_Lab_Pokeball_GiveMon
     if(var(VAR_0x8003) == TRUE)
     {
         specialvar(VAR_TEMP_2, IsCursed)
+        msgbox(format("RogueDiff is {gStringVar3}"))
 
         if (var(VAR_TEMP_2) == 1)                        // 100 % chance of curse at champ
         {
             setvar(VAR_RESULT, YES)
+            playmoncry(SPECIES_DRAKLOAK, CRY_MODE_ENCOUNTER)
+            msgbox(format("Oh!\nOh Wow!\n Would you look at ttttttthat!\pIt looks lik\ne {STR_VAR_1} is t\pt  ta in\nt \nt   a\nt   ainted!"))
+            finditem(VAR_ROGUE_ITEM10, 1)
+            call(Rogue_Common_DisplayPopups)
+        
+            copyvar(VAR_0x8004, VAR_ROGUE_ITEM10)
+            callnative(ScriptMenu_ShowItemDescription)
+            msgbox(format("You have been afflicted with a new Curse."), MSGBOX_DEFAULT)
+            closemessage
+            callnative(ScriptMenu_HideItemDescription)
         }
         else
         {
+            msgbox(format("Great news! It doesn't look like {STR_VAR_1} is cursed!"))
             setvar(VAR_RESULT, NO)
         }
-    }
-
-    msgbox(format("BIRCH: Sometimes legendary Pokémon return cursed"))
-    if(var(VAR_RESULT) == YES)
-    {
-        playmoncry(SPECIES_DRAKLOAK, CRY_MODE_ENCOUNTER)
-        msgbox(format("And would you look at ttttttthat!\pIt looks lik\ne {STR_VAR_1} is t\pt  ta in\nt \nt   a\nt   ainted!"))
-        finditem(VAR_ROGUE_ITEM10, 1)
-        call(Rogue_Common_DisplayPopups)
-        
-        copyvar(VAR_0x8004, VAR_ROGUE_ITEM10)
-        callnative(ScriptMenu_ShowItemDescription)
-        msgbox(format("You have been afflicted with a new Curse."), MSGBOX_DEFAULT)
-        closemessage
-        callnative(ScriptMenu_HideItemDescription)
-    }
-    else
-    {
-        msgbox(format("It doesn't look like {STR_VAR_1} has one though."))
     }
 }
 
