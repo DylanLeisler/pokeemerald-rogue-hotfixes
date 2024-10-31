@@ -791,7 +791,7 @@ void IsLegendarySpecies(void)
 u8 IsCursed(void)
 {
     u16 RogueDiff = VarGet(VAR_ROGUE_DIFFICULTY);
-    if (RogueDiff >= 12 || (RogueDiff * 8 >= Random(100) % 100))
+    if (RogueDiff >= 12 || (RogueDiff * 8 >= Random() % 100))
         return 1;
     else
         return 0;
