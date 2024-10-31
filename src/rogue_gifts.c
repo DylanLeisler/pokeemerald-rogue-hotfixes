@@ -290,7 +290,7 @@ static u16 const sDynamicCustomMonMoves[] =
     MOVE_MIND_READER,
     MOVE_SKETCH,
     MOVE_BARRIER,
-    MOVE_COSMIC_POWER,
+    MOVE_COSMIC_POWER, //70
     MOVE_JUDGMENT,
     MOVE_BULLET_PUNCH,
     MOVE_DRAIN_PUNCH,
@@ -300,12 +300,12 @@ static u16 const sDynamicCustomMonMoves[] =
     MOVE_GLACIATE,
     MOVE_CELEBRATE,
     MOVE_GEOMANCY,
-    MOVE_HYPERSPACE_FURY,
+    MOVE_HYPERSPACE_FURY, //80
     MOVE_TOXIC_THREAD,
     MOVE_STEEL_BEAM,
     MOVE_DIRE_CLAW,
     MOVE_POPULATION_BOMB,
-    MOVE_10000000_VOLT_THUNDERBOLT,
+    MOVE_10000000_VOLT_THUNDERBOLT, //85
 
 
 #else
@@ -376,7 +376,7 @@ static u16 const sDynamicCustomMonMoves[] =
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sDynamicCustomMonAbilities) <= 120, SizeOfDynamicCustomMonAbilities);
-STATIC_ASSERT(ARRAY_COUNT(sDynamicCustomMonMoves) <= 63, SizeOfDynamicCustomMonMoves);
+STATIC_ASSERT(ARRAY_COUNT(sDynamicCustomMonMoves) <= 85, SizeOfDynamicCustomMonMoves);
 
 #include "data/rogue/custom_mons.h"
 
