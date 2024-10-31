@@ -788,6 +788,16 @@ void IsLegendarySpecies(void)
     gSpecialVar_0x8003 = RoguePokedex_IsSpeciesLegendary(species);
 }
 
+u8 IsCursed(void)
+{
+    u16 RogueDiff = VarGet(VAR_ROGUE_DIFFICULTY)
+    if ( RogueDiff >= 12 || ((RogueDiff * 8) >= random(100)) )
+        return 1
+    else
+        return 0
+}
+    
+
 void Rogue_GiveLabMon(void)
 {
     u16 index = gSpecialVar_0x8002;
