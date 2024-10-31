@@ -2375,7 +2375,7 @@ static void DebugAction_Util_Script_3(u8 taskId)
 
 static void DebugAction_Util_Script_4(u8 taskId)
 {
-    RogueDebugQuery_TestBirch();
+    //RogueDebugQuery_TestBirch();
     Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_Script_4);
 }
 
