@@ -106,12 +106,18 @@ script Rogue_Encounter_Lab_Pokeball_GiveMon
     {
         random(100)
 
-        if(var(VAR_ROGUE_DIFFICULTY) >= 12) // 100 % chance of curse at champ
+        if(var(VAR_ROGUE_DIFFICULTY) >= 12)                        // 100 % chance of curse at champ
+        {
             setvar(VAR_RESULT, YES)
-        elif(var(VAR_ROGUE_DIFFICULTY*8) >= var(VAR_RESULT))    // ~60% chance of curse around E4 phase
+        }
+        elif(var(VAR_ROGUE_DIFFICULTY*8) >= var(VAR_RESULT))       // ~60% chance of curse around E4 phase
+        {
             setvar(VAR_RESULT, YES)
+        }
         else
+        {
             setvar(VAR_RESULT, NO)
+        }
     }
 
     msgbox(format("BIRCH: Sometimes legendary Pokémon return cursed"))
