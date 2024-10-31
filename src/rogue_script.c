@@ -790,7 +790,7 @@ void IsLegendarySpecies(void)
 
 u8 IsCursed(void)
 {
-    u16 RogueDiff = VarGet(VAR_ROGUE_DIFFICULTY);
+    u8 RogueDiff = Rogue_GetCurrentDifficulty();
     u8 buffer[6];
     ConvertIntToDecimalStringN(buffer, RogueDiff, STR_CONV_MODE_LEFT_ALIGN, 5);
     StringCopy(gStringVar2, buffer);
