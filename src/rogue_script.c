@@ -793,7 +793,8 @@ u8 IsCursed(void)
     u16 RogueDiff = VarGet(VAR_ROGUE_DIFFICULTY);
     u8 buffer[6];
     ConvertIntToDecimalStringN(buffer, RogueDiff, STR_CONV_MODE_LEFT_ALIGN, 5);
-    StringExpandPlaceholders(gStringVar1, buffer);
+    StringCopy(gStringVar2, buffer);
+
     if (RogueDiff >= 12 || (RogueDiff * 8 >= Random() % 100))
         return 1;
     else
