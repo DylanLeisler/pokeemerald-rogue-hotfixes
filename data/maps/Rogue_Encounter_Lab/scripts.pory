@@ -106,7 +106,9 @@ script Rogue_Encounter_Lab_Pokeball_GiveMon
     {
         random(100)
 
-        setvar(VAR_TEMP_DIFFICULTY, var(VAR_ROGUE_DIFFICULTY) * 8)
+        setvar(VAR_TEMP_DIFFICULTY, var(VAR_ROGUE_DIFFICULTY))
+        setvar(VAR_TEMP_DIFF_MULT, 8)
+        setvar(VAR_TEMP_DIFFICULTY, var(VAR_TEMP_DIFFICULTY)*8)
 
         if(var(VAR_ROGUE_DIFFICULTY) >= 12)                        // 100 % chance of curse at champ
         {
