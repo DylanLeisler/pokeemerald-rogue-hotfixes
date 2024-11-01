@@ -4187,7 +4187,14 @@ static void PrintMoveDetails(u16 move)
             PrintMovePowerAndAccuracy(move);
 
             if (moveEffect != EFFECT_PLACEHOLDER)
-                PrintTextOnWindow(windowId, gMoveDescriptionPointers[move - 1], 6, 1, 0, 0);
+            {
+                if (move == [MOVE_10000000_VOLT_THUNDERBOLT])
+                {
+                    PrintTextOnWindow(windowId, sTenMillionVoltDescription, 6, 1, 0, 0);
+                }
+                else
+                    PrintTextOnWindow(windowId, gMoveDescriptionPointers[move - 1], 6, 1, 0, 0);
+            }
             else
                 PrintTextOnWindow(windowId, gNotDoneYetDescription, 6, 1, 0, 0);
         }

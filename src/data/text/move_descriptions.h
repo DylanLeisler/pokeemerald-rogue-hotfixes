@@ -2712,10 +2712,6 @@ static const u8 sDoubleIronBashDescription[] = _(
     "The user spins and hits with\n"
     "its arms. May cause flinch.");
 
-static const u8 sTenMillionVoltDescription[] = _(
-    "Powerful electric strike.\n"
-    "Critical hits land more easily.");
-
 // GEN 8
 static const u8 sDynamaxCannonDescription[] = _(
     "Fires a strong beam. Deals\n"
@@ -3339,6 +3335,10 @@ static const u8 sMalignantChainDescription[] = _(
 const u8 gNotDoneYetDescription[] = _(
     "This move can't be used. Its\n"
     "effect is in development.");
+
+const u8 sTenMillionVoltDescription[] = _(
+    "Powerful electric strike.\n"
+    "Critical hits land more easily.");
 
 #undef BINDING_TURNS
 
@@ -4034,7 +4034,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_SPARKLY_SWIRL - 1] = sSparklySwirlDescription,
     [MOVE_VEEVEE_VOLLEY - 1] = sVeeveeVolleyDescription,
     [MOVE_DOUBLE_IRON_BASH - 1] = sDoubleIronBashDescription,
-    [MOVE_10000000_VOLT_THUNDERBOLT - 1] = sTenMillionVoltDescription,
+    //[MOVE_10000000_VOLT_THUNDERBOLT - 1] = sTenMillionVoltDescription,
 
     //GEN 8
     [MOVE_DYNAMAX_CANNON - 1] = sDynamaxCannonDescription,
