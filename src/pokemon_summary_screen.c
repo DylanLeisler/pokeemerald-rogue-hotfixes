@@ -4188,7 +4188,7 @@ static void PrintMoveDetails(u16 move)
 
             if (moveEffect != EFFECT_PLACEHOLDER)
             {
-                if (move == [MOVE_10000000_VOLT_THUNDERBOLT])
+                if (move == gBattleMoves[MOVE_10000000_VOLT_THUNDERBOLT])
                 {
                     PrintTextOnWindow(windowId, sTenMillionVoltDescription, 6, 1, 0, 0);
                 }
