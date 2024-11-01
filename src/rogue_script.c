@@ -49,6 +49,7 @@
 #include "rogue_quest.h"
 #include "rogue_questmenu.h"
 #include "rogue_settings.h"
+#include "rogue_potionbrewing.h" 
 
 void DoSpecialTrainerBattle(void);
 
@@ -2419,4 +2420,9 @@ void Rogue_CanActivatePikinEasterEgg()
             gSpecialVar_Result = TRUE;
         }
     }
+}
+
+void PotionBrewInput()
+{
+    StartBrewInput();
 }

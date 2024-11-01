@@ -736,3 +736,6 @@ gSpecials::
 	def_special VsSeekerFreezeObjectsAfterChargeComplete
 	def_special IsLegendarySpecies
 	def_special IsCursed
+	def_special Mocha_FollowMonRideCheck
+	def_special Mocha_FollowMonRide
+	def_special PotionBrewInput

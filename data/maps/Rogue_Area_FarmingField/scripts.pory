@@ -83,12 +83,9 @@ script Rogue_Area_FarmingField_MakePotions
                 checkitem(ITEM_ORAN_BERRY, 2)
                 if(var(VAR_RESULT) == YES)
                 {
-                    msgbox(format("Would you like to brew a Potion?"), MSGBOX_YESNO)
-                    if(var(VAR_RESULT) == YES)
-                    {
-                        removeitem(ITEM_ORAN_BERRY, 2)
-                        additem(ITEM_POTION, 1)
-                    }
+                    setvar(VAR_0x8000, 2) // Berry cost
+                    setvar(VAR_0x8001, ITEM_POTION) // Type
+                    special(PotionBrewInput)
                 }
                 else
                 {
@@ -101,12 +98,9 @@ script Rogue_Area_FarmingField_MakePotions
                 checkitem(ITEM_ORAN_BERRY, 5)
                 if(var(VAR_RESULT) == YES)
                 {
-                    msgbox(format("Would you like to brew a Super Potion?"), MSGBOX_YESNO)
-                    if(var(VAR_RESULT) == YES)
-                    {
-                        removeitem(ITEM_ORAN_BERRY, 5)
-                        additem(ITEM_SUPER_POTION, 1)
-                    }
+                    setvar(VAR_0x8000, 5)
+                    setvar(VAR_0x8001, ITEM_SUPER_POTION)
+                    special(PotionBrewInput)
                 }
                 else
                 {
@@ -119,12 +113,9 @@ script Rogue_Area_FarmingField_MakePotions
                 checkitem(ITEM_ORAN_BERRY, 20)
                 if(var(VAR_RESULT) == YES)
                 {
-                    msgbox(format("Would you like to brew a Hyper Potion?"), MSGBOX_YESNO)
-                    if(var(VAR_RESULT) == YES)
-                    {
-                        removeitem(ITEM_ORAN_BERRY, 20)
-                        additem(ITEM_HYPER_POTION, 1)
-                    }
+                    setvar(VAR_0x8000, 20)
+                    setvar(VAR_0x8001, ITEM_HYPER_POTION)
+                    special(PotionBrewInput)
                 }
                 else
                 {
@@ -137,12 +128,9 @@ script Rogue_Area_FarmingField_MakePotions
                 checkitem(ITEM_ORAN_BERRY, 40)
                 if(var(VAR_RESULT) == YES)
                 {
-                    msgbox(format("Would you like to brew a Max Potion?"), MSGBOX_YESNO)
-                    if(var(VAR_RESULT) == YES)
-                    {
-                        removeitem(ITEM_ORAN_BERRY, 40)
-                        additem(ITEM_MAX_POTION, 1)
-                    }
+                    setvar(VAR_0x8000, 40)
+                    setvar(VAR_0x8001, ITEM_MAX_POTION)
+                    special(PotionBrewInput)
                 }
                 else
                 {

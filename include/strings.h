@@ -506,6 +506,7 @@ extern const u8 gText_HowManyToSell[];
 extern const u8 gText_AutoSellProfit[];
 extern const u8 gText_ICanPayVar1[];
 extern const u8 gText_TurnedOverVar1ForVar2[];
+extern const u8 gText_HowManyToBrew[];
 extern const u8 gText_DepositHowManyVar1[];
 extern const u8 gText_CantStoreImportantItems[];
 extern const u8 gText_DepositedVar2Var1s[];
