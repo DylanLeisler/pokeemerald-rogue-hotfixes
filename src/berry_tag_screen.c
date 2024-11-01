@@ -474,7 +474,7 @@ static void PrintProducesTag()
 {
     u16 pokeblockItemId = Rogue_BerryToPokeblock(FIRST_BERRY_INDEX + sBerryTag->berryId - 1);
 
-    //FillWindowPixelBuffer(WIN_PRODUCES_TAG, PIXEL_FILL(0));
+    FillWindowPixelBuffer(WIN_PRODUCES_TAG, PIXEL_FILL(1));
     AddTextPrinterParameterized(WIN_PRODUCES_TAG, FONT_SMALL, gText_Produces, 0, 0, 0, NULL);
 
     if(pokeblockItemId != ITEM_NONE)
@@ -591,7 +591,7 @@ static void TryChangeDisplayedBerry(u8 taskId, s8 toMove)
     s16 *data = gTasks[taskId].data;
     s16 currPocketPosition = gBagPosition.scrollPosition[BERRIES_POCKET] + gBagPosition.cursorPosition[BERRIES_POCKET];
     u32 newPocketPosition = currPocketPosition + toMove;
-    if (newPocketPosition < ITEM_TO_BERRY(LAST_BERRY_INDEX) && BagGetItemIdByPocketPosition(POCKET_BERRIES, newPocketPosition) != ITEM_NONE)
+    if (newPocketPosition < gBagPockets[BERRIES_POCKET].capacity && BagGetItemIdByPocketPosition(POCKET_BERRIES, newPocketPosition) != ITEM_NONE)
     {
         if (toMove < 0)
             tBgOp = BG_COORD_SUB;
