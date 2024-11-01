@@ -174,7 +174,7 @@ static u16 const sDynamicCustomMonAbilities[] =
     ABILITY_LIGHTNING_ROD,
     ABILITY_DRAGONS_MAW,
     ABILITY_PURIFYING_SALT,
-    ABILITY_PRIMORDIAL_SEA,
+    ABILITY_PRIMORDIAL_SEA, //127
 
 
 #else
@@ -313,6 +313,17 @@ static u16 const sDynamicCustomMonMoves[] =
     MOVE_DIRE_CLAW,
     MOVE_POPULATION_BOMB,
     MOVE_10000000_VOLT_THUNDERBOLT, //85
+    MOVE_10000000_VOLT_THUNDERBOLT,
+    MOVE_10000000_VOLT_THUNDERBOLT,
+    MOVE_10000000_VOLT_THUNDERBOLT,
+    MOVE_10000000_VOLT_THUNDERBOLT,
+    MOVE_10000000_VOLT_THUNDERBOLT,
+    MOVE_10000000_VOLT_THUNDERBOLT,
+    MOVE_10000000_VOLT_THUNDERBOLT,
+    MOVE_10000000_VOLT_THUNDERBOLT,
+    MOVE_10000000_VOLT_THUNDERBOLT,
+    MOVE_10000000_VOLT_THUNDERBOLT,
+    MOVE_10000000_VOLT_THUNDERBOLT, //96
 
 
 #else
@@ -382,8 +393,8 @@ static u16 const sDynamicCustomMonMoves[] =
 #endif
 };
 
-STATIC_ASSERT(ARRAY_COUNT(sDynamicCustomMonAbilities) <= 120, SizeOfDynamicCustomMonAbilities);
-STATIC_ASSERT(ARRAY_COUNT(sDynamicCustomMonMoves) <= 85, SizeOfDynamicCustomMonMoves);
+STATIC_ASSERT(ARRAY_COUNT(sDynamicCustomMonAbilities) <= 127, SizeOfDynamicCustomMonAbilities);
+STATIC_ASSERT(ARRAY_COUNT(sDynamicCustomMonMoves) <= 96, SizeOfDynamicCustomMonMoves);
 
 #include "data/rogue/custom_mons.h"
 
