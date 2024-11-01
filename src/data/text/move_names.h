@@ -1813,7 +1813,7 @@ const u8 gMoveNames[MOVES_COUNT_DYNAMAX][MOVE_NAME_LENGTH + 1] =
     [MOVE_G_MAX_ONE_BLOW] = _("G-One Blow"),
     [MOVE_G_MAX_RAPID_FLOW] = _("G-Rapid Flow"),
 
-    [MOVE_10000000_VOLT_THUNDERBOLT] = _("10mV Thdrvlt"),
+    [MOVE_10000000_VOLT_THUNDERBOLT] = _("10mV Thdrblt"),
 };
 #endif
 
