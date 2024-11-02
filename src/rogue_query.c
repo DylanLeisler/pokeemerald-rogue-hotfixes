@@ -1047,7 +1047,7 @@ static bool8 Query_IsSpeciesEnabledInternal(u16 species, bool32 forceDexCheck)
     if(gRogueSpeciesInfo[species].baseHP != 0)
     {
 #ifdef ROGUE_EXPANSION
-        if(species > GEN9_START && species <= PLACEHOLDER_START)
+        if(species > GEN9_START && species < PLACEHOLDER_START) // Making sure that Pecharunt is included
         {
             // Gen 9 section is after the forms start
             // Illegal species for either wild or trainers
