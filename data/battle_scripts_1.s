@@ -11188,6 +11188,7 @@ BattleScript_Booster_Energy::
 	waitanimation
 	printstring STRINGID_BOOSTERENERGY
 	waitmessage B_WAIT_TIME_SHORT
+	restoretarget
 	removeitem BS_SCRIPTING
 	printstring STRINGID_PKMNPREVENTSCONFUSIONWITH
 	return
