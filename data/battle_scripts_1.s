@@ -11181,7 +11181,7 @@ BattleScript_Booster_Energy::
 	savetarget
 	copybyte gBattlerTarget, sBATTLER
 	setgraphicalstatchangevalues
-	B_WAIT_TIME_SHORT
+	pause B_WAIT_TIME_SHORT
 	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, sB_ANIM_ARG1
 	setbyte cMULTISTRING_CHOOSER, B_MSG_STAT_ROSE_ITEM
 	call BattleScript_StatUp
