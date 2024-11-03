@@ -3826,7 +3826,7 @@ u16 Rogue_PostRunRewardLvls()
 
 u16 Rogue_PostRunRewardMoney()
 {
-    u16 amount = 0;
+    u32 amount = 0;
     u16 total = 0;
 
     if(gRogueRun.enteredRoomCounter > 1)
@@ -3836,8 +3836,8 @@ u16 Rogue_PostRunRewardMoney()
         if(gSaveBlock2Ptr->optionsDifficultyRewardMode == OPTIONS_DIFFICULTY_REWARD_MODE_MULTIPLIER)
         {  
             u8 multiplier = Rogue_CalculateRewardMultiplier();
-            u8 multiplierReward = (200 * multiplier) / 2;
-            amount = i * multiplierReward;
+            u8 base = 200;
+            amount = base + (base * multiplier) + (base * multiplier * i);
         }
 
         else
@@ -3862,7 +3862,10 @@ u16 Rogue_PostRunRewardMoney()
             }
         }
 
-        total = (7 * gRogueRun.victoryLapTotalWins * amount) / 6 + amount * (gRogueRun.enteredRoomCounter - 1);
+        if (gSaveBlock2Ptr->optionsDifficultyRewardMode == OPTIONS_DIFFICULTY_REWARD_MODE_MULTIPLIER)
+            total = amount
+        else
+            total = (7 * gRogueRun.victoryLapTotalWins * amount) / 6 + amount * (gRogueRun.enteredRoomCounter - 1);
     }
 
     AddMoney(&gSaveBlock1Ptr->money, total);
