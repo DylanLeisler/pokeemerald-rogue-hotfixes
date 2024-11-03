@@ -11187,8 +11187,9 @@ BattleScript_Booster_Energy::
 	call BattleScript_StatUp
 	waitanimation
 	printstring STRINGID_BOOSTERENERGY
-	waitmessage B_WAIT_TIME_LONG
+	waitmessage B_WAIT_TIME_SHORT
 	removeitem BS_SCRIPTING
+	printstring STRINGID_PKMNPREVENTSCONFUSIONWITH
 	return
 
 BattleScript_EffectSnow::
