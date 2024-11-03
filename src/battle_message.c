@@ -437,6 +437,7 @@ static const u8 sText_LinkTrainer2WithdrewPkmn[] = _("{B_LINK_SCR_TRAINER_NAME} 
 static const u8 sText_PkmnIsAngry[] = _("{B_DEF_NAME_WITH_PREFIX} is enraged!");
 static const u8 sText_PkmnIsCalm[] = _("{B_DEF_NAME_WITH_PREFIX} is no\nlonger enraged");
 static const u8 sText_PoisonPuppeteer[] = _("{B_PLAYER_MON1_NAME}'s ability Poison Puppeteer\nhas confused {B_OPPONENT_MON1_NAME}!");
+static const u8 sText_BattleBooster[] = _("{B_PLAYER_MON1_NAME} consumed its Battle Booster!");
 static const u8 sText_WildPkmnPrefix[] = _("Wild ");
 static const u8 sText_FoePkmnPrefix[] = _("Foe ");
 static const u8 sText_EmptyString8[] = _("");
@@ -1548,6 +1549,7 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
     [STRINGID_PKMNISANGRY - BATTLESTRINGS_TABLE_START] = sText_PkmnIsAngry,
     [STRINGID_PKMNISCALM - BATTLESTRINGS_TABLE_START] = sText_PkmnIsCalm,
     [STRINGID_POISONPUPPETEER - BATTLESTRINGS_TABLE_START] = sText_PoisonPuppeteer,
+    [STRINGID_BATTLEBOOSTER - BATTLESTRINGS_TABLE_START] = sText_BattleBooster,
 };
 
 const u16 gTrainerUsedItemStringIds[] =
