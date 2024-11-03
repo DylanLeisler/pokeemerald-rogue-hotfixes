@@ -7643,7 +7643,7 @@ u8 ItemBattleEffects(u8 caseID, u32 battler, bool32 moveTurn)
                     gBattleScripting.animArg1 = 14 + highestStatId;
                     gBattleScripting.animArg2 = 0;
 
-                    BattleScriptPushCursorAndCallback(BattleScript_BoosterEnergy);
+                    BattleScriptPushCursorAndCallback(BattleScript_Booster_Energy);
                     effect = ITEM_STATS_CHANGE;
                 }
                 break;
