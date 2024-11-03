@@ -7635,15 +7635,17 @@ u8 ItemBattleEffects(u8 caseID, u32 battler, bool32 moveTurn)
                 u16 battlerAbility = GetBattlerAbility(battler);
                 if ((battlerAbility == ABILITY_PROTOSYNTHESIS && !(gBattleWeather & B_WEATHER_SUN)) || \    // Do not trigger item when weather is sunny
                     (battlerAbility == ABILITY_QUARK_DRIVE && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN))) // Do not trigger item when terrain is electric
-                u32 highestStatId = GetHighestStatId(battler);
-                BufferStatChange(battler, highestStatId, STRINGID_STATROSE);
-                SET_STATCHANGER(highestStatId, 1, FALSE);
+                {
+                    u32 highestStatId = GetHighestStatId(battler);
+                    BufferStatChange(battler, highestStatId, STRINGID_STATROSE);
+                    SET_STATCHANGER(highestStatId, 1, FALSE);
 
-                gBattleScripting.animArg1 = 14 + highestStatId;
-                gBattleScripting.animArg2 = 0;
+                    gBattleScripting.animArg1 = 14 + highestStatId;
+                    gBattleScripting.animArg2 = 0;
 
-                BattleScriptPushCursorAndCallback(BattleScript_BoosterEnergy);
-                effect = ITEM_STATS_CHANGE;
+                    BattleScriptPushCursorAndCallback(BattleScript_BoosterEnergy);
+                    effect = ITEM_STATS_CHANGE;
+                }
                 break;
             }
             if (effect != 0)
