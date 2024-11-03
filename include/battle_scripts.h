@@ -489,6 +489,7 @@ extern const u8 BattleScript_MoveEffectStockpileWoreOff[];
 extern const u8 BattleScript_StealthRockActivates[];
 extern const u8 BattleScript_SpikesActivates[];
 extern const u8 BattleScript_BerserkGeneRet[];
+extern const u8 BattleScript_Booster_Energy[];
 extern const u8 BattleScript_TargetFormChangeWithStringNoPopup[];
 extern const u8 BattleScript_DefDown[];
 extern const u8 BattleScript_UltraBurst[];
