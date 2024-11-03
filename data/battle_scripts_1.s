@@ -11190,8 +11190,7 @@ BattleScript_Booster_Energy::
 	waitmessage B_WAIT_TIME_SHORT
 	restoretarget
 	removeitem BS_SCRIPTING
-	printstring STRINGID_PKMNPREVENTSCONFUSIONWITH
-	return
+	end3
 
 BattleScript_EffectSnow::
 	attackcanceler
