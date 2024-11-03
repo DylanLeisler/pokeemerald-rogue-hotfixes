@@ -11177,6 +11177,20 @@ BattleScript_BerserkGeneRet_End:
 	removeitem BS_SCRIPTING
 	end3
 
+BattleScript_Booster_Energy::
+	savetarget
+	copybyte gBattlerTarget, sBATTLER
+	setgraphicalstatchangevalues
+	B_WAIT_TIME_SHORT
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, sB_ANIM_ARG1
+	setbyte cMULTISTRING_CHOOSER, B_MSG_STAT_ROSE_ITEM
+	call BattleScript_StatUp
+	waitanimation
+	printstring STRINGID_BOOSTERENERGY
+	waitmessage B_WAIT_TIME_LONG
+	removeitem BS_SCRIPTING
+	return
+
 BattleScript_EffectSnow::
 	attackcanceler
 	attackstring

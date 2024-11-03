@@ -6349,7 +6349,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         case ABILITY_PROTOSYNTHESIS:
-            if (!gDisableStructs[battler].weatherAbilityDone && IsBattlerWeatherAffected(battler, B_WEATHER_SUN))
+            if (!gDisableStructs[battler].weatherAbilityDone && IsBattlerWeatherAffected(battler, B_WEATHER_SUN) || \
+                !gDisableStructs[battler].)
             {
                 gDisableStructs[battler].weatherAbilityDone = TRUE;
                 PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
@@ -7629,6 +7630,20 @@ u8 ItemBattleEffects(u8 caseID, u32 battler, bool32 moveTurn)
                 gBattleScripting.animArg2 = 0;
 
                 BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
+                effect = ITEM_STATS_CHANGE;
+                break;
+            case HOLD_EFFECT_BOOSTER_ENERGY:
+                u16 battlerAbility = GetBattlerAbility(battler);
+                if ((battlerAbility == ABILITY_PROTOSYNTHESIS && !(gBattleWeather & B_WEATHER_SUN)) || \    // Do not trigger item when weather is sunny
+                    (battlerAbility == ABILITY_QUARK_DRIVE && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN))) // Do not trigger item when terrain is electric
+                u32 highestStatId = GetHighestStatId(battler);
+                BufferStatChange(battler, highestStatId, STRINGID_STATROSE);
+                SET_STATCHANGER(highestStatId, 1, FALSE);
+
+                gBattleScripting.animArg1 = 14 + highestStatId;
+                gBattleScripting.animArg2 = 0;
+
+                BattleScriptPushCursorAndCallback(BattleScript_BoosterEnergy);
                 effect = ITEM_STATS_CHANGE;
                 break;
             }
