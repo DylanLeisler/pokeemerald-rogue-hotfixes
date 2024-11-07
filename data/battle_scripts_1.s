@@ -11186,7 +11186,9 @@ BattleScript_Booster_Energy::
 	setbyte cMULTISTRING_CHOOSER, B_MSG_STAT_ROSE_ITEM
 	waitanimation
 	printstring STRINGID_BOOSTERENERGY
-	waitmessage B_WAIT_TIME_SHORT
+	waitmessage B_WAIT_TIME_MED
+	printstring STRINGID_STATWASHEIGHTENED
+	waitmessage B_WAIT_TIME_MED
 	restoretarget
 	removeitem BS_SCRIPTING
 	end3

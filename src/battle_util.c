@@ -7642,6 +7642,8 @@ u8 ItemBattleEffects(u8 caseID, u32 battler, bool32 moveTurn)
                     gBattleScripting.animArg1 = 14 + highestStatId;
                     gBattleScripting.animArg2 = 0;
 
+                    PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
+
                     BattleScriptPushCursorAndCallback(BattleScript_Booster_Energy);
                     effect = ITEM_EFFECT_OTHER;
                 }
