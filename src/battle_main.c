@@ -4715,9 +4715,9 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, u32 holdEffect)
         speed *= 2;
     else if (ability == ABILITY_SLOW_START && gDisableStructs[battler].slowStartTimer != 0)
         speed /= 2;
-    else if (ability == ABILITY_PROTOSYNTHESIS && (gBattleWeather & B_WEATHER_SUN || holdEffect == HOLD_EFFECT_BOOSTER_ENERGY) && highestStat == STAT_SPEED)
+    else if (ability == ABILITY_PROTOSYNTHESIS && gBattleResources->flags->flags[battler] & RESOURCE_FLAG_EFFECT_ACTIVE && highestStat == STAT_SPEED)
         speed = (speed * 150) / 100;
-    else if (ability == ABILITY_QUARK_DRIVE && (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || holdEffect == HOLD_EFFECT_BOOSTER_ENERGY) && highestStat == STAT_SPEED)
+    else if (ability == ABILITY_QUARK_DRIVE && gBattleResources->flags->flags[battler] & RESOURCE_FLAG_EFFECT_ACTIVE && highestStat == STAT_SPEED)
         speed = (speed * 150) / 100;
 
     // stat stages

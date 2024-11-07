@@ -55,6 +55,8 @@ struct ResourceFlags
     u32 flags[MAX_BATTLERS_COUNT];
 };
 
+// The pattern below can be repeated up to a total of 4 times, for 32 individual flags per 'battler'
+
 #define RESOURCE_FLAG_FLASH_FIRE        0x1
 #define RESOURCE_FLAG_ROOST             0x2
 #define RESOURCE_FLAG_UNBURDEN          0x4
@@ -63,6 +65,17 @@ struct ResourceFlags
 #define RESOURCE_FLAG_EMERGENCY_EXIT    0x20
 #define RESOURCE_FLAG_NEUTRALIZING_GAS  0x40
 #define RESOURCE_FLAG_ICE_FACE          0x80
+
+#define RESOURCE_FLAG_EFFECT_ACTIVE     0x100
+#define RESOURCE_FLAG_UNUSED2           0x200
+#define RESOURCE_FLAG_UNUSED3           0x400
+#define RESOURCE_FLAG_UNUSED4           0x800
+#define RESOURCE_FLAG_UNUSED5           0x1000
+#define RESOURCE_FLAG_UNUSED6           0x2000
+#define RESOURCE_FLAG_UNUSED7           0x4000
+#define RESOURCE_FLAG_UNUSED8           0x8000
+
+#define RESOURCE_FLAG_UNUSED9           0x10000
 
 struct DisableStruct
 {

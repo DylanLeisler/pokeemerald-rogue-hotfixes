@@ -6350,9 +6350,9 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         case ABILITY_PROTOSYNTHESIS:
-            if (!gDisableStructs[battler].weatherAbilityDone && IsBattlerWeatherAffected(battler, B_WEATHER_SUN))
+            if (!(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_EFFECT_ACTIVE) && IsBattlerWeatherAffected(battler, B_WEATHER_SUN))
             {
-                gDisableStructs[battler].weatherAbilityDone = TRUE;
+                gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_EFFECT_ACTIVE;
                 PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
                 gBattlerAbility = gBattleScripting.battler = battler;
                 BattleScriptPushCursorAndCallback(BattleScript_ProtosynthesisActivates);
@@ -6376,9 +6376,9 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         case ABILITY_QUARK_DRIVE:
-            if (!gDisableStructs[battler].terrainAbilityDone && IsBattlerTerrainAffected(battler, STATUS_FIELD_ELECTRIC_TERRAIN))
+            if (!(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_EFFECT_ACTIVE) && IsBattlerTerrainAffected(battler, STATUS_FIELD_ELECTRIC_TERRAIN))
             {
-                gDisableStructs[battler].terrainAbilityDone = TRUE;
+                gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_EFFECT_ACTIVE;
                 PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
                 gBattlerAbility = gBattleScripting.battler = battler;
                 BattleScriptPushCursorAndCallback(BattleScript_QuarkDriveActivates);
@@ -7634,8 +7634,13 @@ u8 ItemBattleEffects(u8 caseID, u32 battler, bool32 moveTurn)
                 break;
             case HOLD_EFFECT_BOOSTER_ENERGY:
                 u16 battlerAbility = GetBattlerAbility(battler);
-                if ((battlerAbility == ABILITY_PROTOSYNTHESIS && !(gBattleWeather & B_WEATHER_SUN)) || \    // Do not trigger item when weather is sunny
-                    (battlerAbility == ABILITY_QUARK_DRIVE && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN))) // Do not trigger item when terrain is electric
+                if (
+                    gBattleResources->flags->flags[battler] & RESOURCE_FLAG_EFFECT_ACTIVE &&
+                    (
+                        (battlerAbility == ABILITY_PROTOSYNTHESIS && !(gBattleWeather & B_WEATHER_SUN)) ||    // Do not trigger item when weather is sunny
+                        (battlerAbility == ABILITY_QUARK_DRIVE && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN))    // Do not trigger item when terrain is electric
+                    )   
+                ) 
                 {
                     u32 highestStatId = GetHighestStatId(battler);
 
@@ -7643,9 +7648,11 @@ u8 ItemBattleEffects(u8 caseID, u32 battler, bool32 moveTurn)
                     gBattleScripting.animArg2 = 0;
 
                     PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
+                    gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_EFFECT_ACTIVE;
+                    RecordItemEffectBattle(battler, battlerHoldEffect);
 
                     BattleScriptPushCursorAndCallback(BattleScript_Booster_Energy);
-                    effect = ITEM_EFFECT_OTHER;
+                    effect = ITEM_STATS_CHANGE;
                 }
                 break;
             }
@@ -9349,7 +9356,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(u32 move, u32 battlerAtk, u32 
     case ABILITY_PROTOSYNTHESIS:
         {
             u8 atkHighestStat = GetHighestStatId(battlerAtk);
-            if ( (weather & B_WEATHER_SUN || holdEffectAtk == HOLD_EFFECT_BOOSTER_ENERGY)
+            if ( gBattleResources->flags->flags[battlerAtk] & RESOURCE_FLAG_EFFECT_ACTIVE
             && ((IS_MOVE_PHYSICAL(move) && atkHighestStat == STAT_ATK) || (IS_MOVE_SPECIAL(move) && atkHighestStat == STAT_SPATK)) )
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         }
@@ -9357,7 +9364,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(u32 move, u32 battlerAtk, u32 
     case ABILITY_QUARK_DRIVE:
         {
             u8 atkHighestStat = GetHighestStatId(battlerAtk);
-            if ( (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || holdEffectAtk == HOLD_EFFECT_BOOSTER_ENERGY)
+            if (gBattleResources->flags->flags[battlerAtk] & RESOURCE_FLAG_EFFECT_ACTIVE
             && ((IS_MOVE_PHYSICAL(move) && atkHighestStat == STAT_ATK) || (IS_MOVE_SPECIAL(move) && atkHighestStat == STAT_SPATK)) )
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         }
@@ -9427,7 +9434,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(u32 move, u32 battlerAtk, u32 
     case ABILITY_PROTOSYNTHESIS:
         {
             u8 defHighestStat = GetHighestStatId(battlerDef);
-            if ( (weather & B_WEATHER_SUN || holdEffectAtk == HOLD_EFFECT_BOOSTER_ENERGY)
+            if ( gBattleResources->flags->flags[battlerDef] & RESOURCE_FLAG_EFFECT_ACTIVE
             && ((IS_MOVE_PHYSICAL(move) && defHighestStat == STAT_DEF) || (IS_MOVE_SPECIAL(move) && defHighestStat == STAT_SPDEF)) )
                 modifier = uq4_12_multiply(modifier, UQ_4_12(0.7));
         }
@@ -9435,7 +9442,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(u32 move, u32 battlerAtk, u32 
     case ABILITY_QUARK_DRIVE:
         {
             u8 defHighestStat = GetHighestStatId(battlerDef);
-            if ( (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || holdEffectAtk == HOLD_EFFECT_BOOSTER_ENERGY)
+            if ( gBattleResources->flags->flags[battlerDef] & RESOURCE_FLAG_EFFECT_ACTIVE
             && ((IS_MOVE_PHYSICAL(move) && defHighestStat == STAT_DEF) || (IS_MOVE_SPECIAL(move) && defHighestStat == STAT_SPDEF)) )
                 modifier = uq4_12_multiply(modifier, UQ_4_12(0.7));
         }
@@ -9620,12 +9627,12 @@ static inline u32 CalcAttackStat(u32 move, u32 battlerAtk, u32 battlerDef, u32 m
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
         break;
     case ABILITY_PROTOSYNTHESIS:
-        if ( (weather & B_WEATHER_SUN || holdEffectAtk == HOLD_EFFECT_BOOSTER_ENERGY)
+        if ( gBattleResources->flags->flags[battlerAtk] & RESOURCE_FLAG_EFFECT_ACTIVE
             && ((IS_MOVE_PHYSICAL(move) && attackerHighestStat == STAT_ATK) || (IS_MOVE_SPECIAL(move) && attackerHighestStat == STAT_SPATK)))
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.3) );
         break;
     case ABILITY_QUARK_DRIVE:
-        if ( (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || holdEffectAtk == HOLD_EFFECT_BOOSTER_ENERGY)
+        if ( gBattleResources->flags->flags[battlerAtk] & RESOURCE_FLAG_EFFECT_ACTIVE
             && ((IS_MOVE_PHYSICAL(move) && attackerHighestStat == STAT_ATK) || (IS_MOVE_SPECIAL(move) && attackerHighestStat == STAT_SPATK)))
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.3) );
         break;
@@ -9862,12 +9869,12 @@ static inline u32 CalcDefenseStat(u32 move, u32 battlerAtk, u32 battlerDef, u32 
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(2.0));
         break;
     case ABILITY_PROTOSYNTHESIS:
-        if ( (weather & B_WEATHER_SUN || holdEffectDef == HOLD_EFFECT_BOOSTER_ENERGY)
+        if (gBattleResources->flags->flags[battlerDef] & RESOURCE_FLAG_EFFECT_ACTIVE
               && ((IS_MOVE_PHYSICAL(move) && defenderHighestStat == STAT_DEF) || (IS_MOVE_SPECIAL(move) && defenderHighestStat == STAT_SPDEF)) )
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         break;
     case ABILITY_QUARK_DRIVE:
-        if ( (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || holdEffectDef == HOLD_EFFECT_BOOSTER_ENERGY)
+        if (gBattleResources->flags->flags[battlerDef] & RESOURCE_FLAG_EFFECT_ACTIVE
             && ((IS_MOVE_PHYSICAL(move) && defenderHighestStat == STAT_DEF) || (IS_MOVE_SPECIAL(move) && defenderHighestStat == STAT_SPDEF)) )
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         break;

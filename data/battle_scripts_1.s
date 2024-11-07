@@ -9128,6 +9128,22 @@ BattleScript_QuarkDriveActivates::
 	waitmessage B_WAIT_TIME_MED
 	end3
 
+	BattleScript_Booster_Energy::
+	savetarget
+	copybyte gBattlerTarget, sBATTLER
+	setgraphicalstatchangevalues
+	pause B_WAIT_TIME_SHORT
+	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, sB_ANIM_ARG1
+	setbyte cMULTISTRING_CHOOSER, B_MSG_STAT_ROSE_ITEM
+	waitanimation
+	printstring STRINGID_BOOSTERENERGY
+	waitmessage B_WAIT_TIME_MED
+	printstring STRINGID_STATWASHEIGHTENED
+	waitmessage B_WAIT_TIME_MED
+	restoretarget
+	removeitem BS_SCRIPTING
+	end3
+
 BattleScript_RuinAbilityActivates::
 	call BattleScript_AbilityPopUp
 	printstring STRINGID_ABILITYWEAKENEDFSURROUNDINGMONSSTAT
@@ -11173,22 +11189,6 @@ BattleScript_BerserkGeneRet_OwnTempoPrevents:
 	printstring STRINGID_PKMNPREVENTSCONFUSIONWITH
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_BerserkGeneRet_End:
-	restoretarget
-	removeitem BS_SCRIPTING
-	end3
-
-BattleScript_Booster_Energy::
-	savetarget
-	copybyte gBattlerTarget, sBATTLER
-	setgraphicalstatchangevalues
-	pause B_WAIT_TIME_SHORT
-	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, sB_ANIM_ARG1
-	setbyte cMULTISTRING_CHOOSER, B_MSG_STAT_ROSE_ITEM
-	waitanimation
-	printstring STRINGID_BOOSTERENERGY
-	waitmessage B_WAIT_TIME_MED
-	printstring STRINGID_STATWASHEIGHTENED
-	waitmessage B_WAIT_TIME_MED
 	restoretarget
 	removeitem BS_SCRIPTING
 	end3
