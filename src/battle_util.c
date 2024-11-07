@@ -67,6 +67,7 @@ static u32 GetFlingPowerFromItemId(u32 itemId);
 static void SetRandomMultiHitCounter();
 static u32 GetBattlerItemHoldEffectParam(u32 battler, u32 item);
 static bool32 CanBeInfinitelyConfused(u32 battler);
+static u32 GetWeather(void);
 
 extern const u8 *const gBattleScriptsForMoveEffects[];
 extern const u8 *const gBattlescriptsForRunningByItem[];
@@ -9549,7 +9550,7 @@ static inline u32 CalcAttackStat(u32 move, u32 battlerAtk, u32 battlerDef, u32 m
     uq4_12_t modifier;
     u16 atkBaseSpeciesId;
     u8 attackerHighestStat = GetHighestStatId(battlerAtk);
-    u32 weather = GetWeather()
+    u32 weather = GetWeather();
 
     atkBaseSpeciesId = GET_BASE_SPECIES_ID(gBattleMons[battlerAtk].species);
 
@@ -9615,12 +9616,12 @@ static inline u32 CalcAttackStat(u32 move, u32 battlerAtk, u32 battlerDef, u32 m
             modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(1.5));
         break;
     case ABILITY_PROTOSYNTHESIS:
-        if ( (weather & B_WEATHER_SUN || itemEffectAtk == HOLD_EFFECT_BOOSTER_ENERGY)
+        if ( (weather & B_WEATHER_SUN || holdEffectAtk == HOLD_EFFECT_BOOSTER_ENERGY)
             && ((IS_MOVE_PHYSICAL(move) && attackerHighestStat == STAT_ATK) || (IS_MOVE_SPECIAL(move) && attackerHighestStat == STAT_SPATK)))
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.5) );
         break;
     case ABILITY_QUARK_DRIVE:
-        if ( (gFieldStatuses & STATUS_FIELD_ELETRIC_TERRAIN || itemEffectAtk == HOLD_EFFECT_BOOSTER_ENERGY)
+        if ( (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || holdEffectAtk == HOLD_EFFECT_BOOSTER_ENERGY)
             && ((IS_MOVE_PHYSICAL(move) && attackerHighestStat == STAT_ATK) || (IS_MOVE_SPECIAL(move) && attackerHighestStat == STAT_SPATK)))
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.5) );
         break;
@@ -9862,7 +9863,7 @@ static inline u32 CalcDefenseStat(u32 move, u32 battlerAtk, u32 battlerDef, u32 
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
         break;
     case ABILITY_QUARK_DRIVE:
-        if ( (gFieldStatuses & STATUS_FIELD_ELETRIC_TERRAIN || holdEffectDef == HOLD_EFFECT_BOOSTER_ENERGY)
+        if ( (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN || holdEffectDef == HOLD_EFFECT_BOOSTER_ENERGY)
             && ((IS_MOVE_PHYSICAL(move) && defenderHighestStat == STAT_DEF) || (IS_MOVE_SPECIAL(move) && defenderHighestStat == STAT_SPDEF)) )
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
         break;
