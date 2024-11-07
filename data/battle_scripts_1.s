@@ -11184,7 +11184,6 @@ BattleScript_Booster_Energy::
 	pause B_WAIT_TIME_SHORT
 	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, sB_ANIM_ARG1
 	setbyte cMULTISTRING_CHOOSER, B_MSG_STAT_ROSE_ITEM
-	call BattleScript_StatUp
 	waitanimation
 	printstring STRINGID_BOOSTERENERGY
 	waitmessage B_WAIT_TIME_SHORT
