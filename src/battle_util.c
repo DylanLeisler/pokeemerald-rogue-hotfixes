@@ -7635,7 +7635,7 @@ u8 ItemBattleEffects(u8 caseID, u32 battler, bool32 moveTurn)
             case HOLD_EFFECT_BOOSTER_ENERGY:
                 u16 battlerAbility = GetBattlerAbility(battler);
                 if (
-                    gBattleResources->flags->flags[battler] & RESOURCE_FLAG_EFFECT_ACTIVE &&
+                    !(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_EFFECT_ACTIVE) &&
                     (
                         (battlerAbility == ABILITY_PROTOSYNTHESIS && !(gBattleWeather & B_WEATHER_SUN)) ||    // Do not trigger item when weather is sunny
                         (battlerAbility == ABILITY_QUARK_DRIVE && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN))    // Do not trigger item when terrain is electric
