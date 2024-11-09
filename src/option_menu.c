@@ -118,15 +118,12 @@ static u8 ButtonMode_ProcessInput(u8 menuOffset, u8 selection);
 static void ButtonMode_DrawChoices(u8 menuOffset, u8 selection);
 static u8 FrameType_ProcessInput(u8 menuOffset, u8 selection);
 static void FrameType_DrawChoices(u8 menuOffset, u8 selection);
-<<<<<<< HEAD
-=======
 static u8 DifficultyReward_ProcessInput(u8 menuOffset, u8 selection);
 static void DifficultyReward_DrawChoices(u8 menuOffset, u8 selection);
 static u8 RidemonControl_ProcessInput(u8 menuOffset, u8 selection);
 static void RidemonControl_DrawChoices(u8 menuOffset, u8 selection);
 static u8 ShowMoney_ProcessInput(u8 menuOffset, u8 selection);
 static void ShowMoney_DrawChoices(u8 menuOffset, u8 selection);
->>>>>>> 3f455d8e5d (Money in start menu, and custom setting related to it)
 static u8 Empty_ProcessInput(u8 menuOffset, u8 selection);
 static void Empty_DrawChoices(u8 menuOffset, u8 selection);
 
@@ -291,8 +288,7 @@ static const struct MenuEntry sOptionMenuItems[] =
         .processInput = FrameType_ProcessInput,
         .drawChoices = FrameType_DrawChoices
     },
-<<<<<<< HEAD
-=======
+
     [MENUITEM_MENU_MOCHA_QOL] =
     {
         .itemName = gText_MochaQoL,
@@ -317,7 +313,6 @@ static const struct MenuEntry sOptionMenuItems[] =
         .processInput = ShowMoney_ProcessInput,
         .drawChoices = ShowMoney_DrawChoices,
     },
->>>>>>> 3f455d8e5d (Money in start menu, and custom setting related to it)
     [MENUITEM_CANCEL] = 
     {
         .itemName = gText_OptionMenuCancel,
@@ -388,9 +383,6 @@ static const struct MenuEntries sOptionMenuEntries[SUBMENUITEM_COUNT] =
             MENUITEM_SOUND_CHANNEL_BATTLE_SE,
             MENUITEM_CANCEL
         }
-<<<<<<< HEAD
-    }
-=======
     },
     [SUBMENUITEM_MOCHA_QOL] =
     {
@@ -404,7 +396,6 @@ static const struct MenuEntries sOptionMenuEntries[SUBMENUITEM_COUNT] =
         }
 
     },
->>>>>>> 3f455d8e5d (Money in start menu, and custom setting related to it)
 };
 
 static const struct WindowTemplate sOptionMenuWinTemplates[] =
@@ -1119,8 +1110,6 @@ static void FrameType_DrawChoices(u8 menuOffset, u8 selection)
     DrawOptionMenuChoice(text, VALUE_X_OFFSET + 24, menuOffset* YPOS_SPACING, 0);
 }
 
-<<<<<<< HEAD
-=======
 static u8 DifficultyReward_ProcessInput(u8 menuOffset, u8 selection)
 {
     if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
@@ -1184,7 +1173,6 @@ static void ShowMoney_DrawChoices(u8 menuOffset, u8 selection)
     DrawChoiceSelection(menuOffset, selection, options, ARRAY_COUNT(options));
 }
 
->>>>>>> 3f455d8e5d (Money in start menu, and custom setting related to it)
 static u8 ButtonMode_ProcessInput(u8 menuOffset, u8 selection)
 {
     if (JOY_NEW(DPAD_RIGHT))
@@ -1321,9 +1309,7 @@ static u8 GetMenuItemValue(u8 menuItem)
         
     case MENUITEM_FRAMETYPE:
         return gSaveBlock2Ptr->optionsWindowFrameType;
-<<<<<<< HEAD
-=======
-    
+
     case MENUITEM_DIFFICULTY_REWARD:
         return gSaveBlock2Ptr->optionsDifficultyRewardMode;
     
@@ -1332,7 +1318,6 @@ static u8 GetMenuItemValue(u8 menuItem)
 
     case MENUITEM_SHOW_MONEY:
         return gSaveBlock2Ptr->optionsShowMoney;
->>>>>>> 3f455d8e5d (Money in start menu, and custom setting related to it)
     }
 
     return 0;
@@ -1423,10 +1408,7 @@ static void SetMenuItemValue(u8 menuItem, u8 value)
         
     case MENUITEM_FRAMETYPE:
         gSaveBlock2Ptr->optionsWindowFrameType = value;
-        break;
-<<<<<<< HEAD
-=======
-    
+        break;    
     case MENUITEM_DIFFICULTY_REWARD:
         gSaveBlock2Ptr->optionsDifficultyRewardMode = value;
 
@@ -1435,7 +1417,6 @@ static void SetMenuItemValue(u8 menuItem, u8 value)
 
     case MENUITEM_SHOW_MONEY:
         gSaveBlock2Ptr->optionsShowMoney = value;
->>>>>>> 3f455d8e5d (Money in start menu, and custom setting related to it)
     }
 }
 
