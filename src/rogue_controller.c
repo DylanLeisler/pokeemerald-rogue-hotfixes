@@ -3863,7 +3863,7 @@ u16 Rogue_PostRunRewardMoney()
         }
 
         if (gSaveBlock2Ptr->optionsDifficultyRewardMode == OPTIONS_DIFFICULTY_REWARD_MODE_MULTIPLIER)
-            total = amount
+            total = amount;
         else
             total = (7 * gRogueRun.victoryLapTotalWins * amount) / 6 + amount * (gRogueRun.enteredRoomCounter - 1);
     }
