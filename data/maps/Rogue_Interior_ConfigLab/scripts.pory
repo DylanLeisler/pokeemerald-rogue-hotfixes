@@ -215,7 +215,7 @@ script Rogue_Interior_ConfigLab_TriggerMeetPokabbie
 
     if(var(VAR_ROGUE_INTRO_STATE) <= ROGUE_INTRO_STATE_LEARN_TO_BUILD)
     {
-        msgbox(format("Oh, shoot!\nYou haven't even learnt about upgrades yet?\pYou spoke to me so fast, that you hadn't even finished the Tutorial yet!\pNo matter.\nYou'll learn about it, as soon as you return from your first Adventure."))
+        msgbox(format("Oh, shoot!\nYou haven't even learned about upgrades yet?\pYou spoke to me before even finishing the Tutorial!\pNo matter.\nYou'll learn about it as soon as you return from your first Adventure."))
     }
 
     msgbox(format("I won't spoil it for you, but in the Challenge Area there is a lot of stuff that I'm sure you'll find super fun!\pNow, you get going and complete yourself some Adventures!"))

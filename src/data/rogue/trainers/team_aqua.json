@@ -145,7 +145,7 @@
                     {
                         "PRE_BATTLE_TAUNT": "The world needs more water!\\pThere's no other way around that!",
                         "POST_BATTLE_TAUNT": "Don't be so stubborn!",
-                        "POST_BATTLE_CLOSER": "You'll change you're mind one day and then regret getting in our way!"
+                        "POST_BATTLE_CLOSER": "You'll change your mind one day... \\pAnd then you'll regret getting in our way!"
                     }
                 ],
                 "preferred_mon_gender": "MALE"
@@ -169,8 +169,8 @@
                 "encounter_text":
                 [
                     {
-                        "PRE_BATTLE_TAUNT": "Erm… you don't look like you're suppose to be here.",
-                        "POST_BATTLE_TAUNT": "I guess I was wrong",
+                        "PRE_BATTLE_TAUNT": "Erm… you don't look like you're supposed to be here.",
+                        "POST_BATTLE_TAUNT": "I guess I was wrong....",
                         "POST_BATTLE_CLOSER": "Sorry. You're not wearing the correct uniform so I got confused."
                     }
                 ],
@@ -182,8 +182,8 @@
                 "encounter_text":
                 [
                     {
-                        "PRE_BATTLE_TAUNT": "Calm, it!",
-                        "POST_BATTLE_TAUNT": "Calm, it!",
+                        "PRE_BATTLE_TAUNT": "Hey, kid! You need to calm it!",
+                        "POST_BATTLE_TAUNT": "There! Was that so hard?",
                         "POST_BATTLE_CLOSER": "Have you STILL not calmed down?"
                     }
                 ],
@@ -263,7 +263,7 @@
                     {
                         "PRE_BATTLE_TAUNT": "You can't stop Team Aqua!",
                         "POST_BATTLE_TAUNT": "Oh, I guess you can…",
-                        "POST_BATTLE_CLOSER": "Please don't get in our way though…"
+                        "POST_BATTLE_CLOSER": "Please don't get in our way, though…"
                     }
                 ],
                 "preferred_mon_gender": "FEMALE"
@@ -338,11 +338,11 @@
                 "trainer_pic": "TRAINER_PIC_AQUA_GRUNT_F",
                 "encounter_text":
                 [
-                    {
-                        "PRE_BATTLE_TAUNT": "Me and my Pokémon will stop you right here!",
-                        "POST_BATTLE_TAUNT": "Or not…",
-                        "POST_BATTLE_CLOSER": "We tried our best, I guess."
-                    }
+                  {
+                    "PRE_BATTLE_TAUNT": "Me and my Pokémon will stop you right here!",
+                    "POST_BATTLE_TAUNT": "Sorry, I meant 'my Pokémon and I.'",
+                    "POST_BATTLE_CLOSER": "We tried our best, I guess."
+                  }
                 ],
                 "preferred_mon_gender": "FEMALE"
             },
@@ -353,7 +353,7 @@
                 [
                     {
                         "PRE_BATTLE_TAUNT": "You look far too weak to be in Team Aqua.",
-                        "POST_BATTLE_TAUNT": "Oh, I guess I was wrong",
+                        "POST_BATTLE_TAUNT": "Oh, I guess I was wrong....",
                         "POST_BATTLE_CLOSER": "You can sign up at the front desk…\\pI'm not sure where that is."
                     }
                 ],

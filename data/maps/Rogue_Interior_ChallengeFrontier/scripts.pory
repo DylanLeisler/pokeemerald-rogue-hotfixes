@@ -584,7 +584,7 @@ script Rogue_Interior_ChallengeFrontier_TalkMasteries
 
                 rogue_dynamicpokemart(ROGUE_SHOP_RARE_HELD_ITEMS)
 
-                msgbox(format("Best of luck with you Pokémon Masteries, {PLAYER}."))
+                msgbox(format("Best of luck with your Pokémon Masteries, {PLAYER}."))
             }
         }
     }

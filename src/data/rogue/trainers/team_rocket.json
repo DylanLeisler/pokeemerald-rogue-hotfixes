@@ -365,8 +365,8 @@
                 [
                     {
                         "PRE_BATTLE_TAUNT": "I've used the power of science to train my Pokémon!",
-                        "POST_BATTLE_TAUNT": "Why have you failed me science!?",
-                        "POST_BATTLE_CLOSER": "Why have you failed me science!?"
+                        "POST_BATTLE_TAUNT": "Why have you failed me, science!?",
+                        "POST_BATTLE_CLOSER": "Why have you failed me, science!?"
                     }
                 ],
                 "preferred_mon_gender": "MALE",

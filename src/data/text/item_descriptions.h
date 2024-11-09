@@ -3822,7 +3822,7 @@ static const u8 sAbilityShieldDesc[] = _(
 static const u8 sClearAmuletDesc[] = _(
     "Stat lowering is\n"
     "prevented for this\n"
-    "items's holder.");
+    "item's holder.");
 
 static const u8 sPunchingGloveDesc[] = _(
     "Powers up punching\n"

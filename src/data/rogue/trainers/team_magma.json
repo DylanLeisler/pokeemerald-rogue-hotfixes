@@ -54,7 +54,7 @@
                 "encounter_text":
                 [
                     {
-                        "PRE_BATTLE_OPENNING": "{STR_VAR_1}: I've seen you poking around uninvited here and there.\\pPullin cheap stunts on Team Magma…",
+                        "PRE_BATTLE_OPENNING": "{STR_VAR_1}: I've seen you poking around here uninvited.\\pPulling cheap stunts on Team Magma.",
                         "PRE_BATTLE_TAUNT": "I'll make you regret it!",
                         "POST_BATTLE_TAUNT": "What makes you so adept at handling Pokémon?",
                         "POST_BATTLE_CLOSER": "Humph…\\pThere is nothing you can do.\\pTeam Magma will not stop.\\pThis is where you and I part!"
@@ -111,11 +111,11 @@
                 "trainer_flags": [ "REGION_ANY", "CLASS_ROUTE" ],
                 "encounter_text":
                 [
-                    {
-                        "PRE_BATTLE_TAUNT": "The world needs more land!\\pThere's no other way around that!",
-                        "POST_BATTLE_TAUNT": "Don't be so stubborn!",
-                        "POST_BATTLE_CLOSER": "You'll change you're mind one day and then regret getting in our way!"
-                    }
+                  {
+                    "PRE_BATTLE_TAUNT": "The world needs more land!\\pThere's no other way around that!",
+                    "POST_BATTLE_TAUNT": "Don't be so stubborn!",
+                    "POST_BATTLE_CLOSER": "You'll change your mind one day... \\pAnd then you'll regret getting in our way!"
+                  }
                 ],
                 "preferred_mon_gender": "MALE"
             },
@@ -158,7 +158,7 @@
                     {
                         "PRE_BATTLE_TAUNT": "You can't stop Team Magma!",
                         "POST_BATTLE_TAUNT": "Oh, I guess you can…",
-                        "POST_BATTLE_CLOSER": "Please don't get in our way though…"
+                        "POST_BATTLE_CLOSER": "Please don't get in our way, though…"
                     }
                 ],
                 "preferred_mon_gender": "MALE"
@@ -287,8 +287,8 @@
                 "encounter_text":
                 [
                     {
-                        "PRE_BATTLE_TAUNT": "Erm… you don't look like you're suppose to be here.",
-                        "POST_BATTLE_TAUNT": "I guess I was wrong",
+                        "PRE_BATTLE_TAUNT": "Erm… you don't look like you're supposed to be here.",
+                        "POST_BATTLE_TAUNT": "I guess I wasn't wrongn't....'",
                         "POST_BATTLE_CLOSER": "Sorry. You're not wearing the correct uniform so I got confused."
                     }
                 ],

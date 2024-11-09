@@ -562,7 +562,7 @@ script Rogue_Area_RideTraining_FlyChargeInfinite
             msgbox(format("Here, let me teach you!"))
 
             hidemoneybox
-            message(format("{COLOR GREEN}{SHADOW LIGHT_GREEN}{PLAYER} gained an unlimited flight charges!"))
+            message(format("{COLOR GREEN}{SHADOW LIGHT_GREEN}{PLAYER} gained dummy thicko-unlimited flight charges!"))
             waitmessage
             playfanfare(MUS_EVOLVED)
             waitfanfare
