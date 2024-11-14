@@ -1092,8 +1092,11 @@ static bool8 Query_IsSpeciesEnabledInternal(u16 species, bool32 forceDexCheck)
                 return Query_IsSpeciesEnabledInDexInternal(species, forceDexCheck);
     
             // Gen7
-            if(species >= SPECIES_ORICORIO_POM_POM && species <= SPECIES_LYCANROC_DUSK)
+            if(species >= SPECIES_ORICORIO_POM_POM && species < SPECIES_LYCANROC_DUSK)
                 return Query_IsSpeciesEnabledInDexInternal(species, forceDexCheck);
+
+            if (species == SPECIES_LYCANROC_DUSK || species == SPECIES_ROCKRUFF_OWN_TEMPO)
+                return RogueQuest_GetMonMasteryFlag(species);
 
             if(species >= SPECIES_NECROZMA_DUSK_MANE && species <= SPECIES_NECROZMA_DAWN_WINGS)
                 return Query_IsSpeciesEnabledInDexInternal(species, forceDexCheck);

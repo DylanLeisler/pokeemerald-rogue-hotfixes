@@ -68,7 +68,7 @@ void RogueItemQuery_IsGeneralShopItem(u8 func);
 void RogueItemQuery_IsHeldItem(u8 func);
 void RogueItemQuery_InPriceRange(u8 func, u16 minPrice, u16 maxPrice);
 
-// Traine Query
+// Trainer Query
 void RogueTrainerQuery_Begin();
 void RogueTrainerQuery_End();
 void RogueTrainerQuery_Reset(u8 func);
