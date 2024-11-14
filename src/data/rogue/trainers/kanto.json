@@ -76,7 +76,7 @@
                     {
                         "PRE_BATTLE_OPENNING": "{STR_VAR_1}: Let's see if you can break past the rock-hard willpower of my Pokémon!",
                         "PRE_BATTLE_TAUNT": "Show me your best!",
-                        "POST_BATTLE_TAUNT": "I took you for granted, and so I lost.",
+                        "POST_BATTLE_TAUNT": "Well, you sure reeled me in.",
                         "POST_BATTLE_CLOSER": "Let's see how far you can go.\\pGood luck."
                     }
                 ],
