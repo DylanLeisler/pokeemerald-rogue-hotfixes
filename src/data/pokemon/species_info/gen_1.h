@@ -11023,7 +11023,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .height = 10,
         .weight = 235,
         .description = POKEDEX_DESC_STRING(
-            "Its ribbonlike feelers give off an aura\n"
+            "Its ribbon-like feelers give off an aura\n"
             "that weakens hostility in its prey, causing\n"
             "them to let down their guard. A moment\n"
             "later, it pounces."),
