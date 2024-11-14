@@ -3827,7 +3827,7 @@ u16 Rogue_PostRunRewardLvls()
 u16 Rogue_PostRunRewardMoney()
 {
     u32 amount = 0;
-    u16 total = 0;
+    u32 total = 0;
 
     if(gRogueRun.enteredRoomCounter > 1)
     {
@@ -3840,24 +3840,24 @@ u16 Rogue_PostRunRewardMoney()
             amount = base + (base * multiplier) + (base * multiplier * i);
         }
 
-        else
+        else // before changes, these amounts * i was the reward money
         {
             switch (Rogue_GetDifficultyRewardLevel())
             {
             case DIFFICULTY_LEVEL_EASY:
-                amount = i * 200;
+                amount = 200;
                 break;
 
             case DIFFICULTY_LEVEL_AVERAGE:
-                amount = i * 250;
+                amount = 250;
                 break;
 
             case DIFFICULTY_LEVEL_HARD:
-                amount = i * 300;
+                amount = 300;
                 break;
             
             case DIFFICULTY_LEVEL_BRUTAL:
-                amount = i * 350;
+                amount = 350;
                 break;
             }
         }
