@@ -24,6 +24,7 @@
 #include "rogue_pokedex.h"
 #include "rogue_settings.h"
 #include "rogue_trainers.h"
+#include "rogue_quest.h"
 
 #ifdef ROGUE_EXPANSION
 #define QUERY_NUM_SPECIES           PLACEHOLDER_START
