@@ -1976,7 +1976,8 @@ u8 Rogue_GetActiveEvolutionCount(u16 species)
 
     return 0;
 }
-bool Rogue_IsHeightInEvolutionLine(u16 species, u16 targetHeight)
+
+bool8 Rogue_IsHeightInEvolutionLine(u16 species, u16 targetHeight)
 {
     u16 currentSpecies = species;
 
