@@ -1976,6 +1976,52 @@ u8 Rogue_GetActiveEvolutionCount(u16 species)
 
     return 0;
 }
+bool Rogue_IsHeightInEvolutionLine(u16 species, u16 targetHeight)
+{
+    u16 currentSpecies = species;
+
+    // Check if species is valid
+    if (currentSpecies == SPECIES_NONE)
+    {
+        return false;
+    }
+
+    // Check if the current species has the target height
+    if (gSpeciesInfo[currentSpecies].height == targetHeight)
+    {
+        return true;
+    }
+
+    // Get the maximum evolution count
+    u8 evoCount = Rogue_GetMaxEvolutionCount(currentSpecies);
+
+    // If there are no evolutions, evolution data may be NULL
+    if (evoCount == 0)
+    {
+        return false; // No evolutions to traverse
+    }
+
+    // Access the evolution data of the current species
+    const struct Evolution* evolutions = gSpeciesInfo[currentSpecies].evolution;
+
+    // Traverse each evolution for the current species
+    for (u8 i = 0; i < evoCount; i++)
+    {
+        // Only handle evolution if it results in a valid species
+        if (evolutions[i].targetSpecies != SPECIES_NONE)
+        {
+            // Recursively check the height in the evolutionary line
+            if (Rogue_IsHeightInEvolutionLine(evolutions[i].targetSpecies, targetHeight))
+            {
+                return true; // If found in the evolution line, return true
+            }
+        }
+    }
+
+    // If we reach here, no species in the line has the target height
+    return false;
+}
+
 
 u8 Rogue_GetActiveFormChangeCount(u16 species)
 {

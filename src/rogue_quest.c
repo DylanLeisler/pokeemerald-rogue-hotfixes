@@ -1240,7 +1240,7 @@ static bool8 QuestCondition_PartyOnlyContainsType(u16 questId, struct RogueQuest
 static bool8 QuestCondition_PartyHeightIs311(u16 questId, struct RogueQuestTrigger const* trigger)
 {
     u8 i;
-    u16 species, targetHeight;
+    u16 species, eggSpecies, targetHeight;
 
     ASSERT_PARAM_COUNT(1);
     targetHeight = trigger->params[0];
@@ -1248,11 +1248,12 @@ static bool8 QuestCondition_PartyHeightIs311(u16 questId, struct RogueQuestTrigg
     for (i = 0; i < gPlayerPartyCount; ++i)
     {
         species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
+        eggSpecies = Rogue_GetEggSpecies(species);
 
-        if (gSpeciesInfo[species].height != targetHeight)
-        {
+
+
+        if (!Rogue_IsHeightInEvolutionLine(eggSpecies, targetHeight))
             return FALSE;
-        }
     }
 
     return TRUE;
