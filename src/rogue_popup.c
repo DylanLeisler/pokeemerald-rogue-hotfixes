@@ -1368,6 +1368,18 @@ void Rogue_PushPopup_QuestFail(u16 questId)
     popup->subtitleText = sText_Popup_QuestFail;
 }
 
+void Rogue_PushPopup_QuestFailFromMon(u16 questId, u16 species)
+{
+    struct PopupRequest* popup = CreateNewPopup();
+
+    popup->templateId = POPUP_COMMON_POKEMON_TEXT;
+    popup->iconId = species;
+    popup->soundEffect = SE_NOT_EFFECTIVE;
+
+    popup->titleText = RogueQuest_GetTitle(questId);
+    popup->subtitleText = sText_Popup_QuestFail;
+}
+
 void Rogue_PushPopup_QuestUnlocked(u16 questId)
 {
     struct PopupRequest* popup = CreateNewPopup();

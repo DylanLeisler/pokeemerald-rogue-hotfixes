@@ -28,6 +28,7 @@ void Rogue_PushPopup_MonGenderChange(u8 slotId, u8 gender);
 
 void Rogue_PushPopup_QuestComplete(u16 questId);
 void Rogue_PushPopup_QuestFail(u16 questId);
+void Rogue_PushPopup_QuestFailFromMon(u16 questId, u16 species);
 void Rogue_PushPopup_QuestUnlocked(u16 questId);
 
 void Rogue_PushPopup_PokemonChain(u16 species, u16 chainSize);

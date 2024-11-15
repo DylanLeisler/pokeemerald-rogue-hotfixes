@@ -1236,6 +1236,27 @@ static bool8 QuestCondition_PartyOnlyContainsType(u16 questId, struct RogueQuest
     return TRUE;
 }
 
+static bool8 QuestCondition_PartyHeightIs311(u16 questId, struct RogueQuestTrigger const* trigger)
+{
+    u8 i;
+    u16 species, targetHeight;
+
+    ASSERT_PARAM_COUNT(1);
+    targetHeight = trigger->params[0];
+
+    for (i = 0; i < gPlayerPartyCount; ++i)
+    {
+        species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
+
+        if (gSpeciesInfo[species].height != targetHeight)
+        {
+            return FALSE;
+        }
+    }
+
+    return TRUE;
+}
+
 static bool8 QuestCondition_PartyContainsLegendary(u16 questId, struct RogueQuestTrigger const* trigger)
 {
     u8 i;
