@@ -537,14 +537,14 @@
           ]
         },
         {
-          "name": "3''11 Challenge",
+          "name": "3'11 Challenge",
           "description": "Win a full Run only using {PKMN} with a height of 3'11 (1.2m) in Trainer Battles.",
           "triggers": [
             {
               "on": [ "TRAINER_BATTLE_START" ],
               "condition": "PartyHeightIs311",
               "fail": "FAIL",
-              "params": [ "12" ] // a height of 12 is 1.2m which equals 3'11
+              "params": [ "12" ]
             },
             {
               "on": [ "ENTER_HALL_OF_FAME" ],
