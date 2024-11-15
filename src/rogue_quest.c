@@ -56,6 +56,7 @@ static bool8 QuestCondition_PartyContainsInitialPartner(u16 questId, struct Rogu
 static bool8 QuestCondition_PartyContainsSpecies(u16 questId, struct RogueQuestTrigger const* trigger);
 static bool8 QuestCondition_PartyContainsAllSpecies(u16 questId, struct RogueQuestTrigger const* trigger);
 static bool8 QuestCondition_PartyMaxBSTLessThan(u16 questId, struct RogueQuestTrigger const* trigger);
+static bool8 QuestCondition_PartyHeightIs311(u16 questId, struct RogueQuestTrigger const* trigger);
 static bool8 QuestCondition_CurrentlyInMap(u16 questId, struct RogueQuestTrigger const* trigger);
 static bool8 QuestCondition_CurrentlyInRoomType(u16 questId, struct RogueQuestTrigger const* trigger);
 static bool8 QuestCondition_AreOnlyTheseTrainersActive(u16 questId, struct RogueQuestTrigger const* trigger);
