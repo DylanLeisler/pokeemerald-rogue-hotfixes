@@ -1984,13 +1984,13 @@ bool8 Rogue_IsHeightInEvolutionLine(u16 species, u16 targetHeight)
     // Check if species is valid
     if (currentSpecies == SPECIES_NONE)
     {
-        return false;
+        return FALSE;
     }
 
     // Check if the current species has the target height
     if (gSpeciesInfo[currentSpecies].height == targetHeight)
     {
-        return true;
+        return TRUE;
     }
 
     // Get the maximum evolution count
@@ -1999,11 +1999,11 @@ bool8 Rogue_IsHeightInEvolutionLine(u16 species, u16 targetHeight)
     // If there are no evolutions, evolution data may be NULL
     if (evoCount == 0)
     {
-        return false; // No evolutions to traverse
+        return FALSE; // No evolutions to traverse
     }
 
     // Access the evolution data of the current species
-    const struct Evolution* evolutions = gSpeciesInfo[currentSpecies].evolution;
+    const struct Evolution* evolutions = gSpeciesInfo[currentSpecies].evolutions;
 
     // Traverse each evolution for the current species
     for (u8 i = 0; i < evoCount; i++)
@@ -2014,13 +2014,13 @@ bool8 Rogue_IsHeightInEvolutionLine(u16 species, u16 targetHeight)
             // Recursively check the height in the evolutionary line
             if (Rogue_IsHeightInEvolutionLine(evolutions[i].targetSpecies, targetHeight))
             {
-                return true; // If found in the evolution line, return true
+                return TRUE; // If found in the evolution line, return true
             }
         }
     }
 
     // If we reach here, no species in the line has the target height
-    return false;
+    return FALSE;
 }
 
 
