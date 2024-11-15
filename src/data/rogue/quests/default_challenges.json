@@ -556,7 +556,7 @@
             { "money": "QUEST_REWARD_LARGE_MONEY" },
             {
               "species": "SPECIES_SPRIGATITO",
-              "shiny": true,
+              "shiny": true
             },
             {
               "species": "SPECIES_AERODACTYL",
