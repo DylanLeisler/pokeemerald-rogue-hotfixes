@@ -6017,7 +6017,8 @@ static void Cmd_moveend(void)
             && !(gCurrentMove == MOVE_PRESENT && gBattleStruct->presentBasePower == 0)) // Silly edge case
             {
                 gBattleScripting.multihitString[4]++;
-                if (--gMultiHitCounter == 0)
+                gMultiHitCounter--;
+                if (gMultiHitCounter == 0)
                 {
                     if (gBattleMoves[gCurrentMove].argument == MOVE_EFFECT_SCALE_SHOT && !NoAliveMonsForEitherParty())
                     {
