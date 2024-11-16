@@ -1657,6 +1657,7 @@ const struct Item gItems[] =
     {
         .name = _("Big Nugget"),
         .price = 40000,
+        .holdEffect = HOLD_EFFECT_PLACEHOLDER,
         .description = sBigNuggetDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
