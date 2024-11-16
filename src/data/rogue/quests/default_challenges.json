@@ -538,7 +538,7 @@
         },
         {
           "name": "3'11 Challenge",
-          "description": "Win a full Run only using {PKMN} with a height of 3'11 (1.2m) in Trainer Battles.",
+          "description": "Win a Run using only evolutionary lines that contain at least one {PKMN} with a height of 3'11 (1.2m) in Trainer Battles.",
           "triggers": [
             {
               "on": [ "TRAINER_BATTLE_START" ],
