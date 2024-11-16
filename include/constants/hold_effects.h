@@ -159,12 +159,13 @@
 #define HOLD_EFFECT_PUNCHING_GLOVE      178
 #define HOLD_EFFECT_COVERT_CLOAK        179
 #define HOLD_EFFECT_LOADED_DICE         180
-#define HOLD_EFFECT_BOOSTER_ENERGY      181 // Not implemented.
+#define HOLD_EFFECT_BOOSTER_ENERGY      181
 #define HOLD_EFFECT_MASK                183
-
-// Gen2 hold effect
 #define HOLD_EFFECT_BERSERK_GENE        184
 
+#define HOLD_EFFECT_PLACEHOLDER	        200
+
+// Gen2 hold effect
 #define HOLD_EFFECT_CHOICE(holdEffect)((holdEffect == HOLD_EFFECT_CHOICE_BAND || holdEffect == HOLD_EFFECT_CHOICE_SCARF || holdEffect == HOLD_EFFECT_CHOICE_SPECS))
 
 // Terrain seed params
