@@ -6018,7 +6018,7 @@ static void Cmd_moveend(void)
             {
                 gBattleScripting.multihitString[4]++;
                 gMultiHitCounter--;
-                if (gMultiHitCounter == 0 || !gBattleMons[gBattleTarget].hp)
+                if (gMultiHitCounter == 0 || !gBattleMons[gBattlerTarget].hp)
                 {
                     if (gBattleMoves[gCurrentMove].argument == MOVE_EFFECT_SCALE_SHOT && !NoAliveMonsForEitherParty())
                     {
@@ -6037,7 +6037,7 @@ static void Cmd_moveend(void)
                         // TODO
                     }
 
-                    if (gBattleMons[gBattleAttacker].hp)
+                    if (gBattleMons[gBattlerAttacker].hp)
 
                     {
                         if (gBattleMons[gBattlerTarget].hp
