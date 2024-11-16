@@ -6018,7 +6018,7 @@ static void Cmd_moveend(void)
             {
                 gBattleScripting.multihitString[4]++;
                 gMultiHitCounter--;
-                if (gMultiHitCounter == 0)
+                if (gMultiHitCounter == 0 || !gBattleMons[gBattleTarget].hp)
                 {
                     if (gBattleMoves[gCurrentMove].argument == MOVE_EFFECT_SCALE_SHOT && !NoAliveMonsForEitherParty())
                     {
@@ -6037,31 +6037,39 @@ static void Cmd_moveend(void)
                         // TODO
                     }
 
-                    if (gBattleMons[gBattlerAttacker].hp
-                    && gBattleMons[gBattlerTarget].hp
-                    && (gChosenMove == MOVE_SLEEP_TALK || !(gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP))
-                    && !(gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE))
-                    {
-                        if (gSpecialStatuses[gBattlerAttacker].parentalBondState)
-                            gSpecialStatuses[gBattlerAttacker].parentalBondState--;
+                    if (gBattleMons[gBattleAttacker].hp)
 
-                        gHitMarker |= (HITMARKER_NO_PPDEDUCT | HITMARKER_NO_ATTACKSTRING);
-                        gBattleScripting.animTargetsHit = 0;
-                        gBattleScripting.moveendState = 0;
-                        gSpecialStatuses[gBattlerTarget].sturdied = 0;
-                        gSpecialStatuses[gBattlerTarget].focusBanded = 0; // Delete this line to make Focus Band last for the duration of the whole move turn.
-                        gSpecialStatuses[gBattlerTarget].focusSashed = 0; // Delete this line to make Focus Sash last for the duration of the whole move turn.
-                        gSpecialStatuses[gBattlerAttacker].multiHitOn = TRUE;
-                        MoveValuesCleanUp();
-                        BattleScriptPush(gBattleScriptsForMoveEffects[gBattleMoves[gCurrentMove].effect]);
-                        gBattlescriptCurrInstr = BattleScript_FlushMessageBox;
-                        return;
-                    }
-                    else
                     {
-                        BattleScriptPushCursor();
-                        gBattlescriptCurrInstr = BattleScript_MultiHitPrintStrings;
-                        effect = TRUE;
+                        if (gBattleMons[gBattlerTarget].hp
+                            && (gChosenMove == MOVE_SLEEP_TALK || !(gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP))
+                            && !(gBattleMons[gBattlerAttacker].status1 & STATUS1_FREEZE))
+                        {
+                            if (gSpecialStatuses[gBattlerAttacker].parentalBondState)
+                                gSpecialStatuses[gBattlerAttacker].parentalBondState--;
+
+                            gHitMarker |= (HITMARKER_NO_PPDEDUCT | HITMARKER_NO_ATTACKSTRING);
+                            gBattleScripting.animTargetsHit = 0;
+                            gBattleScripting.moveendState = 0;
+                            gSpecialStatuses[gBattlerTarget].sturdied = 0;
+                            gSpecialStatuses[gBattlerTarget].focusBanded = 0; // Delete this line to make Focus Band last for the duration of the whole move turn.
+                            gSpecialStatuses[gBattlerTarget].focusSashed = 0; // Delete this line to make Focus Sash last for the duration of the whole move turn.
+                            gSpecialStatuses[gBattlerAttacker].multiHitOn = TRUE;
+                            MoveValuesCleanUp();
+                            BattleScriptPush(gBattleScriptsForMoveEffects[gBattleMoves[gCurrentMove].effect]);
+                            gBattlescriptCurrInstr = BattleScript_FlushMessageBox;
+                            return;
+                        }
+                        else if (!gBattleMons[gBattlerTarget].hp
+                            && (gBattleMoves[gCurrentMove].argument == MOVE_EFFECT_SCALE_SHOT))
+                        {
+                            // might not need this clause
+                        }
+                        else
+                        {
+                            BattleScriptPushCursor();
+                            gBattlescriptCurrInstr = BattleScript_MultiHitPrintStrings;
+                            effect = TRUE;
+                        }
                     }
                 }
             }
